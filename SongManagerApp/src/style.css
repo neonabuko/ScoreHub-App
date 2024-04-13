@@ -13,3 +13,42 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  height: 100%;
+  color: white;
+}
+
+.app-header {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.upload-form {
+  margin: 4vh;
+  border: 2px solid rgba(169, 169, 169, 0.13);
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #4c4f4f55;
+  max-width: fit-content;
+  overflow: hidden;
+}
+
+.audio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.audio-player {
+  text-wrap: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  border: 2px solid rgba(169, 169, 169, 0.13);
+  border-radius: 10px;
+  padding: 7px;
+  background-color: #383939;
+  max-width: 300px;
+  overflow: hidden;
+}
