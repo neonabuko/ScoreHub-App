@@ -1,18 +1,11 @@
 <template>
   <navbar></navbar>
-  <main class="container">
-    <Upload></Upload>
-    <AudioRow></AudioRow>
-
-  </main>
-
+  <router-view></router-view>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
-import AudioRow from './components/AudioRow.vue'
 import handleSongs from './scripts/handleSongs.js'
-import Upload from './components/Upload.vue'
 
 export default {
   data() {
@@ -21,9 +14,7 @@ export default {
     }
   },
   components: {
-    Navbar: Navbar,
-    AudioRow: AudioRow,
-    Upload: Upload
+    Navbar: Navbar
   },
   methods: {
     ...handleSongs.methods
