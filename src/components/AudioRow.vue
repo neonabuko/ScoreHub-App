@@ -6,7 +6,7 @@
     <div class="audio-player" v-for="(song, index) in songs" :key="index" :id="song.url">
       <div class="audio-inner-grid">
         <div class="song-title">
-          <button @click="setCurrentSongUrl(song.url)" class="card-title">{{ song.name.replace(/\.mp3$/, '') }}</button>
+          <button @click="setCurrentSongUrl(song.url)">{{ song.name.replace(/\.mp3$/, '') }}</button>
         </div>
         <div class="song-edit text-center">
           <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="text-decoration-none text-white">
@@ -17,8 +17,8 @@
     </div>
   </div>
   <div class="player-div fixed-bottom" v-if="songSelected">
-    <audio controls id="player" :src="currentSongUrl"></audio>
-    <button class="border-0 bg-transparent" @click="closePlayer(currentSongUrl)">
+    <audio controls autoplay id="player" :src="currentSongUrl"></audio>
+    <button class="border-0 bg-transparent" @click="closePlayer()">
       <i class="fas fa-close"></i>
     </button>
   </div>
@@ -36,31 +36,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['songs', 'loading'])
+    ...mapState(['songs', 'loading']),
   },
   methods: {
     ...handleSongs.methods,
     ...mapActions(['fetchAllSongsAsync']),
-    async getSongsAsync() {
-      this.$store.state.loading = true
-      const songs = await this.fetchAllSongsAsync()
-      this.$store.commit('setSongs', songs)
-      this.$store.state.loading = false
-    },
-    setCurrentSongUrl(url) {
-      this.currentSongUrl = url
-      this.songSelected = true
-      let audioRow = document.getElementById(url)
-      audioRow.style.backgroundColor = '#3a3a3b77'
-    },
-    closePlayer(url) {
-      let audioRow = document.getElementById(url)
-      audioRow.style.backgroundColor = '#101010'
-      this.songSelected = false
-    }
   },
   created() {
     this.getSongsAsync()
-  },
-};
+  }
+}
 </script>

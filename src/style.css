@@ -80,18 +80,15 @@ a {
 }
 
 .audio-player {
-  border-top: 1px solid rgba(169, 169, 169, 0.228);
+  border-top: 1px solid rgba(169, 169, 169, 0.137);
   padding: 1rem;
-}
-
-.audio-player:hover {
-
 }
 
 .audio-inner-grid {
   display: grid;
   grid-template-columns: 90% 10%;
   align-items: center;
+  padding-inline: 1vw;
 }
 
 .audio-inner-grid button {
@@ -99,11 +96,11 @@ a {
   padding: 0;
   margin: 0;
   background: transparent;
+  text-align: start;
 }
 
 .song-title {
   overflow-x: hidden;
-  text-wrap: nowrap;
 }
 
 #player {
