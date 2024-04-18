@@ -17,8 +17,10 @@
     </div>
   </div>
   <div class="player-div fixed-bottom" v-if="songSelected">
-    <audio controls id="player" :src="currentSongUrl">
-    </audio>
+    <audio controls id="player" :src="currentSongUrl"></audio>
+    <button class="border-0 bg-transparent" @click="songSelected = false">
+      <i class="fas fa-close"></i>
+    </button>
   </div>
 </template>
 

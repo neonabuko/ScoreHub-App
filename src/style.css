@@ -123,9 +123,9 @@ audio::-ms-media-controls-panel {
 }
 
 .player-div {
+  padding-inline: 0.8rem;
   height: 4rem;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #2f2f2f;
