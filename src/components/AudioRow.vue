@@ -6,7 +6,7 @@
     <div class="audio-player shadow" v-for="(song, index) in songs" :key="index" :id="song.name">
       <div class="audio-inner-grid">
         <div class="song-title">
-          <button @click="setCurrentSongUrl(song.url)" class="card-title">{{ song.name }}</button>
+          <button @click="setCurrentSongUrl(song.url)" class="card-title">{{ song.name.replace(/\.mp3$/, '') }}</button>
         </div>
         <div class="song-edit text-center">
           <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="text-decoration-none text-white">

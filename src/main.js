@@ -18,7 +18,6 @@ const store = createStore({
             let response = await axios.get(API_URL + "/songs")
             let songs = await Promise.all(
                 response.data.map(async (song) => {
-                    song.name = song.name.replace(/\.mp3$/, '')
                     return song
                 })
             )
