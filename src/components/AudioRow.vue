@@ -3,7 +3,7 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-player shadow" v-for="(song, index) in songs" :key="index" :id="song.name">
+    <div class="audio-player" v-for="(song, index) in songs" :key="index" :id="song.url">
       <div class="audio-inner-grid">
         <div class="song-title">
           <button @click="setCurrentSongUrl(song.url)" class="card-title">{{ song.name.replace(/\.mp3$/, '') }}</button>
@@ -18,7 +18,7 @@
   </div>
   <div class="player-div fixed-bottom" v-if="songSelected">
     <audio controls id="player" :src="currentSongUrl"></audio>
-    <button class="border-0 bg-transparent" @click="songSelected = false">
+    <button class="border-0 bg-transparent" @click="closePlayer(currentSongUrl)">
       <i class="fas fa-close"></i>
     </button>
   </div>
@@ -50,6 +50,13 @@ export default {
     setCurrentSongUrl(url) {
       this.currentSongUrl = url
       this.songSelected = true
+      let audioRow = document.getElementById(url)
+      audioRow.style.backgroundColor = '#3a3a3b77'
+    },
+    closePlayer(url) {
+      let audioRow = document.getElementById(url)
+      audioRow.style.backgroundColor = '#101010'
+      this.songSelected = false
     }
   },
   created() {

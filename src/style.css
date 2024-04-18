@@ -85,7 +85,7 @@ a {
 }
 
 .audio-player:hover {
-  background-color: #3a3a3b77;
+
 }
 
 .audio-inner-grid {
@@ -111,15 +111,15 @@ a {
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: #2f2f2f;
+  background-color: #222222;
 }
 
 audio::-moz-media-controls-panel {
-  background-color: #2f2f2f;
+  background-color: #222222;
 }
 
 audio::-ms-media-controls-panel {
-  background-color: #2f2f2f;
+  background-color: #222222;
 }
 
 .player-div {
@@ -128,7 +128,7 @@ audio::-ms-media-controls-panel {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #2f2f2f;
+  background-color: #222222;
 }
 
 .upload-header {
