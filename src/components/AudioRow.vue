@@ -10,7 +10,7 @@
         </div>
         <div class="song-edit text-center">
           <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="text-decoration-none text-white">
-            <i class="fas fa-edit"></i>
+            <i class="fas fa-edit small"></i>
           </router-link>
         </div>
       </div>

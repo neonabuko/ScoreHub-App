@@ -1,5 +1,7 @@
 body {
   height: 100%;
+  color: white;
+  min-height: 800px;
   font-family: "Mulish", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -9,6 +11,7 @@ body {
   -webkit-font-kerning: auto;
   -moz-osx-font-smoothing: grayscale;
   color-scheme: light dark;
+  background-color: #101010;
 }
 
 .spinner {
@@ -41,10 +44,17 @@ a {
   font-weight: 500;
 }
 
-.app-header {
+.app-nav {
+  padding: 0.8rem;
+  padding-inline: 3vw;
+}
+
+.navbar-brand {
+  margin-left: 3px;
+}
+
+.logo-header {
   display: flex;
-  justify-content: center;
-  margin: 20px;
 }
 
 .upload-container {
@@ -100,13 +110,25 @@ a {
   width: 100%;
 }
 
+audio::-webkit-media-controls-panel {
+  background-color: #2f2f2f;
+}
+
+audio::-moz-media-controls-panel {
+  background-color: #2f2f2f;
+}
+
+audio::-ms-media-controls-panel {
+  background-color: #2f2f2f;
+}
+
 .player-div {
   height: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #3a3a3b;
+  background-color: #2f2f2f;
 }
 
 .upload-header {
@@ -114,6 +136,11 @@ a {
   grid-template-columns: 7% 93%;
   text-align: center;
   align-items: center;
+}
+
+.app-footer {
+  position: absolute;
+  
 }
 
 @media screen and (max-width: 768px) {

@@ -1,6 +1,7 @@
 <template>
   <navbar></navbar>
   <router-view></router-view>
+  <!-- <footer class="app-footer">&copy; Song Manager, 2024</footer> -->
 </template>
 
 <script>
@@ -13,7 +14,7 @@ export default {
     }
   },
   components: {
-    Navbar: Navbar
+    navbar: Navbar
   }
 }
 </script>
