@@ -6,7 +6,8 @@
     <div class="audio-player" @click="setCurrentSongUrl(song.url)" v-for="(song, index) in songs" :key="index" :id="song.url">
       <div class="audio-inner-grid">
         <div class="song-title">
-          <button>{{ song.name.replace(/\.mp3$/, '') }}</button>
+          <i class="fas fa-music fa-2x"></i>
+          <button class="song-title-button" >{{ song.name.replace(/\.mp3$/, '') }}</button>
         </div>
         <div class="song-edit text-center">
           <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="text-decoration-none text-white">

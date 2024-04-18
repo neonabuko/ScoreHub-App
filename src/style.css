@@ -1,6 +1,7 @@
 :root {
   --audio-row: #101010;
   --audio-row-hover: #151515;
+  --logo-color: #b977ff22;
 }
 
 body {
@@ -112,6 +113,9 @@ a {
 
 .song-title {
   overflow-x: hidden;
+  display: inline-flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 #player {
