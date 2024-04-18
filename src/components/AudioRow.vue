@@ -3,10 +3,10 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-player" v-for="(song, index) in songs" :key="index" :id="song.url">
+    <div class="audio-player" @click="setCurrentSongUrl(song.url)" v-for="(song, index) in songs" :key="index" :id="song.url">
       <div class="audio-inner-grid">
         <div class="song-title">
-          <button @click="setCurrentSongUrl(song.url)">{{ song.name.replace(/\.mp3$/, '') }}</button>
+          <button>{{ song.name.replace(/\.mp3$/, '') }}</button>
         </div>
         <div class="song-edit text-center">
           <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="text-decoration-none text-white">
