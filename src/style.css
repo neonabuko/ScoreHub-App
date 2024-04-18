@@ -1,7 +1,7 @@
 :root {
   --audio-row: #101010;
   --audio-row-hover: #151515;
-  --logo-color: #b977ff22;
+  --logo-color: #9b7abf22;
 }
 
 body {
@@ -42,119 +42,11 @@ body {
   }
 }
 
-h5 {
-  font-weight: 300;
-}
-
-a {
-  font-weight: 500;
-}
-
-.app-nav {
-  padding: 0.8rem;
-  padding-inline: 3vw;
-}
-
-.navbar-brand {
-  margin-left: 3px;
-}
-
-.logo-header {
-  display: flex;
-}
-
-.upload-container {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 5px;
-  margin-top: 50px;
-  overflow: hidden;
-  max-width: fit-content;
-}
-
-.upload-button-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.audio-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.audio-player {
-  border-top: 1px solid rgba(169, 169, 169, 0.137);
-  padding: 1rem;
-}
-
-@media screen and (min-width: 786px) {
-  .audio-player:hover {
-    background-color: var(--audio-row-hover);
-  } 
-}
-
-.audio-inner-grid {
-  display: grid;
-  grid-template-columns: 90% 10%;
-  align-items: center;
-  padding-inline: 1vw;
-}
-
-.audio-inner-grid button {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-  text-align: start;
-}
-
-.song-title {
-  overflow-x: hidden;
-  display: inline-flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-#player {
-  width: 100%;
-}
-
-audio::-webkit-media-controls-panel {
-  background-color: #222222;
-}
-
-audio::-moz-media-controls-panel {
-  background-color: #222222;
-}
-
-audio::-ms-media-controls-panel {
-  background-color: #222222;
-}
-
-.player-div {
-  padding-inline: 0.8rem;
-  height: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #222222;
-}
-
-.upload-header {
-  display: grid;
-  grid-template-columns: 7% 93%;
-  text-align: center;
-  align-items: center;
-}
-
 .footer-div {
   display: flex;
   height: 10rem;
   justify-content: center;
   align-items: start;
   margin-top: 1.1rem;
-  color: rgba(255, 255, 255, 0.792);
+  color: rgba(255, 255, 255, 0.531);
 }

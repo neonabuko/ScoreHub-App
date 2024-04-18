@@ -7,7 +7,7 @@
 
 <script>
 import axios from 'axios'
-import {API_URL} from '../scripts/variables.js'
+import { API_URL } from '../scripts/variables.js'
 import general from '../scripts/general.js'
 
 export default {

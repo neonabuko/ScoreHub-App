@@ -36,7 +36,7 @@ export default {
         previousAudioRow.style.backgroundColor = "#101010"
       }
       let currentAudioRow = document.getElementById(newUrl)
-      if (currentAudioRow) currentAudioRow.style.backgroundColor = '#b977ff22'
+      if (currentAudioRow) currentAudioRow.style.backgroundColor = '#9b7abf22'
     }
   }
 }

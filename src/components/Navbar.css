@@ -1,0 +1,13 @@
+.app-nav {
+    margin-top: 0.6rem;
+    padding: 0.8rem;
+    padding-inline: 3vw;
+  }
+  
+  .navbar-brand {
+    margin-left: 3px;
+  }
+  
+  .logo-header {
+    display: flex;
+  }
