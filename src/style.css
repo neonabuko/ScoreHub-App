@@ -138,9 +138,13 @@ audio::-ms-media-controls-panel {
   align-items: center;
 }
 
-.app-footer {
-  position: absolute;
-  
+.footer-div {
+  display: flex;
+  height: 10rem;
+  justify-content: center;
+  align-items: start;
+  margin-top: 1.1rem;
+  color: rgba(255, 255, 255, 0.792);
 }
 
 @media screen and (max-width: 768px) {

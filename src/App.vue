@@ -1,17 +1,23 @@
 <template>
   <navbar></navbar>
   <router-view></router-view>
-  <!-- <footer class="app-footer">&copy; Song Manager, 2024</footer> -->
+  <div class="footer-div">
+    <footer class="app-footer">{{songs.length}} songs</footer>
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex/dist/vuex.cjs.js';
 import Navbar from './components/Navbar.vue'
 
 export default {
   data() {
     return {
-      uploading: false
+      uploading: false,
     }
+  },
+  computed: {
+    ...mapState(['songs'])
   },
   components: {
     navbar: Navbar
