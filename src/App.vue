@@ -5,7 +5,6 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-import handleSongs from './scripts/handleSongs.js'
 
 export default {
   data() {
@@ -15,9 +14,6 @@ export default {
   },
   components: {
     Navbar: Navbar
-  },
-  methods: {
-    ...handleSongs.methods
   }
 }
 </script>
