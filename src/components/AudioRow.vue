@@ -3,8 +3,8 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="card audio-player shadow" v-for="(song, index) in songs" :key="index" :id="song.name">
-      <div class="card-body audio-inner-grid">
+    <div class="audio-player shadow" v-for="(song, index) in songs" :key="index" :id="song.name">
+      <div class="audio-inner-grid">
         <div class="song-title">
           <button @click="setCurrentSongUrl(song.url)" class="card-title">{{ song.name }}</button>
         </div>
