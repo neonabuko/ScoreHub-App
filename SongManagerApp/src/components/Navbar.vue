@@ -7,7 +7,7 @@
                     <router-link class="nav-link" to="/upload">Upload</router-link>
                 </li>
                 <li class="nav-link p-0 m-0">
-                    <input class="form-control" placeholder="Search" title="not implemented!" to="/upload">
+                    <input class="form-control" placeholder="Search" to="/upload">
                 </li>                
             </ul>
         </div>
