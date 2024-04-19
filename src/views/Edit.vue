@@ -22,7 +22,6 @@ export default {
         async deleteSong(name) {
             alert('Delete permanently?')
             await axios.delete(API_URL + `/delete/${name}`).then((response) => {
-                console.log(response.status);
                 this.goBack()
             })
         }

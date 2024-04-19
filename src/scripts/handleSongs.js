@@ -6,11 +6,12 @@ export default {
     async uploadSongAsync() {
       this.uploading = true
       let fileInput = this.$refs.fileInput
+      let author = this.$refs.author.value
       if (fileInput.files.length > 0) {
         let formData = new FormData()
         let file = fileInput.files[0]
         formData.append("file", file)
-        formData.append("fileName", file.name)
+        formData.append("author", author)
         let response = await axios.post(API_URL + "/upload", formData)
         if (response.status === 200) {
           this.uploadSuccess = true

@@ -8,6 +8,7 @@
   </div>
   <div class="upload-form">
     <form @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
+      <input type="text" class="author form-control" placeholder="Author" ref="author">
       <input type="file" class="form-control" name="file" id="#upload" ref="fileInput" aria-describedby="fileHelpId"/>
       <div class="upload-button-div mt-2">
         <button class="btn btn-primary" id="submitButton" type="submit" value="Upload">

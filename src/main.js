@@ -22,10 +22,10 @@ const store = createStore({
             let songs = await Promise.all(
                 response.data.map(async (song) => {
                     song.url = API_URL + song.url
-                    console.log(song.url);
                     return song
                 })
             )
+            
             console.log("Fetched", songs.length, "songs.")
             return songs
         },
