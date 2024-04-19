@@ -25,8 +25,6 @@ const store = createStore({
                     return song
                 })
             )
-            
-            console.log("Fetched", songs.length, "songs.")
             return songs
         },
     },

@@ -6,9 +6,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { API_URL } from '../scripts/variables.js'
-import general from '../scripts/general.js'
+import handleSongs from '../scripts/handleSongs';
 
 export default {
     data() {
@@ -17,14 +15,7 @@ export default {
         }
     },
     methods: {
-        ...general.methods,
-
-        async deleteSong(name) {
-            alert('Delete permanently?')
-            await axios.delete(API_URL + `/delete/${name}`).then((response) => {
-                this.goBack()
-            })
-        }
+        ...handleSongs.methods
     },
 }
 </script>

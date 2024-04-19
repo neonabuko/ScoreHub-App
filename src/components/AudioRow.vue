@@ -10,9 +10,9 @@
           <i class="fas fa-music fa-2x music-icon"></i>
           <div class="song-title-inner">
             <button class="song-title-button">{{ song.name.replace(/\.mp3$/, '') }}</button>
-            <div class="song-details"> 
+            <div class="song-details">
               {{ song.author }} ·
-              {{ formatDuration(song.duration) }} 
+              {{ formatDuration(song.duration) }}
             </div>
           </div>
         </div>
@@ -25,11 +25,12 @@
     </div>
   </div>
   <div class="player-div fixed-bottom" v-if="songSelected">
-    <audio controls autoplay id="player"><source :src="currentSongUrl" type="audio/mpeg"></audio>
+    <audio controls autoplay id="player" :src="currentSongUrl"></audio>
     <button class="border-0 bg-transparent" @click="closePlayer()">
       <i class="fas fa-close"></i>
     </button>
   </div>
+  <!-- <input type="range" name="" value="0" id="progress"> -->
 </template>
 
 <script>
@@ -49,14 +50,8 @@ export default {
   methods: {
     ...handleSongs.methods,
     ...mapActions(['fetchAllSongsAsync']),
-    formatDuration(timeSpan) {
-      let parts = timeSpan.split(':');
-      let minutes = parseInt(parts[1]);
-      let seconds = Math.round(parseFloat(parts[2]));
-      return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-    }
   },
-  created() {
+  mounted() {
     this.getSongsAsync()
   },
 }

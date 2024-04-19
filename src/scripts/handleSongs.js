@@ -1,8 +1,10 @@
-import { API_URL } from "./variables";
-import axios from "axios";
+import { API_URL } from "./variables"
+import axios from "axios"
+import general from '../scripts/general'
 
 export default {
   methods: {
+    ...general.methods,
     async uploadSongAsync() {
       this.uploading = true
       let fileInput = this.$refs.fileInput
@@ -18,6 +20,11 @@ export default {
         }
         this.uploading = false
       }
+    },
+    async deleteSong(name) {
+      alert('Delete permanently?')
+      await axios.delete(API_URL + `/delete/${name}`)
+      this.goBack()
     },
     async getSongsAsync() {
       this.$store.state.loading = true
@@ -42,6 +49,12 @@ export default {
       }
       let currentAudioRow = document.getElementById(newUrl)
       if (currentAudioRow) currentAudioRow.style.backgroundColor = '#9b7abf22'
-    }
+    },
+    formatDuration(timeSpan) {
+      let parts = timeSpan.split(':');
+      let minutes = parseInt(parts[1]);
+      let seconds = Math.round(parseFloat(parts[2]));
+      return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+    },
   }
 }
