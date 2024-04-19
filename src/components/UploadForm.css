@@ -1,6 +1,6 @@
 .upload-header {
   display: grid;
-  grid-template-columns: 7% 93%;
+  grid-template-columns: 7% 85% 8%;
   text-align: center;
   align-items: center;
 }

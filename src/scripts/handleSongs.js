@@ -4,14 +4,18 @@ import axios from "axios";
 export default {
   methods: {
     async uploadSongAsync() {
-      this.uploading = true;
-      let fileInput = this.$refs.fileInput;
+      this.uploading = true
+      let fileInput = this.$refs.fileInput
       if (fileInput.files.length > 0) {
-        let formData = new FormData();
-        formData.append("file", fileInput.files[0]);
-        await axios
-          .post(API_URL + "/upload", formData)
-        this.uploading = false;
+        let formData = new FormData()
+        let file = fileInput.files[0]
+        formData.append("file", file)
+        formData.append("fileName", file.name)
+        let response = await axios.post(API_URL + "/upload", formData)
+        if (response.status === 200) {
+          this.uploadSuccess = true
+        }
+        this.uploading = false
       }
     },
     async getSongsAsync() {

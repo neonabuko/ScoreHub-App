@@ -3,15 +3,19 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-player" @click="setCurrentSongUrl(song.url)" v-for="(song, index) in songs" :key="index" :id="song.url">
+    <div class="audio-grid" @click="setCurrentSongUrl(song.url)" v-for="(song, index) in songs" :key="index"
+      :id="song.url">
       <div class="audio-inner-grid">
         <div class="song-title">
-          <i class="fas fa-music fa-2x"></i>
-          <button class="song-title-button" >{{ song.name.replace(/\.mp3$/, '') }}</button>
+          <i class="fas fa-music fa-2x music-icon"></i>
+          <div class="song-title-inner">
+            <button class="song-title-button">{{ song.name.replace(/\.mp3$/, '') }}</button>
+            <div class="song-details"> {{ formatDuration(song.duration) }} </div>
+          </div>
         </div>
-        <div class="song-edit text-center">
-          <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="text-decoration-none text-white">
-            <i class="fas fa-edit small"></i>
+        <div class="song-edit">
+          <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="btn btn-outline-light">
+            <i class="fas fa-ellipsis-v"></i>
           </router-link>
         </div>
       </div>
@@ -42,9 +46,17 @@ export default {
   methods: {
     ...handleSongs.methods,
     ...mapActions(['fetchAllSongsAsync']),
+    formatDuration(timeSpan) {
+      let parts = timeSpan.split(':');
+
+      let minutes = parseInt(parts[1]);
+      let seconds = Math.round(parseFloat(parts[2]));
+
+      return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+    }
   },
   created() {
     this.getSongsAsync()
-  }
+  },
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <nav class="app-nav navbar">
         <div class="logo-header">
-            <img src="/public/vite.svg" alt="logo">
+            <img src="/vite.svg" alt="logo">
             <router-link class="navbar-brand" to="/">Song Manager</router-link>
         </div>
         <div>

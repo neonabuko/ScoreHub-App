@@ -21,6 +21,8 @@ const store = createStore({
             let response = await axios.get(API_URL + "/songs")
             let songs = await Promise.all(
                 response.data.map(async (song) => {
+                    song.url = API_URL + song.url
+                    console.log(song.url);
                     return song
                 })
             )
