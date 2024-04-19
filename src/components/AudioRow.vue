@@ -3,7 +3,7 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-grid" @click="setCurrentSongUrl(song.url)" v-for="(song, index) in songs" :key="index"
+    <div class="audio-grid" @click="setCurrentSongUrl(song)" v-for="(song, index) in songs" :key="index"
       :id="song.url">
       <div class="audio-inner-grid">
         <div class="song-title">
@@ -25,12 +25,12 @@
     </div>
   </div>
   <div class="player-div fixed-bottom" v-if="songSelected">
-    <audio controls autoplay id="player" :src="currentSongUrl"></audio>
+    <audio controls autoplay id="player" @play="playSong()" :src="currentSongUrl"></audio>
     <button class="border-0 bg-transparent" @click="closePlayer()">
       <i class="fas fa-close"></i>
     </button>
   </div>
-  <!-- <input type="range" name="" value="0" id="progress"> -->
+  <input type="range" name="" value="0" id="progress" min="0" :max="duration" step="0.01">
 </template>
 
 <script>
@@ -40,6 +40,7 @@ import handleSongs from '../scripts/handleSongs.js'
 export default {
   data() {
     return {
+      duration: '',
       currentSongUrl: '',
       songSelected: false
     }

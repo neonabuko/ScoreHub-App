@@ -5,6 +5,19 @@ import general from '../scripts/general'
 export default {
   methods: {
     ...general.methods,
+    playSong() {
+      let player = document.getElementById('player')
+      let progress = document.getElementById('progress')
+      setInterval(() => {
+        if (!player.paused) {
+          progress.value = player.currentTime;
+        }
+      }, 100);
+    },
+    pauseSong() {
+      let player = document.getElementById('player')
+      console.log(player.paused);
+    },
     async uploadSongAsync() {
       this.uploading = true
       let fileInput = this.$refs.fileInput
@@ -21,7 +34,7 @@ export default {
         this.uploading = false
       }
     },
-    async deleteSong(name) {
+    async deleteSongAsync(name) {
       alert('Delete permanently?')
       await axios.delete(API_URL + `/delete/${name}`)
       this.goBack()
@@ -32,10 +45,14 @@ export default {
       this.$store.commit('setSongs', songs)
       this.$store.state.loading = false
     },
-    setCurrentSongUrl(url) {
+    setCurrentSongUrl(song) {
+      let url = song.url
       this.updateAudioRowColor(url)
       this.currentSongUrl = url
       this.songSelected = !!url
+      let formattedDuration = this.formatDuration(song.duration)
+      let durationSeconds = this.timeStringToSeconds(formattedDuration)
+      this.duration = durationSeconds
     },
     closePlayer() {
       this.songSelected = false
@@ -56,5 +73,9 @@ export default {
       let seconds = Math.round(parseFloat(parts[2]));
       return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
     },
+    timeStringToSeconds(timeString) {
+      let [minutes, seconds] = timeString.split(':').map(Number);
+      return minutes * 60 + seconds;
+  }
   }
 }
