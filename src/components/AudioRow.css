@@ -1,3 +1,7 @@
+:root {
+  --audio-row-hover: #151515;
+}
+
 .audio-grid {
     display: grid;
     grid-template-columns: 1fr;
