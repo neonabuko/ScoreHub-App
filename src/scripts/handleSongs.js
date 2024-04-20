@@ -5,19 +5,6 @@ import general from '../scripts/general'
 export default {
   methods: {
     ...general.methods,
-    playSong() {
-      let player = document.getElementById('player')
-      let progress = document.getElementById('progress')
-      setInterval(() => {
-        if (!player.paused) {
-          progress.value = player.currentTime;
-        }
-      }, 100);
-    },
-    pauseSong() {
-      let player = document.getElementById('player')
-      console.log(player.paused);
-    },
     async uploadSongAsync() {
       this.uploading = true
       let fileInput = this.$refs.fileInput
@@ -39,32 +26,30 @@ export default {
       await axios.delete(API_URL + `/delete/${name}`)
       this.goBack()
     },
-    async getSongsAsync() {
+    async getAllSongsAsync() {
       this.$store.state.loading = true
       const songs = await this.fetchAllSongsAsync()
       this.$store.commit('setSongs', songs)
       this.$store.state.loading = false
     },
-    setCurrentSongUrl(song) {
-      let url = song.url
-      this.updateAudioRowColor(url)
-      this.currentSongUrl = url
-      this.songSelected = !!url
-      let formattedDuration = this.formatDuration(song.duration)
-      let durationSeconds = this.timeStringToSeconds(formattedDuration)
-      this.duration = durationSeconds
+    async getCurrentSongUrlAsync(songName) {
+      const currentSongUrl = await this.fetchCurrentSongUrl(songName)
+      this.$store.commit('setCurrentSongUrl', currentSongUrl)
+      this.songSelected = true
+      this.updateAudioRowColor(songName)
+      this.currentSongName = songName
     },
     closePlayer() {
       this.songSelected = false
-      this.updateAudioRowColor(null)
+      this.updateAudioRowColor('')
     },
-    updateAudioRowColor(newUrl) {
-      let previousUrl = this.currentSongUrl
-      if (previousUrl) {
-        let previousAudioRow = document.getElementById(previousUrl)
+    updateAudioRowColor(newSongName) {
+      let previousSongName = this.currentSongName
+      if (previousSongName) {
+        let previousAudioRow = document.getElementById(previousSongName)
         previousAudioRow.style.backgroundColor = "#101010"
       }
-      let currentAudioRow = document.getElementById(newUrl)
+      let currentAudioRow = document.getElementById(newSongName)
       if (currentAudioRow) currentAudioRow.style.backgroundColor = '#9b7abf22'
     },
     formatDuration(timeSpan) {
@@ -72,10 +57,6 @@ export default {
       let minutes = parseInt(parts[1]);
       let seconds = Math.round(parseFloat(parts[2]));
       return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-    },
-    timeStringToSeconds(timeString) {
-      let [minutes, seconds] = timeString.split(':').map(Number);
-      return minutes * 60 + seconds;
-  }
+    }
   }
 }

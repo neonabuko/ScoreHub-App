@@ -13,6 +13,7 @@ const store = createStore({
     state() {
         return {
             songs: [],
+            currentSongUrl: '',
             loading: false
         };
     },
@@ -27,10 +28,20 @@ const store = createStore({
             )
             return songs
         },
+        async fetchCurrentSongUrl({state}, songName) {
+            return await axios.get(API_URL + '/songs/' + songName, {
+                responseType: 'blob'
+            }).then(response => {
+                return URL.createObjectURL(response.data)
+            })
+        }
     },
     mutations: {
         setSongs(state, songs) {
             state.songs = songs
+        },
+        setCurrentSongUrl(state, currentSongUrl) {
+            state.currentSongUrl = currentSongUrl
         }
     }
 });
