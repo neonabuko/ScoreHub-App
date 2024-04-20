@@ -54,5 +54,8 @@ export default {
   mounted() {
     this.getAllSongsAsync()
   },
+  beforeUnmount() {
+    URL.revokeObjectURL(this.currentSongUrl)
+  }
 }
 </script>

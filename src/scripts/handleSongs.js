@@ -45,8 +45,8 @@ export default {
     },
     updateAudioRowColor(newSongName) {
       let previousSongName = this.currentSongName
-      if (previousSongName) {
-        let previousAudioRow = document.getElementById(previousSongName)
+      let previousAudioRow = document.getElementById(previousSongName)
+      if (previousAudioRow) {
         previousAudioRow.style.backgroundColor = "#101010"
       }
       let currentAudioRow = document.getElementById(newSongName)
