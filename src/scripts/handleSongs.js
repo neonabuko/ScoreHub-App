@@ -33,11 +33,11 @@ export default {
       this.$store.state.loading = false
     },
     async getCurrentSongUrlAsync(songName) {
-      const currentSongUrl = await this.fetchCurrentSongUrl(songName)
-      this.$store.commit('setCurrentSongUrl', currentSongUrl)
       this.songSelected = true
       this.updateAudioRowColor(songName)
       this.currentSongName = songName
+      const currentSongUrl = await this.fetchCurrentSongUrl(songName)
+      this.$store.commit('setCurrentSongUrl', currentSongUrl)
     },
     closePlayer() {
       this.songSelected = false
