@@ -24,11 +24,13 @@ const store = createStore({
         },
         
         async fetchCurrentSongAsync({state}, songName) {
-            return await axios.get(API_URL + '/songs/' + songName, {
-                responseType: 'blob'
-            }).then(response => {
-                return URL.createObjectURL(response.data)
-            })
+            // return await axios.get(API_URL + '/songs/' + songName, {
+            //     responseType: 'blob'
+            // }).then(response => {
+            //     return URL.createObjectURL(response.data)
+            // })
+
+            return API_URL + '/songs/' + songName
         }
     },
     mutations: {

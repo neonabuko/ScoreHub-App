@@ -39,6 +39,7 @@ export default {
       this.$store.state.loading = false
     },
     async getCurrentSongAsync(songName) {
+      this.$store.commit('setCurrentSong', '')
       this.songSelected = true
       this.updateAudioRowColor(songName)
       this.currentSongName = songName
