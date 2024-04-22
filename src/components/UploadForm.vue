@@ -3,14 +3,14 @@
     <button class="btn btn-sm" @click="goBack()">
       <i class="fas fa-arrow-left"></i>
     </button>
-    <h3 class="form-label">Upload a song</h3>
+    <h3 class="form-label" id="edit-h1">Upload a song</h3>
     <i class="fas fa-check shining-green-check" v-if="uploadSuccess"></i>
   </div>
-  <div class="upload-form">
-    <form @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
+  <div class="upload-form-div">
+    <form class="upload-form" @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
       <input type="text" class="author form-control" placeholder="Author" ref="author">
       <input type="file" class="form-control" name="file" id="#upload" ref="fileInput" aria-describedby="fileHelpId"/>
-      <div class="upload-button-div mt-2">
+      <div class="upload-button-div">
         <button class="btn btn-primary" id="submitButton" type="submit" value="Upload">
           {{ upload.at(uploading) }}
         </button>

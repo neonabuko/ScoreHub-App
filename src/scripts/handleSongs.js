@@ -5,39 +5,45 @@ import general from '../scripts/general'
 export default {
   methods: {
     ...general.methods,
+
     async uploadSongAsync() {
-      this.uploading = true
       let fileInput = this.$refs.fileInput
       let author = this.$refs.author.value
-      if (fileInput.files.length > 0) {
-        let formData = new FormData()
-        let file = fileInput.files[0]
-        formData.append("file", file)
-        formData.append("author", author)
-        let response = await axios.post(API_URL + "/upload", formData)
-        if (response.status === 200) {
-          this.uploadSuccess = true
-        }
-        this.uploading = false
+      if (fileInput.files.length === 0) {
+        console.log('no file');
+        return
       }
+
+      this.uploading = true
+      let formData = new FormData()
+      let file = fileInput.files[0]
+      formData.append("file", file)
+      formData.append("author", author)
+
+      let response = await axios.post(API_URL + "/upload", formData)
+
+      if (response.status === 200) this.uploadSuccess = true
+
+      this.uploading = false
     },
+
     async deleteSongAsync(name) {
       alert('Delete permanently?')
       await axios.delete(API_URL + `/delete/${name}`)
       this.goBack()
     },
-    async getAllSongsAsync() {
+    async getAllSongDataAsync() {
       this.$store.state.loading = true
-      const songs = await this.fetchAllSongsAsync()
+      const songs = await this.fetchAllSongDataAsync()
       this.$store.commit('setSongs', songs)
       this.$store.state.loading = false
     },
-    async getCurrentSongUrlAsync(songName) {
+    async getCurrentSongAsync(songName) {
       this.songSelected = true
       this.updateAudioRowColor(songName)
       this.currentSongName = songName
-      const currentSongUrl = await this.fetchCurrentSongUrl(songName)
-      this.$store.commit('setCurrentSongUrl', currentSongUrl)
+      const currentSong = await this.fetchCurrentSongAsync(songName)
+      this.$store.commit('setCurrentSong', currentSong)
     },
     closePlayer() {
       this.songSelected = false

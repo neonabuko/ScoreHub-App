@@ -6,18 +6,23 @@
 }
 
 .upload-container {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 5px;
-    margin-top: 50px;
-    overflow: hidden;
-    max-width: fit-content;
-  }
-  
-  .upload-button-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 5px;
+  margin-top: 50px;
+  overflow: hidden;
+  max-width: fit-content;
+}
+
+.upload-form {
+  display: grid;
+  gap: 5px;
+}
+
+.upload-button-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -3,7 +3,7 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-grid" @click="getCurrentSongUrlAsync(song.name)" v-for="(song, index) in songs" :key="index"
+    <div class="audio-grid" @click="getCurrentSongAsync(song.name)" v-for="(song, index) in songs" :key="index"
       :id="song.name">
       <div class="audio-inner-grid">
         <div class="song-title">
@@ -11,7 +11,7 @@
           <div class="song-title-inner">
             <button class="song-title-button">{{ song.name.replace(/\.mp3$/, '') }}</button>
             <div class="song-details">
-              {{ song.author }} ·
+              {{ song.author ? song.author : 'Unknown' }} ·
               {{ formatDuration(song.duration) }}
             </div>
           </div>
@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="player-div fixed-bottom" v-if="songSelected">
-    <audio controls autoplay id="player" :src="currentSongUrl"></audio>
+    <audio controls autoplay id="player" :src="currentSong"></audio>
     <button class="border-0 bg-transparent" @click="closePlayer()">
       <i class="fas fa-close"></i>
     </button>
@@ -45,17 +45,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['songs', 'loading', 'currentSongUrl']),
+    ...mapState(['songs', 'loading', 'currentSong']),
   },
   methods: {
     ...handleSongs.methods,
-    ...mapActions(['fetchAllSongsAsync', 'fetchCurrentSongUrl']),
+    ...mapActions(['fetchAllSongDataAsync', 'fetchCurrentSongAsync']),
   },
   mounted() {
-    this.getAllSongsAsync()
+    this.getAllSongDataAsync()
   },
   beforeUnmount() {
-    URL.revokeObjectURL(this.currentSongUrl)
+    URL.revokeObjectURL(this.currentSong)
   }
 }
 </script>

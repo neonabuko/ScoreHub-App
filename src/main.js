@@ -13,22 +13,17 @@ const store = createStore({
     state() {
         return {
             songs: [],
-            currentSongUrl: '',
+            currentSong: '',
             loading: false
         };
     },
     actions: {
-        async fetchAllSongsAsync() {
+        async fetchAllSongDataAsync() {
             let response = await axios.get(API_URL + "/songs")
-            let songs = await Promise.all(
-                response.data.map(async (song) => {
-                    song.url = API_URL + song.url
-                    return song
-                })
-            )
-            return songs
+            return await response.data
         },
-        async fetchCurrentSongUrl({state}, songName) {
+        
+        async fetchCurrentSongAsync({state}, songName) {
             return await axios.get(API_URL + '/songs/' + songName, {
                 responseType: 'blob'
             }).then(response => {
@@ -40,8 +35,8 @@ const store = createStore({
         setSongs(state, songs) {
             state.songs = songs
         },
-        setCurrentSongUrl(state, currentSongUrl) {
-            state.currentSongUrl = currentSongUrl
+        setCurrentSong(state, currentSong) {
+            state.currentSong = currentSong
         }
     }
 });
