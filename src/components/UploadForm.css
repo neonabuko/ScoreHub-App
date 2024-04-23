@@ -18,6 +18,7 @@
 .upload-form {
   display: grid;
   gap: 5px;
+  color: #9c65d736;
 }
 
 .upload-button-div {

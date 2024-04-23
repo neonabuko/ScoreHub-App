@@ -97,12 +97,15 @@ export default {
     },
     updateAudioRowColor(newSongName) {
       let previousSongName = this.currentSongName
-      let previousAudioRow = document.getElementById(previousSongName)
-      if (previousAudioRow) {
-        previousAudioRow.style.backgroundColor = "#101010"
+      if (previousSongName !== '') {
+        let previousAudioRow = document.getElementById(previousSongName)
+        if (previousAudioRow) {
+          previousAudioRow.style.backgroundColor = "#101010"
+        }
       }
+      
       let currentAudioRow = document.getElementById(newSongName)
-      if (currentAudioRow) currentAudioRow.style.backgroundColor = '#9b7abf22'
+      if (currentAudioRow) currentAudioRow.style.backgroundColor = '#9c65d736'
     },
     formatDuration(timeSpan) {
       let parts = timeSpan.split(':');
