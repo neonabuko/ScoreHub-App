@@ -50,7 +50,7 @@ export default {
       }
     },
 
-    async postChunkAsync(currentChunk, chunkData, startByte, fileSize) {
+    async postChunkAsync(chunkData, startByte, fileSize) {
       try {
         const response = await axios.post(API_URL + "/uploadChunk", chunkData, {
           headers: {
@@ -63,7 +63,6 @@ export default {
         return response
       } catch (error) {
         console.error(error.message)
-        // Handle error if needed
       }
     },
 
@@ -73,18 +72,22 @@ export default {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
       let startByte = 0
       let chunkData
-      this.setProgressHeader('Progress: 0%', 'white')
 
       while (startByte < file.size) {
         const chunk = file.slice(startByte, startByte + CHUNK_SIZE)
         chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
 
-        const response = await this.postChunkAsync(currentChunk, chunkData, startByte, file.size)
-        if (response.status === 200) {
-          currentChunk++
-          startByte += CHUNK_SIZE
+        try {
+          const response = await this.postChunkAsync(chunkData, startByte, file.size)
+          if (response.status === 200) {
+            currentChunk++
+            startByte += CHUNK_SIZE
+            this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
+          }
+        } catch (error) {
+          console.error(`Error uploading chunk ${currentChunk}: ${error.message}`);
+          break
         }
-        this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
       }
     },
 
