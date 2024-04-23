@@ -7,7 +7,9 @@ export default {
     ...general.methods,
 
     async uploadSongAsync() {
+      this.uploading = true
       let progressHeader = document.getElementById('progress-header')
+      progressHeader.innerText = ''
       progressHeader.style.color = 'white'
       let fileInput = this.$refs.fileInput
       if (fileInput.files.length === 0) {
@@ -15,7 +17,6 @@ export default {
         return
       }
 
-      this.uploading = true
       let file = fileInput.files[0]
       let author = this.$refs.author.value
 
@@ -24,7 +25,6 @@ export default {
       let totalChunks = Math.ceil(file.size / CHUNK_SIZE)
       let startByte = 0
       
-
       while (startByte < file.size) {
         progressHeader.innerText = 'Progress: ' + this.uploadProgress
         currentChunk++
@@ -43,12 +43,14 @@ export default {
             this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / file.size) + '%'
           }
         }).catch((error) => {
-          console.log('Error uploading chunks:', error);
-          progressHeader.innerText = 'Error'
+          console.log(error.message, 'Error uploading chunks');
+          progressHeader.innerText = error.message + ' during file upload'
           progressHeader.style.color = 'red'
           this.uploadSuccess = false
           this.uploading = false
         })
+
+        if (!response) return
 
         if (response.status === 200) {
           console.log(currentChunk, 'uploaded successfully.');
@@ -66,7 +68,9 @@ export default {
         progressHeader.style.color = 'green'
         this.uploadSuccess = true
       }).catch(async (error) => {
-        console.log('Error posting to repository:', error);
+        console.log(error.message, 'Error posting to repository');
+        progressHeader.innerText = error.message + ' during repository save'
+        progressHeader.style.color = 'red'
       })
 
       this.uploading = false

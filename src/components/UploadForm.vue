@@ -11,7 +11,7 @@
           {{ upload.at(uploading) }}
         </button>
         <div class="progress-header-div">
-          <h2 id="progress-header" class="upload-progress p-3 text-center position-absolute" v-if="uploading">Progress: {{ uploadProgress }}</h2>
+          <h2 id="progress-header" class="upload-progress p-3 text-center position-absolute"></h2>
         </div>
         <!-- <i class="fas fa-check shining-green-check mx-3"></i> -->
       </div>
