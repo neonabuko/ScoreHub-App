@@ -8,22 +8,58 @@ export default {
 
     async uploadSongAsync() {
       let fileInput = this.$refs.fileInput
-      let author = this.$refs.author.value
       if (fileInput.files.length === 0) {
-        console.log('no file');
+        console.log('no file input');
         return
       }
 
+
       this.uploading = true
-      let formData = new FormData()
       let file = fileInput.files[0]
-      formData.append("file", file)
-      formData.append("author", author)
+      let author = this.$refs.author.value
 
-      let response = await axios.post(API_URL + "/upload", formData)
 
-      if (response.status === 200) this.uploadSuccess = true
+      const CHUNK_SIZE = 1024 * 1024; // 1 MB
+      let currentChunk = 0
+      let totalChunks = Math.ceil(file.size / CHUNK_SIZE)
+      let startByte = 0
 
+      while (startByte < file.size) {
+        currentChunk++
+        let chunk = file.slice(startByte, startByte + CHUNK_SIZE)
+        let chunkData = new FormData()
+        chunkData.append("id", currentChunk)
+        chunkData.append("name", file.name)
+        chunkData.append("data", chunk)
+        chunkData.append("totalChunks", totalChunks)
+
+
+
+        let response = await axios.post(API_URL + "/uploadChunk", chunkData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress: progressEvent => {
+            this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / file.size) + '%'
+          }
+        })
+
+        if (response.status === 200) {
+          console.log(currentChunk, 'uploaded successfully.');
+          startByte += CHUNK_SIZE;
+        }
+      }
+
+
+      let songData = new FormData()
+      songData.append("name", file.name)
+      songData.append("author", author)
+
+      await axios.post(API_URL + "/upload", songData).then(async (response) => {
+        console.log('Upload to repository status:', response.status);
+      })
+
+      this.uploadSuccess = true
       this.uploading = false
     },
 
@@ -61,9 +97,16 @@ export default {
     },
     formatDuration(timeSpan) {
       let parts = timeSpan.split(':');
+      let hours = parseInt(parts[0]);
       let minutes = parseInt(parts[1]);
       let seconds = Math.round(parseFloat(parts[2]));
-      return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+
+      if (hours > 0) {
+        return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+      } else {
+        return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+      }
     }
+
   }
 }

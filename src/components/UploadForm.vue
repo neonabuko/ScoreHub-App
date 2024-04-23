@@ -4,7 +4,6 @@
       <i class="fas fa-arrow-left"></i>
     </button>
     <h3 class="form-label" id="edit-h1">Upload a song</h3>
-    <i class="fas fa-check shining-green-check" v-if="uploadSuccess"></i>
   </div>
   <div class="upload-form-div">
     <form class="upload-form" @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
@@ -14,6 +13,9 @@
         <button class="btn btn-primary" id="submitButton" type="submit" value="Upload">
           {{ upload.at(uploading) }}
         </button>
+        <h2 class="upload-progress">Progress: {{ uploadProgress }}
+          <i class="fas fa-check shining-green-check mx-3" v-if="uploadSuccess"></i>
+        </h2>
       </div>
     </form>
   </div>
@@ -29,7 +31,8 @@ export default {
     return {
       uploading: false,
       upload: ['Upload', 'Uploading...'],
-      uploadSuccess: false
+      uploadSuccess: false,
+      uploadProgress: '0%'
     };
   },
   methods: {
@@ -42,7 +45,7 @@ export default {
 <style>
 .shining-green-check {
   color: green;
-  scale: 1.2;
+  scale: 1.4;
   opacity: 0;
   transform: scale(0.5);
   animation: shine-in 0.5s ease forwards, shine 0.5s infinite alternate;
