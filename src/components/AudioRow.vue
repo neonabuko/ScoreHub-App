@@ -35,6 +35,7 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import handleSongs from '../scripts/handleSongs.js'
+import general from '../scripts/general.js';
 
 export default {
   data() {
@@ -49,6 +50,7 @@ export default {
   },
   methods: {
     ...handleSongs.methods,
+    ...general.methods,
     ...mapActions(['fetchAllSongDataAsync', 'fetchCurrentSongAsync']),
   },
   mounted() {

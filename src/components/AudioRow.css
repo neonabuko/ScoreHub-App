@@ -6,8 +6,8 @@
     display: grid;
     grid-template-columns: 1fr;
     border-bottom: 1px solid rgba(169, 169, 169, 0.03);
-    border-radius: 3px;
-    margin-inline: 5px;
+    border-radius: 5px;
+    margin-inline: 7px;
 }
 
 @media screen and (min-width: 786px) {
@@ -83,7 +83,7 @@ audio::-webkit-media-controls-panel {
 }
 
 :-moz-any(audio) {
-  background: #222222;
+  background-color: #3e3e3e;
 }
 
 audio::-ms-media-controls-panel {
@@ -96,7 +96,7 @@ audio::-ms-media-controls-panel {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #222222a3;
+  background-color: #222222;
 }
 
 @media screen and (max-width: 786px) {

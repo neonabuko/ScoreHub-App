@@ -17,7 +17,7 @@
 
 @media screen and (max-width: 736px) {
   .upload-container {
-    max-width: 75%;
+    max-width: 80%;
   }
 }
 
@@ -41,4 +41,34 @@
   display: flex;
   justify-content: center;
   align-items: start;
+}
+
+.shining-green-check {
+  color: green;
+  scale: 1.4;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: shine-in 0.5s ease forwards, shine 0.5s infinite alternate;
+}
+
+@keyframes shine-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shine {
+  from {
+    filter: brightness(1);
+  }
+
+  to {
+    filter: brightness(1.5);
+  }
 }

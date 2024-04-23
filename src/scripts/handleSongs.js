@@ -8,83 +8,98 @@ export default {
 
     async uploadSongAsync() {
       this.uploading = true
-      let submitButton = document.getElementById('submit-button')
-      submitButton.disabled = true
-      let progressHeader = document.getElementById('progress-header')
-      progressHeader.innerText = ''
-      progressHeader.style.color = 'white'
-      let fileInput = this.$refs.fileInput
-      if (fileInput.files.length === 0) {
-        console.log('no file input');
-        return
+      this.setProgressHeader('', 'white')
+
+      const fileInput = this.$refs.fileInput
+      const file = fileInput.files[0]
+
+      await this.uploadChunksAsync(file)
+      await this.uploadToRepositoryAsync(file)
+
+      this.uploading = false
+      this.setProgressHeader('Success', 'green')
+    },
+
+    createChunkDto(currentChunk, fileName, chunk, totalChunks) {
+      const chunkData = new FormData()
+      chunkData.append("id", currentChunk)
+      chunkData.append("name", fileName)
+      chunkData.append("data", chunk)
+      chunkData.append("totalChunks", totalChunks)
+      return chunkData
+    },
+
+    createSongDto(songName, author) {
+      const songData = new FormData()
+      songData.append("name", songName)
+      songData.append("author", author)
+      return songData
+    },
+
+    async uploadToRepositoryAsync(file) {
+      const author = this.$refs.author.value
+      const songData = this.createSongDto(file.name, author)
+
+      try {
+        const response = await axios.post(API_URL + "/upload", songData)
+        console.log('Save to repository:', response.status)
+        this.uploadSuccess = true
+      } catch (error) {
+        console.error(error.message)
+        this.setProgressHeader('Repository save error', 'red')
       }
+    },
 
-      let file = fileInput.files[0]
-      let author = this.$refs.author.value
-
-      const CHUNK_SIZE = 1024 * 1024; // 1 MB
-      let currentChunk = 0
-      let totalChunks = Math.ceil(file.size / CHUNK_SIZE)
-      let startByte = 0
-      
-      while (startByte < file.size) {
-        progressHeader.innerText = 'Progress: ' + this.uploadProgress
-        currentChunk++
-        let chunk = file.slice(startByte, startByte + CHUNK_SIZE)
-        let chunkData = new FormData()
-        chunkData.append("id", currentChunk)
-        chunkData.append("name", file.name)
-        chunkData.append("data", chunk)
-        chunkData.append("totalChunks", totalChunks)
-
-        let response = await axios.post(API_URL + "/uploadChunk", chunkData, {
+    async postChunkAsync(currentChunk, chunkData, startByte, fileSize) {
+      try {
+        const response = await axios.post(API_URL + "/uploadChunk", chunkData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
           onUploadProgress: progressEvent => {
-            this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / file.size) + '%'
+            this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / fileSize)
           }
-        }).catch((error) => {
-          console.log(error.message, 'Error uploading chunks');
-          progressHeader.innerText = 'File upload error'
-          progressHeader.style.color = 'red'
-          this.uploadSuccess = false
-          this.uploading = false
-          submitButton.disabled = false
         })
-
-        if (!response) return
-
-        if (response.status === 200) {
-          console.log(currentChunk, 'uploaded successfully.');
-          startByte += CHUNK_SIZE;
-        }
+        return response
+      } catch (error) {
+        console.error(error.message)
+        // Handle error if needed
       }
-
-      let songData = new FormData()
-      songData.append("name", file.name)
-      songData.append("author", author)
-
-      await axios.post(API_URL + "/upload", songData).then(async (response) => {
-        console.log('Repository upload success:', response.status);
-        progressHeader.innerText = 'Success'
-        progressHeader.style.color = 'green'
-        this.uploadSuccess = true
-      }).catch(async (error) => {
-        console.log(error.message, 'Error posting to repository');
-        progressHeader.innerText = 'Repository save error'
-        progressHeader.style.color = 'red'
-        submitButton.disabled = false
-      })
-
-      this.uploading = false
-      submitButton.disabled = false
     },
 
+    async uploadChunksAsync(file) {
+      const CHUNK_SIZE = 1024 * 1024 // 1 MB
+      let currentChunk = 1
+      const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
+      let startByte = 0
+      let chunkData
+      this.setProgressHeader('Progress: 0%', 'white')
+
+      while (startByte < file.size) {
+        const chunk = file.slice(startByte, startByte + CHUNK_SIZE)
+        chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
+
+        const response = await this.postChunkAsync(currentChunk, chunkData, startByte, file.size)
+        if (response.status === 200) {
+          currentChunk++
+          startByte += CHUNK_SIZE
+        }
+        this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
+      }
+    },
+
+    setProgressHeader(text, color) {
+      this.progressHeader.innerText = text
+      this.progressHeader.style.color = color
+    },
+
+
     async deleteSongAsync(name) {
-      alert('Delete permanently?')
-      await axios.delete(API_URL + `/delete/${name}`)
-      this.goBack()
+      let confirmDelete = confirm('Delete permanently?')
+      if (confirmDelete) {
+        await axios.delete(API_URL + `/delete/${name}`)
+        this.goBack()
+      }
     },
     async getAllSongDataAsync() {
       this.$store.state.loading = true
@@ -103,31 +118,6 @@ export default {
     closePlayer() {
       this.songSelected = false
       this.updateAudioRowColor('')
-    },
-    updateAudioRowColor(newSongName) {
-      let previousSongName = this.currentSongName
-      if (previousSongName !== '') {
-        let previousAudioRow = document.getElementById(previousSongName)
-        if (previousAudioRow) {
-          previousAudioRow.style.backgroundColor = "#101010"
-        }
-      }
-      
-      let currentAudioRow = document.getElementById(newSongName)
-      if (currentAudioRow) currentAudioRow.style.backgroundColor = '#9c65d736'
-    },
-    formatDuration(timeSpan) {
-      let parts = timeSpan.split(':');
-      let hours = parseInt(parts[0]);
-      let minutes = parseInt(parts[1]);
-      let seconds = Math.round(parseFloat(parts[2]));
-
-      if (hours > 0) {
-        return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-      } else {
-        return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-      }
     }
-
   }
 }

@@ -7,7 +7,7 @@
       <input type="file" class="form-control" name="file" id="#upload" ref="fileInput" aria-describedby="fileHelpId"/>
       <input type="text" class="author form-control" placeholder="Author" ref="author">
       <div class="upload-button-div">
-        <button class="btn btn-primary" id="submit-button" type="submit" value="Upload">
+        <button class="btn btn-primary" id="submit-button" type="submit" value="Upload" :disabled="uploading">
           {{ upload.at(uploading) }}
         </button>
         <div class="progress-header-div">
@@ -30,44 +30,16 @@ export default {
       uploading: false,
       upload: ['Upload', 'Uploading...'],
       uploadSuccess: false,
-      uploadProgress: '0%'
+      uploadProgress: '0%',
+      progressHeader: ''
     };
   },
   methods: {
     ...handleSongs.methods,
     ...general.methods
   },
+  mounted() {
+    this.progressHeader = document.getElementById('progress-header')
+  },
 };
 </script>
-
-<style>
-.shining-green-check {
-  color: green;
-  scale: 1.4;
-  opacity: 0;
-  transform: scale(0.5);
-  animation: shine-in 0.5s ease forwards, shine 0.5s infinite alternate;
-}
-
-@keyframes shine-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes shine {
-  from {
-    filter: brightness(1);
-  }
-
-  to {
-    filter: brightness(1.5);
-  }
-}
-</style>
