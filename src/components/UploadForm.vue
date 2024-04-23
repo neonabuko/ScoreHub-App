@@ -7,7 +7,7 @@
       <input type="file" class="form-control" name="file" id="#upload" ref="fileInput" aria-describedby="fileHelpId"/>
       <input type="text" class="author form-control" placeholder="Author" ref="author">
       <div class="upload-button-div">
-        <button class="btn btn-primary" id="submitButton" type="submit" value="Upload">
+        <button class="btn btn-primary" id="submit-button" type="submit" value="Upload">
           {{ upload.at(uploading) }}
         </button>
         <div class="progress-header-div">

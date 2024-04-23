@@ -8,6 +8,8 @@ export default {
 
     async uploadSongAsync() {
       this.uploading = true
+      let submitButton = document.getElementById('submit-button')
+      submitButton.disabled = true
       let progressHeader = document.getElementById('progress-header')
       progressHeader.innerText = ''
       progressHeader.style.color = 'white'
@@ -44,10 +46,11 @@ export default {
           }
         }).catch((error) => {
           console.log(error.message, 'Error uploading chunks');
-          progressHeader.innerText = error.message + ' during file upload'
+          progressHeader.innerText = 'File upload error'
           progressHeader.style.color = 'red'
           this.uploadSuccess = false
           this.uploading = false
+          submitButton.disabled = false
         })
 
         if (!response) return
@@ -69,11 +72,13 @@ export default {
         this.uploadSuccess = true
       }).catch(async (error) => {
         console.log(error.message, 'Error posting to repository');
-        progressHeader.innerText = error.message + ' during repository save'
+        progressHeader.innerText = 'Repository save error'
         progressHeader.style.color = 'red'
+        submitButton.disabled = false
       })
 
       this.uploading = false
+      submitButton.disabled = false
     },
 
     async deleteSongAsync(name) {

@@ -15,6 +15,12 @@
   max-width: fit-content;
 }
 
+@media screen and (max-width: 736px) {
+  .upload-container {
+    max-width: 75%;
+  }
+}
+
 .upload-form {
   display: grid;
   gap: 5px;
