@@ -1,21 +1,19 @@
 <template>
   <div class="upload-header">
-    <button class="btn btn-sm" @click="goBack()">
-      <i class="fas fa-arrow-left"></i>
-    </button>
-    <h3 class="form-label" id="edit-h1">Upload a song</h3>
+    <h1 class="form-label" id="edit-h1">Upload a song</h1>
   </div>
   <div class="upload-form-div">
     <form class="upload-form" @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
-      <input type="text" class="author form-control" placeholder="Author" ref="author">
       <input type="file" class="form-control" name="file" id="#upload" ref="fileInput" aria-describedby="fileHelpId"/>
+      <input type="text" class="author form-control" placeholder="Author" ref="author">
       <div class="upload-button-div">
         <button class="btn btn-primary" id="submitButton" type="submit" value="Upload">
           {{ upload.at(uploading) }}
         </button>
-        <h2 class="upload-progress p-3 text-center">Progress: {{ uploadProgress }}
-          <i class="fas fa-check shining-green-check mx-3" v-if="uploadSuccess"></i>
-        </h2>
+        <div class="progress-header-div">
+          <h2 id="progress-header" class="upload-progress p-3 text-center position-absolute" v-if="uploading">Progress: {{ uploadProgress }}</h2>
+        </div>
+        <!-- <i class="fas fa-check shining-green-check mx-3"></i> -->
       </div>
     </form>
   </div>

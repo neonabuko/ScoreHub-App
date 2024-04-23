@@ -7,6 +7,8 @@ export default {
     ...general.methods,
 
     async uploadSongAsync() {
+      let progressHeader = document.getElementById('progress-header')
+      progressHeader.style.color = 'white'
       let fileInput = this.$refs.fileInput
       if (fileInput.files.length === 0) {
         console.log('no file input');
@@ -21,8 +23,10 @@ export default {
       let currentChunk = 0
       let totalChunks = Math.ceil(file.size / CHUNK_SIZE)
       let startByte = 0
+      
 
       while (startByte < file.size) {
+        progressHeader.innerText = 'Progress: ' + this.uploadProgress
         currentChunk++
         let chunk = file.slice(startByte, startByte + CHUNK_SIZE)
         let chunkData = new FormData()
@@ -38,6 +42,12 @@ export default {
           onUploadProgress: progressEvent => {
             this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / file.size) + '%'
           }
+        }).catch((error) => {
+          console.log('Error uploading chunks:', error);
+          progressHeader.innerText = 'Error'
+          progressHeader.style.color = 'red'
+          this.uploadSuccess = false
+          this.uploading = false
         })
 
         if (response.status === 200) {
@@ -51,10 +61,14 @@ export default {
       songData.append("author", author)
 
       await axios.post(API_URL + "/upload", songData).then(async (response) => {
-        console.log('Upload to repository status:', response.status);
+        console.log('Repository upload success:', response.status);
+        progressHeader.innerText = 'Success'
+        progressHeader.style.color = 'green'
+        this.uploadSuccess = true
+      }).catch(async (error) => {
+        console.log('Error posting to repository:', error);
       })
 
-      this.uploadSuccess = true
       this.uploading = false
     },
 
