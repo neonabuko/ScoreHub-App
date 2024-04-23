@@ -13,11 +13,9 @@ export default {
         return
       }
 
-
       this.uploading = true
       let file = fileInput.files[0]
       let author = this.$refs.author.value
-
 
       const CHUNK_SIZE = 1024 * 1024; // 1 MB
       let currentChunk = 0
@@ -33,8 +31,6 @@ export default {
         chunkData.append("data", chunk)
         chunkData.append("totalChunks", totalChunks)
 
-
-
         let response = await axios.post(API_URL + "/uploadChunk", chunkData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -49,7 +45,6 @@ export default {
           startByte += CHUNK_SIZE;
         }
       }
-
 
       let songData = new FormData()
       songData.append("name", file.name)

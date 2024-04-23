@@ -13,7 +13,7 @@
         <button class="btn btn-primary" id="submitButton" type="submit" value="Upload">
           {{ upload.at(uploading) }}
         </button>
-        <h2 class="upload-progress">Progress: {{ uploadProgress }}
+        <h2 class="upload-progress p-3 text-center">Progress: {{ uploadProgress }}
           <i class="fas fa-check shining-green-check mx-3" v-if="uploadSuccess"></i>
         </h2>
       </div>
