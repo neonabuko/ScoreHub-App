@@ -1,6 +1,6 @@
 <template>
-  <button class="btn btn-sm" @click="goBack()">
-    <i class="fas fa-angle-left fa-2x m-5 position-absolute"></i>
+  <button class="btn btn-sm" id="btn-goBack" @click="goBack()">
+    <i class="fas fa-angle-left fa-2x"></i>
   </button>
   <main class="container upload-container">
     <UploadForm></UploadForm>
