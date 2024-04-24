@@ -29,20 +29,23 @@ export default {
       return chunkData
     },
 
-    createSongDto(songName, author) {
+    createSongDto(songName, author, timeSpan) {
       const songData = new FormData()
       songData.append("name", songName)
       songData.append("author", author)
+      songData.append("duration", timeSpan)
       return songData
     },
 
     async uploadToRepositoryAsync(file) {
       const author = this.$refs.author.value
-      const songData = this.createSongDto(file.name, author)
+      const duration = await this.getAudioDuration(file);
+      const timeSpan = this.convertSecondsToTimeSpan(duration)
+      
+      const songData = this.createSongDto(file.name, author, timeSpan)
 
       try {
-        const response = await axios.post(API_URL + "/upload", songData)
-        console.log('Save to repository:', response.status)
+        await axios.post(API_URL + "/upload", songData)
         this.uploadSuccess = true
       } catch (error) {
         console.error(error.message)
@@ -96,12 +99,12 @@ export default {
       this.progressHeader.style.color = color
     },
 
-
     async deleteSongAsync(name) {
       let confirmDelete = confirm('Delete permanently?')
       if (confirmDelete) {
-        await axios.delete(API_URL + `/delete/${name}`)
-        this.goBack()
+        axios.delete(API_URL + `/delete/${name}`).then(() => {
+          this.goBack()
+        })
       }
     },
     async getAllSongDataAsync() {

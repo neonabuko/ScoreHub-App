@@ -4,15 +4,39 @@
             <img src="/vite.svg" alt="logo">
             <router-link class="navbar-brand" to="/">Song Manager</router-link>
         </div>
+        <div class="mt-2">
+            <nav>
+                <input type="text" class="form-control" v-model="searchQuery" placeholder="Search songs..."
+                    @input="filterSongs">
+            </nav>
+        </div>
         <div>
             <ul class="navbar gap-3 p-0 m-0 mx-1">
                 <li class="nav-link">
                     <router-link class="nav-link" to="/upload"><i class="fas fa-upload"></i></router-link>
                 </li>
-                <!-- <div class="">
-                    <input class="form-control" placeholder="Search" to="/upload">
-                </div> -->
             </ul>
         </div>
     </nav>
 </template>
+
+<script>
+import general from '../scripts/general'
+import { mapState, mapActions } from 'vuex';
+
+export default {
+    data() {
+        return {
+            searchQuery: ''
+        }
+    },
+    computed: {
+        ...mapState(['songs']),
+    },
+    methods: {
+        ...general.methods,
+        ...mapActions(['setSongs', 'fetchAllSongDataAsync'])
+    },
+}
+
+</script>

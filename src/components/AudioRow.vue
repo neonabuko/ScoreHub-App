@@ -9,7 +9,7 @@
         <div class="song-title">
           <i class="fas fa-music fa-2x music-icon"></i>
           <div class="song-title-inner">
-            <button class="song-title-button">{{ song.name.replace(/\.mp3$/, '') }}</button>
+            <button class="song-title-button">{{ removeAudioExtensions(song.name) }}</button>
             <div class="song-details">
               {{ song.author ? song.author : 'Unknown' }} ·
               {{ formatDuration(song.duration) }}
@@ -40,9 +40,8 @@ import general from '../scripts/general.js';
 export default {
   data() {
     return {
-      currentSongName: '',
-      duration: '',
-      songSelected: false
+      songSelected: false,
+      songsFiltered: []
     }
   },
   computed: {

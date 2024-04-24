@@ -34,13 +34,11 @@
 }
 
 .progress-header-div {
-  position: absolute;
-  height: 120px;
-  width: 310px;
-  margin-top: 280px;
   display: flex;
   justify-content: center;
   align-items: start;
+
+  margin-top: 10px;
 }
 
 .shining-green-check {
