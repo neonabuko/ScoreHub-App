@@ -8,7 +8,7 @@ export default {
 
     async uploadSongAsync() {
       this.uploading = true
-      this.setProgressHeader('', 'white')
+      this.setProgressHeader('', '')
 
       const fileInput = this.$refs.fileInput
       const file = fileInput.files[0]
@@ -41,7 +41,6 @@ export default {
       const author = this.$refs.author.value
       const duration = await this.getAudioDuration(file);
       const timeSpan = this.convertSecondsToTimeSpan(duration)
-      
       const songData = this.createSongDto(file.name, author, timeSpan)
 
       try {
@@ -107,22 +106,29 @@ export default {
         })
       }
     },
+
     async getAllSongDataAsync() {
       this.$store.state.loading = true
       const songs = await this.fetchAllSongDataAsync()
       this.$store.commit('setSongs', songs)
       this.$store.state.loading = false
     },
+
     async getCurrentSongAsync(songName) {
+      this.resetPlayer()
+      this.updateAudioRowColor(songName)
+      this.currentSongName = songName
+      const currentSong = API_URL + '/songs/' + songName
+      this.$store.commit('setCurrentSong', currentSong)
+    },
+
+    resetPlayer() {
       this.isPlaying = true
       this.progress = 0
       this.$store.commit('setCurrentSong', '')
       this.songSelected = true
-      this.updateAudioRowColor(songName)
-      this.currentSongName = songName
-      const currentSong = await this.fetchCurrentSongAsync(songName)
-      this.$store.commit('setCurrentSong', currentSong)
     },
+
     closePlayer() {
       this.songSelected = false
       this.updateAudioRowColor('')

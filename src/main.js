@@ -22,10 +22,6 @@ const store = createStore({
             let response = await axios.get(API_URL + "/songs")
             return await response.data
         },
-        
-        async fetchCurrentSongAsync({state}, songName) {
-            return API_URL + '/songs/' + songName
-        }
     },
     mutations: {
         setSongs(state, songs) {

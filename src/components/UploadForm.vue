@@ -4,7 +4,7 @@
   </div>
   <div class="upload-form-div">
     <form class="upload-form" @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
-      <input type="file" class="form-control" name="file" id="#upload" ref="fileInput" aria-describedby="fileHelpId"/>
+      <input type="file" class="form-control" name="file" id="upload-file" ref="fileInput" aria-describedby="fileHelpId"/>
       <input type="text" class="author form-control" placeholder="Author" ref="author">
       <div class="upload-button-div">
         <button class="btn btn-primary" id="submit-button" type="submit" value="Upload" :disabled="uploading">
@@ -13,11 +13,10 @@
         <div class="progress-header-div">
           <h2 id="progress-header" class="upload-progress"></h2>
         </div>
-        <!-- <i class="fas fa-check shining-green-check mx-3"></i> -->
       </div>
     </form>
   </div>
-  <div id="fileHelpId" class="form-text">Supported formats: mp3, wav, mpeg, ogg, m4a.</div>
+  <div id="fileHelpId" class="form-text">Supported formats: mp3, wav.</div>
 </template>
 
 <script>
