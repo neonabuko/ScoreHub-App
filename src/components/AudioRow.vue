@@ -28,10 +28,18 @@
     <audio autoplay id="player" ref="player" @timeupdate="updateProgress">
       <source :src="currentSong" type="audio/mpeg">
     </audio>
-    <input type="range" class="progress" :value="progress" @input="seek">
-    <div class="player-button">
+    <input type="range" id="progress-bar" :value="progress" @input="seek">
+    <div id="time">
+      <div class="current-time">
+        {{ formatTime(currentTime) }}
+      </div>
+      <div class="total-time text-end" >
+        {{ formatTime(totalTime) }}
+      </div>
+    </div>
+    <div class="play-button">
       <button class="btn border-0">
-        <i id="play-button-icon" ref="playButtonIcon" class="fas fa-play" @click="playPause"></i>
+        <i id="play-button-icon" ref="playButtonIcon" :class="iconClass()" @click="playPause"></i>
       </button>
     </div>
   </div>
@@ -47,6 +55,8 @@ export default {
     return {
       isPlaying: false,
       progress: 0,
+      currentTime: '',
+      totalTime: '',
       songSelected: false,
       songsFiltered: []
     }
@@ -59,28 +69,28 @@ export default {
     ...general.methods,
     ...mapActions(['fetchAllSongDataAsync', 'fetchCurrentSongAsync']),
 
+    iconClass() {
+      return this.isPlaying ? 'fas fa-circle-pause fa-3x' : 'fas fa-circle-play fa-3x'
+    },
+
     playPause() {
-      console.log('playing');
       const audio = this.$refs.player
-      let playButtonIcon = this.$refs.playButtonIcon
       if (this.isPlaying) {
-        playButtonIcon.classList.remove('fa-pause')
-        playButtonIcon.classList.add('fa-play')
         audio.pause()
       } else {
-        playButtonIcon.classList.remove('fa-play')
-        playButtonIcon.classList.add('fa-pause')
         audio.play()
       }
       this.isPlaying = !this.isPlaying
     },
 
-  
     updateProgress() {
       const audio = this.$refs.player
+      this.totalTime = Math.round(audio.duration)
       const progress = (audio.currentTime / audio.duration) * 100
       this.progress = isNaN(progress) ? 0 : progress
+      this.currentTime = audio.currentTime
     },
+
     seek(event) {
       const audio = this.$refs.player
       const seekTime = (event.target.value / 100) * audio.duration
