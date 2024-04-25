@@ -3,7 +3,7 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-grid" @click="getCurrentSongAsync(song.name).then(() =>  playPause())" v-for="(song, index) in songs" :key="index"
+    <div class="audio-grid" @click="getCurrentSongAsync(song.name)" v-for="(song, index) in songs" :key="index"
       :id="song.name">
       <div class="audio-inner-grid">
         <div class="song-title">
@@ -25,8 +25,7 @@
     </div>
   </div>
   <div class="player-controls" v-if="songSelected">
-    <audio autoplay id="player" ref="player" @timeupdate="updateProgress">
-      <source :src="currentSong" type="audio/mpeg">
+    <audio autoplay id="player" ref="player" @timeupdate="updateProgress" :src="currentSong">
     </audio>
     <input type="range" id="progress-bar" :value="progress" @input="seek">
     <div id="time">
