@@ -3,13 +3,8 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div
-      class="audio-grid"
-      @click="getCurrentSongAsync(song.name)"
-      v-for="(song, index) in songs"
-      :key="index"
-      :id="song.name"
-    >
+    <div class="audio-grid" @click="getCurrentSongAsync(song.name)" v-for="(song, index) in songs" :key="index"
+      :id="song.name">
       <div class="audio-inner-grid">
         <div class="song-title">
           <i class="fas fa-music fa-2x music-icon"></i>
@@ -24,10 +19,7 @@
           </div>
         </div>
         <div class="song-edit">
-          <router-link
-            :to="{ name: 'Edit', params: { name: song.name } }"
-            class="btn btn-outline-light"
-          >
+          <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="btn btn-outline-light">
             <i class="fas fa-ellipsis-v"></i>
           </router-link>
         </div>
@@ -35,15 +27,8 @@
     </div>
   </div>
   <div class="player-controls" v-if="songSelected">
-    <audio
-      preload="metadata"
-      autoplay
-      id="player"
-      ref="player"
-      @timeupdate="updateProgress"
-      :src="currentSong"
-    ></audio>
-    <input type="range" id="progress-bar" :value="progress" @input="seek" />
+    <audio preload="metadata" autoplay id="player" ref="player" @timeupdate="updateProgress" :src="currentSong"></audio>
+    <input type="range" id="progress-bar" step="0.1" :value="progress" @input="seek" />
     <div id="time">
       <div class="current-time">
         {{ formatTime(currentTime) }}
@@ -52,15 +37,15 @@
         {{ formatTime(totalTime) }}
       </div>
     </div>
-    <div class="play-button">
-      <button class="btn border-0">
-        <i
-          id="play-button-icon"
-          ref="playButtonIcon"
-          :class="iconClass()"
-          @click="playPause"
-        ></i>
+    <div class="play-button-div">
+      <button class="btn play-button">
+        <i id="play-button-icon" ref="playButtonIcon" :class="iconClass()" @click="playPause"></i>
       </button>
+      <div class="close-player-div">
+        <button class="btn close-player" @click="closePlayer">
+          <i class="fas fa-x"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -92,8 +77,8 @@ export default {
 
     iconClass() {
       return this.isPlaying
-        ? "fas fa-circle-pause fa-3x"
-        : "fas fa-circle-play fa-3x"
+        ? "fas fa-pause fa-3x"
+        : "fas fa-play fa-3x"
     },
 
     playPause() {
@@ -108,10 +93,12 @@ export default {
 
     updateProgress() {
       const audio = this.$refs.player
-      this.totalTime = Math.round(audio.duration)
-      const progress = (audio.currentTime / audio.duration) * 100
-      this.progress = isNaN(progress) ? 0 : progress
-      this.currentTime = audio.currentTime
+      if (audio) {
+        this.totalTime = Math.round(audio.duration)
+        const progress = (audio.currentTime / audio.duration) * 100
+        this.progress = isNaN(progress) ? 0 : progress
+        this.currentTime = audio.currentTime
+      }
     },
 
     seek(event) {

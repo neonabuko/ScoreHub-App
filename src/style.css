@@ -10,12 +10,8 @@ body {
   font-family: "Mulish", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
   font-kerning: auto;
   font-optical-sizing: auto;
-  -webkit-font-kerning: auto;
-  -moz-osx-font-smoothing: grayscale;
-  color-scheme: light dark;
   background-color: #101010;
 }
 
