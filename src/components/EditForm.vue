@@ -1,7 +1,7 @@
 <template>
     <main class="container edit-container">
         <div class="edit-header">
-            <h1>{{ songName.replace(/\.mp3$/, '') }}</h1>
+            <h1>{{ songName }}</h1>
         </div>
         <div class="edit-form-div">
             <form class="edit-form" @submit.prevent="updateSongAsync" method="post" enctype="multipart/form-data">
@@ -9,8 +9,8 @@
                 <input type="text" name="title" placeholder="Title" id="" :value="title" class="form-control" ref="title">
                 <input type="text" name="author" placeholder="Author" :value="author" id="" class="form-control" ref="author">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" class="btn btn-danger" @click="deleteSongAsync(songName)">Delete</button>
             </form>
+            <button type="submit" class="btn btn-danger" @click="deleteSongAsync(songName)">Delete</button>
         </div>
     </main>
 </template>

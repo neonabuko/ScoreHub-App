@@ -35,9 +35,7 @@ export default {
     methods: {
         ...general.methods,
         ...mapActions(['setSongs', 'fetchAllSongDataAsync'])
-    },
-    mounted() {
-    },
+    }
 }
 
 </script>

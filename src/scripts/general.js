@@ -21,7 +21,7 @@ export default {
                 return
             }
             const query = this.searchQuery.toLowerCase()
-            let filtered = allSongs.filter(song => song.name.toLowerCase().includes(query))
+            let filtered = allSongs.filter(song => song.title.toLowerCase().includes(query))
             this.$store.commit('setSongs', filtered)
         },
 
