@@ -19,12 +19,12 @@ export default {
         updateProgress() {
             const audio = this.$refs.player
             if (audio) {
-                this.totalTime = Math.round(audio.duration)
+                this.$store.state.totalTime = Math.round(audio.duration)
                 const progress = (audio.currentTime / audio.duration) * 100
-                this.progress = isNaN(progress) ? 0 : progress
-                this.currentTime = audio.currentTime
+                this.$store.state.progress = isNaN(progress) ? 0 : progress
+                this.$store.state.currentTime = audio.currentTime
                 if (audio.duration === audio.currentTime) {
-                    this.currentTime = this.totalTime
+                    this.$store.state.currentTime = this.$store.state.totalTime
                     this.$store.state.isPlaying = false
                 }
             }

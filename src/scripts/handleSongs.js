@@ -149,14 +149,14 @@ export default {
       this.resetPlayer()
       this.updateAudioRowColor(songName)
       this.currentSongName = songName
-      const currentSong = API_URL + '/songs/' + songName
-      this.$store.commit('setCurrentSong', currentSong)
+      const currentSongUrl = API_URL + '/songs/' + songName
+      this.$store.commit('setCurrentSongUrl', currentSongUrl)
     },
 
     resetPlayer() {
       this.$store.state.isPlaying = true
       this.progress = 0
-      this.$store.commit('setCurrentSong', '')
+      this.$store.commit('setCurrentSongUrl', '')
       this.$store.state.songSelected = true
     },
 

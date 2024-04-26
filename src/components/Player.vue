@@ -1,14 +1,14 @@
 <template>
     <div class="player-controls" v-if="songSelected">
         <audio preload="metadata" autoplay id="player" ref="player" @timeupdate="updateProgress"
-            :src="currentSong"></audio>
+            :src="currentSongUrl"></audio>
         <input type="range" id="progress-bar" step="0.1" :value="progress" @input="seek" />
         <div id="time">
             <div class="current-time">
-                {{ formatTime(currentTime) }}
+                {{ formatAudioTime(currentTime) }}
             </div>
             <div class="total-time text-end">
-                {{ formatTime(totalTime) }}
+                {{ formatAudioTime(totalTime) }}
             </div>
         </div>
         <div class="play-button-div">
@@ -25,27 +25,17 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import handlePlayer from '../scripts/handlePlayer'
 import handleSongs from '../scripts/handleSongs'
-import general from '../scripts/general'
 
 export default {
-    data() {
-        return {
-            progress: 0,
-            currentTime: 0,
-            totalTime: 0,
-        }
-    },
     computed: {
-    ...mapState(["currentSong", "songSelected", "isPlaying"]),
+    ...mapState(["currentSongUrl", "songSelected", "isPlaying", "progress", "currentTime", "totalTime"]),
   },
   methods: {
     ...handleSongs.methods,
     ...handlePlayer.methods,
-    ...general.methods,
-    ...mapActions(["fetchCurrentSongAsync"]),
   },
 }
 </script>

@@ -14,7 +14,7 @@
             </button>
             <div class="song-details">
               {{ song.author ? song.author : "Unknown" }} ·
-              {{ formatDuration(song.duration) }}
+              {{ formatTimeSpan(song.duration) }}
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["songs", "loading", "currentSong"]),
+    ...mapState(["songs", "loading", "currentSongUrl"]),
   },
   methods: {
     ...handleSongs.methods,

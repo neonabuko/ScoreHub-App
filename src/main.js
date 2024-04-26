@@ -14,10 +14,13 @@ const store = createStore({
     state() {
         return {
             songs: [],
-            currentSong: '',
+            currentSongUrl: '',
             songSelected: false,
             loading: false,
-            isPlaying: false
+            isPlaying: false,
+            progress: 0,
+            currentTime: 0,
+            totalTime: 0,
         };
     },
     actions: {
@@ -30,8 +33,8 @@ const store = createStore({
         setSongs(state, songs) {
             state.songs = songs
         },
-        setCurrentSong(state, currentSong) {
-            state.currentSong = currentSong
+        setCurrentSongUrl(state, currentSongUrl) {
+            state.currentSongUrl = currentSongUrl
         }
     }
 });

@@ -36,7 +36,7 @@ export default {
             return timeSpan
         },
 
-        formatDuration(timeSpan) {
+        formatTimeSpan(timeSpan) {
             let parts = timeSpan.split(':')
             let hours = parseInt(parts[0])
             let minutes = parseInt(parts[1])
@@ -49,7 +49,7 @@ export default {
             }
         },
 
-        formatTime(time) {
+        formatAudioTime(time) {
             const hours = Math.floor(time / 3600)
             const minutes = Math.floor((time % 3600) / 60)
             const seconds = Math.floor(time % 60)
