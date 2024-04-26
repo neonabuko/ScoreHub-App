@@ -146,7 +146,7 @@ export default {
     },
 
     async getCurrentSongAsync(currentSongName) {
-      this.resetPlayer()
+      this.resetPlayer(currentSongName)
       this.updateAudioRowColor(currentSongName)
 
       const currentSongUrl = API_URL + '/songs/' + currentSongName
@@ -156,8 +156,9 @@ export default {
       })
     },
 
-    resetPlayer() {
+    resetPlayer(currentSongName) {
       this.$store.commit('resetPlayer')
+      this.updateAudioRowColor(currentSongName)
     },
   }
 }

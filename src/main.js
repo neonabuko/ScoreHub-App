@@ -4,6 +4,7 @@ import "./components/Navbar.css"
 import "./components/UploadForm.css"
 import "./components/AudioRow.css"
 import "./components/EditForm.css"
+import "./components/Player.css"
 import App from "./App.vue";
 import router from "./router/index.js";
 import { createStore } from "vuex";
@@ -47,7 +48,7 @@ const store = createStore({
             state.currentSongName = currentSongName
             state.songSelected = true
             state.isPlaying = true
-        }
+        },
     }
 });
 

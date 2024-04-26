@@ -8,7 +8,7 @@ export default {
 
         playPause() {
             const audio = this.$refs.player
-            if (this.isPlaying) {
+            if (this.$store.state.isPlaying) {
                 audio.pause()
             } else {
                 audio.play()

@@ -11,15 +11,14 @@
                 {{ formatAudioTime(totalTime) }}
             </div>
         </div>
-        <div class="play-button-div">
-            <button class="btn play-button">
-                <i id="play-button-icon" ref="playButtonIcon" :class="setPlayPauseIcon()" @click="playPause"></i>
+        <div class="buttons-div">
+            <button class="btn no-button"></button>
+            <button class="btn play-button" id="play-button">
+                <i id="play-button-icon" ref="playButtonIcon" :class="setPlayPauseIcon()" @click="playPause()"></i>
             </button>
-            <div class="close-player-div">
-                <button class="btn close-player" @click="resetPlayer">
-                    <i class="fas fa-x"></i>
-                </button>
-            </div>
+            <button class="btn close-player" id="close-button" @click="resetPlayer">
+                <i class="fas fa-x"></i>
+            </button>
         </div>
     </div>
 </template>
@@ -31,7 +30,7 @@ import handleSongs from '../scripts/handleSongs'
 
 export default {
     computed: {
-    ...mapState(["currentSongUrl", "songSelected", "isPlaying", "progress", "currentTime", "totalTime"]),
+    ...mapState(["currentSongUrl", "songSelected", "progress", "currentTime", "totalTime"]),
   },
   methods: {
     ...handleSongs.methods,
