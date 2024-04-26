@@ -4,10 +4,9 @@
             <img src="/vite.svg" alt="logo">
             <router-link class="navbar-brand" to="/">Song Manager</router-link>
         </div>
-        <div class="mt-3" id="search">
+        <div class="mt-3" id="search" v-if="$route.name === 'Home'">
             <nav>
-                <input type="text" class="form-control" v-model="searchQuery" placeholder="Search"
-                    @input="filterSongs">
+                <input type="text" class="form-control" v-model="searchQuery" placeholder="Search" @input="filterSongs">
             </nav>
         </div>
         <div>
@@ -36,6 +35,8 @@ export default {
     methods: {
         ...general.methods,
         ...mapActions(['setSongs', 'fetchAllSongDataAsync'])
+    },
+    mounted() {
     },
 }
 
