@@ -39,7 +39,7 @@
     </div>
     <div class="play-button-div">
       <button class="btn play-button">
-        <i id="play-button-icon" ref="playButtonIcon" :class="iconClass()" @click="playPause"></i>
+        <i id="play-button-icon" ref="playButtonIcon" :class="setPlayPauseIcon()" @click="playPause"></i>
       </button>
       <div class="close-player-div">
         <button class="btn close-player" @click="closePlayer">
@@ -53,6 +53,7 @@
 <script>
 import { mapActions, mapState } from "vuex"
 import handleSongs from "../scripts/handleSongs.js"
+import handlePlayer from "../scripts/handlePlayer.js"
 import general from "../scripts/general.js"
 
 export default {
@@ -72,44 +73,9 @@ export default {
   },
   methods: {
     ...handleSongs.methods,
+    ...handlePlayer.methods,
     ...general.methods,
     ...mapActions(["fetchAllSongDataAsync", "fetchCurrentSongAsync"]),
-
-    iconClass() {
-      return this.isPlaying
-        ? "fas fa-pause fa-3x"
-        : "fas fa-play fa-3x"
-    },
-
-    playPause() {
-      const audio = this.$refs.player
-      if (this.isPlaying) {
-        audio.pause()
-      } else {
-        audio.play()
-      }
-      this.isPlaying = !this.isPlaying
-    },
-
-    updateProgress() {
-      const audio = this.$refs.player
-      if (audio) {
-        this.totalTime = Math.round(audio.duration)
-        const progress = (audio.currentTime / audio.duration) * 100
-        this.progress = isNaN(progress) ? 0 : progress
-        this.currentTime = audio.currentTime
-        if (audio.duration === audio.currentTime) {
-          this.currentTime = this.totalTime
-          this.isPlaying = false
-        } 
-      }
-    },
-
-    seek(event) {
-      const audio = this.$refs.player
-      const seekTime = (event.target.value / 100) * audio.duration
-      audio.currentTime = seekTime
-    },
   },
   mounted() {
     this.getAllSongDataAsync()
