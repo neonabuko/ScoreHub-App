@@ -100,7 +100,6 @@ export default {
         this.currentTime = audio.currentTime
         if (audio.duration === audio.currentTime) this.isPlaying = false
       }
-
     },
 
     seek(event) {
