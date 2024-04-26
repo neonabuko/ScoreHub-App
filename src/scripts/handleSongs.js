@@ -131,7 +131,10 @@ export default {
         var author = this.$refs.author.value
   
         let songEditData = this.createSongEditDto(title, author)
-        axios.patch(API_URL + `/songs?name=${name}`, songEditData)
+        axios.patch(API_URL + `/songs?name=${name}`, songEditData).then(async () => {
+          this.goBack()
+          await this.getAllSongDataAsync()
+        })
       }
     },
 

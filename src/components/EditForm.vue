@@ -8,7 +8,7 @@
                 <input type="hidden" name="name" id="" :value="songName" ref="name">
                 <input type="text" name="title" placeholder="Title" id="" :value="title" class="form-control" ref="title">
                 <input type="text" name="author" placeholder="Author" :value="author" id="" class="form-control" ref="author">
-                <button type="submit" class="btn btn-primary" @click="goBack()">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
                 <button type="submit" class="btn btn-danger" @click="deleteSongAsync(songName)">Delete</button>
             </form>
         </div>
@@ -20,6 +20,7 @@ import handleSongs from '../scripts/handleSongs'
 import general from '../scripts/general'
 import axios from 'axios'
 import { API_URL } from '../scripts/variables'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
@@ -32,6 +33,7 @@ export default {
     methods: {
         ...handleSongs.methods,
         ...general.methods,
+        ...mapActions(["fetchAllSongDataAsync"]),
         async getSongAuthor(songName) {
             let response = await axios.get(API_URL + "/songs/data/" + songName)
             this.title = response.data.title
