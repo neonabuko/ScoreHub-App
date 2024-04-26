@@ -10,7 +10,7 @@
           <i class="fas fa-music fa-2x music-icon"></i>
           <div class="song-title-inner">
             <button class="song-title-button">
-              {{ removeAudioExtensions(song.name) }}
+              {{ song.title }}
             </button>
             <div class="song-details">
               {{ song.author ? song.author : "Unknown" }} ·

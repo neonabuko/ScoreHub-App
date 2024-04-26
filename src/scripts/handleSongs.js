@@ -41,6 +41,13 @@ export default {
       return songData
     },
 
+    createSongEditDto(title, author) {
+      const songEditData = new FormData()
+      songEditData.append("title", title)
+      songEditData.append("author", author)
+      return songEditData
+    },
+
     async uploadToRepositoryAsync(file, bitrate) {
       const title = this.$refs.title.value
       const author = this.$refs.author.value
@@ -113,6 +120,18 @@ export default {
         axios.delete(API_URL + `/delete/${name}`).then(() => {
           this.goBack()
         })
+      }
+    },
+
+    async updateSongAsync() {
+      let confirmUpdate = confirm('Confirm update?')
+      if (confirmUpdate) {
+        var name = this.$refs.name.value
+        var title = this.$refs.title.value
+        var author = this.$refs.author.value
+  
+        let songEditData = this.createSongEditDto(title, author)
+        axios.patch(API_URL + `/songs?name=${name}`, songEditData)
       }
     },
 
