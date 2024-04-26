@@ -31,9 +31,10 @@ export default {
       return chunkData
     },
 
-    createSongDto(songName, author, timeSpan, bitrate) {
+    createSongDto(songName, title, author, timeSpan, bitrate) {
       const songData = new FormData()
       songData.append("name", songName)
+      songData.append("title", title)
       songData.append("author", author)
       songData.append("duration", timeSpan)
       songData.append("bitrate", bitrate)
@@ -41,10 +42,11 @@ export default {
     },
 
     async uploadToRepositoryAsync(file, bitrate) {
+      const title = this.$refs.title.value
       const author = this.$refs.author.value
       const duration = await this.getAudioDuration(file);
       const timeSpan = this.convertSecondsToTimeSpan(duration)
-      const songData = this.createSongDto(file.name, author, timeSpan, bitrate)
+      const songData = this.createSongDto(file.name, title, author, timeSpan, bitrate)
 
       try {
         await axios.post(API_URL + "/upload", songData)

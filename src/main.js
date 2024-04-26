@@ -3,6 +3,7 @@ import "./style.css";
 import "./components/Navbar.css"
 import "./components/UploadForm.css"
 import "./components/AudioRow.css"
+import "./components/EditForm.css"
 import App from "./App.vue";
 import router from "./router/index.js";
 import { createStore } from "vuex";

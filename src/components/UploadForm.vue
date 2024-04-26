@@ -5,6 +5,7 @@
   <div class="upload-form-div">
     <form class="upload-form" @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
       <input type="file" class="form-control" name="file" id="upload-file" ref="fileInput" aria-describedby="fileHelpId"/>
+      <input type="text" class="title form-control" placeholder="Title" ref="title">
       <input type="text" class="author form-control" placeholder="Author" ref="author">
       <div class="upload-button-div">
         <button class="btn btn-primary" id="submit-button" type="submit" value="Upload" :disabled="uploading">

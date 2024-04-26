@@ -1,21 +1,13 @@
 <template>
-    <div class="container text-center mt-3">
-        <h1>{{ name.replace(/\.mp3$/, '') }}</h1>
-        <button class="btn btn-danger" @click="deleteSongAsync(name)">Delete</button>
-    </div>
+    <EditForm></EditForm>
 </template>
 
 <script>
-import handleSongs from '../scripts/handleSongs';
+import EditForm from '../components/EditForm.vue';
 
 export default {
-    data() {
-        return {
-            name: this.$route.params.name
-        }
-    },
-    methods: {
-        ...handleSongs.methods
+    components: {
+        EditForm: EditForm
     },
 }
 </script>
