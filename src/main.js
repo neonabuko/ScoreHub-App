@@ -15,7 +15,9 @@ const store = createStore({
         return {
             songs: [],
             currentSong: '',
-            loading: false
+            songSelected: false,
+            loading: false,
+            isPlaying: false
         };
     },
     actions: {

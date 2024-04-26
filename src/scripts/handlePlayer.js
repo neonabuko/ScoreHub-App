@@ -1,7 +1,7 @@
 export default {
     methods: {
         setPlayPauseIcon() {
-            return this.isPlaying
+            return this.$store.state.isPlaying
                 ? "fas fa-pause fa-3x"
                 : "fas fa-play fa-3x"
         },
@@ -13,7 +13,7 @@ export default {
             } else {
                 audio.play()
             }
-            this.isPlaying = !this.isPlaying
+            this.$store.state.isPlaying = !this.$store.state.isPlaying
         },
 
         updateProgress() {
@@ -25,7 +25,7 @@ export default {
                 this.currentTime = audio.currentTime
                 if (audio.duration === audio.currentTime) {
                     this.currentTime = this.totalTime
-                    this.isPlaying = false
+                    this.$store.state.isPlaying = false
                 }
             }
         },

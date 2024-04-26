@@ -154,14 +154,14 @@ export default {
     },
 
     resetPlayer() {
-      this.isPlaying = true
+      this.$store.state.isPlaying = true
       this.progress = 0
       this.$store.commit('setCurrentSong', '')
-      this.songSelected = true
+      this.$store.state.songSelected = true
     },
 
     closePlayer() {
-      this.songSelected = false
+      this.$store.state.songSelected = false
       this.updateAudioRowColor('')
     }
   }
