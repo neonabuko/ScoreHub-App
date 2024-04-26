@@ -60,8 +60,8 @@ export default {
     return {
       isPlaying: false,
       progress: 0,
-      currentTime: "",
-      totalTime: "",
+      currentTime: 0,
+      totalTime: 0,
       songSelected: false,
       songsFiltered: [],
       loadingSong: true
@@ -98,7 +98,10 @@ export default {
         const progress = (audio.currentTime / audio.duration) * 100
         this.progress = isNaN(progress) ? 0 : progress
         this.currentTime = audio.currentTime
-        if (audio.duration === audio.currentTime) this.isPlaying = false
+        if (audio.duration === audio.currentTime) {
+          this.currentTime = this.totalTime
+          this.isPlaying = false
+        } 
       }
     },
 
