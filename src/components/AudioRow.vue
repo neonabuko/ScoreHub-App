@@ -98,7 +98,9 @@ export default {
         const progress = (audio.currentTime / audio.duration) * 100
         this.progress = isNaN(progress) ? 0 : progress
         this.currentTime = audio.currentTime
+        if (audio.duration === audio.currentTime) this.isPlaying = false
       }
+
     },
 
     seek(event) {
