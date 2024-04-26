@@ -62,7 +62,7 @@ export default {
           },
 
         updateAudioRowColor(newSongName) {
-            let previousSongName = this.currentSongName
+            let previousSongName = this.$store.state.currentSongName
             if (previousSongName !== '') {
                 let previousAudioRow = document.getElementById(previousSongName)
                 if (previousAudioRow) {

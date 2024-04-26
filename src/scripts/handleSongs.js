@@ -129,7 +129,7 @@ export default {
         var name = this.$refs.name.value
         var title = this.$refs.title.value
         var author = this.$refs.author.value
-  
+
         let songEditData = this.createSongEditDto(title, author)
         axios.patch(API_URL + `/songs?name=${name}`, songEditData).then(async () => {
           this.goBack()
@@ -145,24 +145,19 @@ export default {
       this.$store.state.loading = false
     },
 
-    async getCurrentSongAsync(songName) {
+    async getCurrentSongAsync(currentSongName) {
       this.resetPlayer()
-      this.updateAudioRowColor(songName)
-      this.currentSongName = songName
-      const currentSongUrl = API_URL + '/songs/' + songName
-      this.$store.commit('setCurrentSongUrl', currentSongUrl)
-      this.$store.state.songSelected = true
-      this.$store.state.isPlaying = true
+      this.updateAudioRowColor(currentSongName)
+
+      const currentSongUrl = API_URL + '/songs/' + currentSongName
+      this.$store.commit('startPlayer', {
+        currentSongUrl: currentSongUrl,
+        currentSongName: currentSongName
+      })
     },
 
     resetPlayer() {
-      this.$store.state.isPlaying = false
-      this.$store.state.songSelected = false
-      this.$store.state.progress = 0
-      this.$store.state.currentTime = 0
-      this.$store.state.totalTime = 0
-      this.updateAudioRowColor('')
-      this.$store.commit('setCurrentSongUrl', '')
+      this.$store.commit('resetPlayer')
     },
   }
 }

@@ -15,6 +15,7 @@ const store = createStore({
         return {
             songs: [],
             currentSongUrl: '',
+            currentSongName: '',
             songSelected: false,
             loading: false,
             isPlaying: false,
@@ -33,8 +34,19 @@ const store = createStore({
         setSongs(state, songs) {
             state.songs = songs
         },
-        setCurrentSongUrl(state, currentSongUrl) {
+        resetPlayer(state) {
+            state.currentSongUrl = ''
+            state.isPlaying = false
+            state.songSelected = false
+            state.progress = 0
+            state.currentTime = 0
+            state.totalTime = 0
+        },
+        startPlayer(state, { currentSongUrl, currentSongName }) {
             state.currentSongUrl = currentSongUrl
+            state.currentSongName = currentSongName
+            state.songSelected = true
+            state.isPlaying = true
         }
     }
 });

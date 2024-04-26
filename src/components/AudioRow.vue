@@ -44,11 +44,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(["songs", "loading", "currentSongUrl"]),
+    ...mapState(["songs", "loading"]),
   },
   methods: {
     ...handleSongs.methods,
-    ...mapActions(["fetchAllSongDataAsync", "fetchCurrentSongAsync"]),
+    ...mapActions(["fetchAllSongDataAsync"]),
   },
   mounted() {
     this.getAllSongDataAsync()
