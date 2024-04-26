@@ -12,11 +12,15 @@
             </div>
         </div>
         <div class="buttons-div">
-            <button class="btn no-button"></button>
-            <button class="btn play-button" id="play-button">
+            <div class="no-button-div">
+                <button class="btn no-button"></button>
+            </div>
+            <div class="play-button-div">
+                <button class="btn play-button" id="play-button">
                 <i id="play-button-icon" ref="playButtonIcon" :class="setPlayPauseIcon()" @click="playPause()"></i>
             </button>
-            <button class="btn close-player" id="close-button" @click="resetPlayer">
+            </div>
+            <button class="btn close-button-div" id="close-button" @click="resetPlayer">
                 <i class="fas fa-x"></i>
             </button>
         </div>

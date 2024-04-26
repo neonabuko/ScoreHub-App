@@ -14,35 +14,6 @@
     background: #878787;
     outline: none;
     border-radius: 10px;
-    /* height: 3px; */
-}
-
-#progress-bar::-webkit-slider-runnable-track {
-    height: fit-content;
-}
-
-#progress-bar::-webkit-slider-thumb {
-    cursor: pointer;
-    border: 0;
-    height: 12px;
-    width: 12px;
-}
-
-#progress-bar::-moz-progress-bar {
-    height: fit-content;
-    background: #444444;
-}
-
-#progress-bar::-moz-range-thumb {
-    cursor: pointer;
-    height: 12px;
-    width: 12px;
-}
-
-#progress-bar::-ms-thumb {
-    cursor: pointer;
-    height: 12px;
-    width: 12px;
 }
 
 #time {
@@ -56,19 +27,38 @@
 
 .buttons-div {
     display: grid;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-columns: 10% 80% 10%;
+}
+
+.no-button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .no-button {
     border: 0;
 }
 
-.play-button {
+.play-button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#play-button {
     border: 0;
     margin: 0;
     padding: 0;
+    width: fit-content;
 }
 
-.close-player {
+.close-button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#close-button {
     border: 0;
 }
