@@ -119,14 +119,12 @@
 
 #progress-bar::-moz-range-thumb {
   cursor: pointer;
-  /* border: 0; */
   height: 12px;
   width: 12px;
 }
 
 #progress-bar::-ms-thumb {
   cursor: pointer;
-  /* border: 0; */
   height: 12px;
   width: 12px;
 }
@@ -136,12 +134,14 @@
   flex-direction: column;
   width: 100%;
   justify-content: center;
+  align-items: center;
 }
 
 .play-button {
   padding: 0;
   margin: 0;
   border: 0;
+  width: fit-content;
 }
 
 .close-player-div {

@@ -13,8 +13,10 @@ export default {
       const fileInput = this.$refs.fileInput
       const file = fileInput.files[0]
 
-      await this.uploadChunksAsync(file)
-      await this.uploadToRepositoryAsync(file)
+      let response = await this.uploadChunksAsync(file)
+      let bitrate = response.data.bitrate
+
+      await this.uploadToRepositoryAsync(file, bitrate)
 
       this.uploading = false
       this.setProgressHeader('Success', 'green')
@@ -29,19 +31,20 @@ export default {
       return chunkData
     },
 
-    createSongDto(songName, author, timeSpan) {
+    createSongDto(songName, author, timeSpan, bitrate) {
       const songData = new FormData()
       songData.append("name", songName)
       songData.append("author", author)
       songData.append("duration", timeSpan)
+      songData.append("bitrate", bitrate)
       return songData
     },
 
-    async uploadToRepositoryAsync(file) {
+    async uploadToRepositoryAsync(file, bitrate) {
       const author = this.$refs.author.value
       const duration = await this.getAudioDuration(file);
       const timeSpan = this.convertSecondsToTimeSpan(duration)
-      const songData = this.createSongDto(file.name, author, timeSpan)
+      const songData = this.createSongDto(file.name, author, timeSpan, bitrate)
 
       try {
         await axios.post(API_URL + "/upload", songData)
@@ -74,17 +77,21 @@ export default {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
       let startByte = 0
       let chunkData
+      let response
 
       while (startByte < file.size) {
         const chunk = file.slice(startByte, startByte + CHUNK_SIZE)
         chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
 
         try {
-          const response = await this.postChunkAsync(chunkData, startByte, file.size)
-          if (response.status === 200) {
+          response = await this.postChunkAsync(chunkData, startByte, file.size)
+          if (response.status === 202) {
             currentChunk++
             startByte += CHUNK_SIZE
             this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
+          }
+          else if (response.status === 200) {
+            return response
           }
         } catch (error) {
           console.error(`Error uploading chunk ${currentChunk}: ${error.message}`);
