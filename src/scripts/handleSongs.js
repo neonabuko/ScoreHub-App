@@ -151,18 +151,18 @@ export default {
       this.currentSongName = songName
       const currentSongUrl = API_URL + '/songs/' + songName
       this.$store.commit('setCurrentSongUrl', currentSongUrl)
+      this.$store.state.songSelected = true
+      this.$store.state.isPlaying = true
     },
 
     resetPlayer() {
-      this.$store.state.isPlaying = true
-      this.progress = 0
-      this.$store.commit('setCurrentSongUrl', '')
-      this.$store.state.songSelected = true
-    },
-
-    closePlayer() {
+      this.$store.state.isPlaying = false
       this.$store.state.songSelected = false
+      this.$store.state.progress = 0
+      this.$store.state.currentTime = 0
+      this.$store.state.totalTime = 0
       this.updateAudioRowColor('')
-    }
+      this.$store.commit('setCurrentSongUrl', '')
+    },
   }
 }

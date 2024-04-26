@@ -16,7 +16,7 @@
                 <i id="play-button-icon" ref="playButtonIcon" :class="setPlayPauseIcon()" @click="playPause"></i>
             </button>
             <div class="close-player-div">
-                <button class="btn close-player" @click="closePlayer">
+                <button class="btn close-player" @click="resetPlayer">
                     <i class="fas fa-x"></i>
                 </button>
             </div>
