@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="song-edit">
-          <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="btn btn-outline-light">
+          <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="btn">
             <i class="fas fa-ellipsis-v"></i>
           </router-link>
         </div>

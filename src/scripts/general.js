@@ -66,7 +66,7 @@ export default {
             if (previousSongName !== '') {
                 let previousAudioRow = document.getElementById(previousSongName)
                 if (previousAudioRow) {
-                    previousAudioRow.style.backgroundColor = "#101010"
+                    previousAudioRow.style.backgroundColor = "#0b0b0b"
                 }
             }
 

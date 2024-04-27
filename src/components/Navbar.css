@@ -1,5 +1,4 @@
 .app-nav {
-  margin-top: 0.6rem;
   padding: 0.8rem;
   padding-inline: 3vw;
 }
@@ -14,10 +13,6 @@
 
 @media screen and (max-width: 786px) {
   .app-nav {
-    padding-inline: 7vw;
+    padding-inline: 5.5vw;
   }
-}
-
-#search {
-  
 }

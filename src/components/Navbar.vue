@@ -1,18 +1,40 @@
 <template>
-    <nav class="app-nav navbar">
-        <div class="logo-header">
-            <img src="/vite.svg" alt="logo">
-            <router-link class="navbar-brand" to="/">Song Manager</router-link>
+    <nav class="navbar navbar-expand-md navbar-dark bg-transparent app-nav">
+        <div class="navbar-header">
+            <router-link class="navbar-brand" to="/">
+                <img src="/vite.svg" alt="logo" width="30" height="30" class="d-inline-block align-top">
+                Song Manager
+            </router-link>
         </div>
-        <div class="mt-3" id="search" v-if="$route.name === 'Home'">
-            <nav>
-                <input type="text" class="form-control" v-model="searchQuery" placeholder="Search" @input="filterSongs">
-            </nav>
-        </div>
-        <div>
-            <ul class="navbar gap-3 p-0 m-0 mx-1">
-                <li class="nav-link">
-                    <router-link class="nav-link" to="/upload"><i class="fas fa-upload"></i></router-link>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <div class="mt-3" v-if="$route.name === 'Home'">
+                <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchQuery"
+                    placeholder="Search"
+                    @input="filterSongs"
+                />
+            </div>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/upload">
+                        <i class="fas fa-upload"></i>
+                    </router-link>
                 </li>
             </ul>
         </div>

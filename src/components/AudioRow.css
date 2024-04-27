@@ -7,14 +7,14 @@
   grid-template-columns: 1fr;
   border-bottom: 1px solid rgba(169, 169, 169, 0.03);
   border-radius: 5px;
-  margin-inline: 2px;
+  margin-inline: 3px;
 }
 
 .audio-inner-grid {
   display: grid;
   grid-template-columns: auto max-content;
   align-items: center;
-  padding: 0.2rem;
+  padding: 0.3rem;
   padding-inline: 0.6rem;
 }
 
