@@ -146,7 +146,6 @@ export default {
     },
 
     async getCurrentSongAsync(currentSongName) {
-      this.resetPlayer(currentSongName)
       this.updateAudioRowColor(currentSongName)
 
       const currentSongUrl = API_URL + '/songs/' + currentSongName

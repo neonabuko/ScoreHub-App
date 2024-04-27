@@ -1,12 +1,12 @@
 .player-controls {
     display: grid;
     grid-template-rows: auto auto auto;
-    background-color: rgb(17, 1, 29);
+    background-color: rgb(28, 16, 38);
     bottom: 0;
     width: 100%;
     position: fixed;
     padding: 1.2rem;
-    border-top: 2px solid rgb(38, 9, 80);
+    border-top: 2px solid rgb(71, 46, 108);
 }
 
 #progress-bar {

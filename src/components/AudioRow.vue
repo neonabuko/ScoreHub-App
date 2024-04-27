@@ -3,10 +3,10 @@
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-grid" @click="getCurrentSongAsync(song.name)" v-for="(song, index) in songs" :key="index"
+    <div class="audio-grid" v-for="(song, index) in songs" :key="index"
       :id="song.name">
       <div class="audio-inner-grid">
-        <div class="song-title">
+        <div class="song-title" @click="getCurrentSongAsync(song.name)">
           <i class="fas fa-music fa-2x music-icon"></i>
           <div class="song-title-inner">
             <button class="song-title-button">
@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <Player></Player>
+  
 </template>
 
 <script>
