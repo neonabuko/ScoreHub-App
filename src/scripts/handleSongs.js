@@ -22,6 +22,9 @@ export default {
         if (errorStatus === 409) {
           errorMessage = 'Song already exists'
         }
+        else if (errorStatus === 500) {
+          errorMessage = 'Internal server error'
+        }
         else {
           errorMessage = 'Unexpected error' + ' ' + errorStatus
         }
@@ -72,7 +75,7 @@ export default {
       const songData = this.createSongDto(file.name, title, author, timeSpan, bitrate)
 
       try {
-        await axios.post(API_URL + "/upload", songData)
+        axios.post(API_URL + "/upload", songData)
         this.uploadSuccess = true
       } catch (error) {
         console.error(error.message)
@@ -99,6 +102,7 @@ export default {
       let startByte = 0
       let chunkData
       let response
+      let progressCount
 
       while (startByte < file.size) {
         const chunk = file.slice(startByte, startByte + CHUNK_SIZE)
@@ -108,9 +112,11 @@ export default {
         if (response.status === 202) {
           currentChunk++
           startByte += CHUNK_SIZE
-          this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
+          progressCount = Math.round((startByte / file.size) * 100)
+          this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
+          if (progressCount >= 100) this.setProgressHeader('Uploading to repository...', 'white')
         } else if (response.status === 200) {
-          break
+          return response
         }
       }
     },
