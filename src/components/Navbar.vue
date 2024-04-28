@@ -3,7 +3,7 @@
         <div class="navbar-header">
             <router-link class="navbar-brand" to="/">
                 <img src="/vite.svg" alt="logo" width="30" height="30" class="d-inline-block align-top">
-                Song Manager
+                ScoreHub
             </router-link>
         </div>
 

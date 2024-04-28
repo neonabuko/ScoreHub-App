@@ -51,7 +51,7 @@ export default {
     async uploadToRepositoryAsync(file, bitrate) {
       const title = this.$refs.title.value
       const author = this.$refs.author.value
-      const duration = await this.getAudioDuration(file);
+      const duration = await this.getAudioDuration(file)
       const timeSpan = this.convertSecondsToTimeSpan(duration)
       const songData = this.createSongDto(file.name, title, author, timeSpan, bitrate)
 
@@ -82,32 +82,55 @@ export default {
 
     async uploadChunksAsync(file) {
       const CHUNK_SIZE = 1024 * 1024 // 1 MB
-      let currentChunk = 1
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
+
+      let currentChunk = 1
       let startByte = 0
-      let chunkData
-      let response
+      let maxRetries = 3
+      let response = null
 
       while (startByte < file.size) {
-        const chunk = file.slice(startByte, startByte + CHUNK_SIZE)
-        chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
+        const endByte = Math.min(startByte + CHUNK_SIZE, file.size)
+        const chunk = file.slice(startByte, endByte)
 
-        try {
-          response = await this.postChunkAsync(chunkData, startByte, file.size)
-          if (response.status === 202) {
-            currentChunk++
-            startByte += CHUNK_SIZE
-            this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
+        const chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
+
+        let retries = 0
+        let success = false
+
+        while (retries < maxRetries && !success) {
+          try {
+            response = await this.postChunkAsync(chunkData, startByte, file.size)
+
+            if (response.status === 202) {
+              currentChunk++
+              startByte = endByte
+              success = true
+
+              this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
+            } else if (response.status === 200) {
+              return response
+            } else {
+              throw new Error(`Unexpected response status: ${response.status}`)
+            }
+          } catch (error) {
+            retries++
+
+            if (retries >= maxRetries) {
+              this.setProgressHeader(`Upload failed at chunk ${currentChunk}`, 'red')
+              break
+            }
           }
-          else if (response.status === 200) {
-            return response
-          }
-        } catch (error) {
-          console.error(`Error uploading chunk ${currentChunk}: ${error.message}`);
+        }
+
+        if (!success) {
           break
         }
       }
+
+      return response
     },
+    
 
     setProgressHeader(text, color) {
       this.progressHeader.innerText = text
