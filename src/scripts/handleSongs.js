@@ -12,8 +12,24 @@ export default {
 
       const fileInput = this.$refs.fileInput
       const file = fileInput.files[0]
+      let response
 
-      let response = await this.uploadChunksAsync(file)
+      try {
+        response = await this.uploadChunksAsync(file)
+      } catch (error) {
+        let errorStatus = error.response.status
+        let errorMessage
+        if (errorStatus === 409) {
+          errorMessage = 'Song already exists'
+        }
+        else {
+          errorMessage = 'Unexpected error' + ' ' + errorStatus
+        }
+        this.setProgressHeader(errorMessage, 'red')
+        this.uploading = false
+        return
+      }
+
       let bitrate = response.data.bitrate
 
       await this.uploadToRepositoryAsync(file, bitrate)
@@ -51,7 +67,7 @@ export default {
     async uploadToRepositoryAsync(file, bitrate) {
       const title = this.$refs.title.value
       const author = this.$refs.author.value
-      const duration = await this.getAudioDuration(file)
+      const duration = await this.getAudioDuration(file);
       const timeSpan = this.convertSecondsToTimeSpan(duration)
       const songData = this.createSongDto(file.name, title, author, timeSpan, bitrate)
 
@@ -65,19 +81,14 @@ export default {
     },
 
     async postChunkAsync(chunkData, startByte, fileSize) {
-      try {
-        const response = await axios.post(API_URL + "/uploadChunk", chunkData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          onUploadProgress: progressEvent => {
-            this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / fileSize)
-          }
-        })
-        return response
-      } catch (error) {
-        console.error(error.message)
-      }
+       return axios.post(API_URL + "/uploadChunk", chunkData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: progressEvent => {
+          this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / fileSize)
+        }
+      })
     },
 
     async uploadChunksAsync(file) {
@@ -86,51 +97,23 @@ export default {
 
       let currentChunk = 1
       let startByte = 0
-      let maxRetries = 3
-      let response = null
+      let chunkData
+      let response
 
       while (startByte < file.size) {
-        const endByte = Math.min(startByte + CHUNK_SIZE, file.size)
-        const chunk = file.slice(startByte, endByte)
+        const chunk = file.slice(startByte, startByte + CHUNK_SIZE)
+        chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
 
-        const chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
-
-        let retries = 0
-        let success = false
-
-        while (retries < maxRetries && !success) {
-          try {
-            response = await this.postChunkAsync(chunkData, startByte, file.size)
-
-            if (response.status === 202) {
-              currentChunk++
-              startByte = endByte
-              success = true
-
-              this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
-            } else if (response.status === 200) {
-              return response
-            } else {
-              throw new Error(`Unexpected response status: ${response.status}`)
-            }
-          } catch (error) {
-            retries++
-
-            if (retries >= maxRetries) {
-              this.setProgressHeader(`Upload failed at chunk ${currentChunk}`, 'red')
-              break
-            }
-          }
-        }
-
-        if (!success) {
+        response = await this.postChunkAsync(chunkData, startByte, file.size)
+        if (response.status === 202) {
+          currentChunk++
+          startByte += CHUNK_SIZE
+          this.setProgressHeader(`Progress: ${Math.round((startByte / file.size) * 100)}%`, 'white')
+        } else if (response.status === 200) {
           break
         }
       }
-
-      return response
     },
-    
 
     setProgressHeader(text, color) {
       this.progressHeader.innerText = text
