@@ -75,7 +75,7 @@ export default {
       const songData = this.createSongDto(file.name, title, author, timeSpan, bitrate)
 
       try {
-        axios.post(API_URL + "/upload", songData)
+        axios.post(API_URL + "/songs", songData)
         this.uploadSuccess = true
       } catch (error) {
         console.error(error.message)
@@ -84,7 +84,7 @@ export default {
     },
 
     async postChunkAsync(chunkData, startByte, fileSize) {
-       return axios.post(API_URL + "/uploadChunk", chunkData, {
+       return axios.post(API_URL + "/songs/uploadChunk", chunkData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -114,7 +114,7 @@ export default {
           startByte += CHUNK_SIZE
           progressCount = Math.round((startByte / file.size) * 100)
           this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
-          if (progressCount >= 100) this.setProgressHeader('Uploading to repository...', 'white')
+          if (progressCount >= 100) this.setProgressHeader('Saving song metadata...', 'white')
         } else if (response.status === 200) {
           return response
         }
@@ -129,7 +129,7 @@ export default {
     async deleteSongAsync(name) {
       let confirmDelete = confirm('Delete permanently?')
       if (confirmDelete) {
-        axios.delete(API_URL + `/delete/${name}`).then(() => {
+        axios.delete(API_URL + `/songs/${name}`).then(() => {
           this.goBack()
         })
       }

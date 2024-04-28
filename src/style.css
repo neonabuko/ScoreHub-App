@@ -12,7 +12,7 @@ body {
   text-rendering: optimizeLegibility;
   font-kerning: auto;
   font-optical-sizing: auto;
-  background-color: #0b0b0b;
+  /* background-color: #0b0b0b; */
 }
 
 .spinner {
