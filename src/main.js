@@ -6,6 +6,7 @@ import "./components/AudioRow.css"
 import "./components/EditForm.css"
 import "./components/Player.css"
 import "./components/Score.css"
+import "./components/ScoreRow.css"
 import App from "./App.vue";
 import router from "./router/index.js";
 import { createStore } from "vuex";

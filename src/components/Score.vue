@@ -22,13 +22,13 @@ export default {
             verovioToolkit: null,
             currentPage: 1,
             totalPages: 0,
-        };
+        }
     },
     methods: {
         ...handleScores.methods
     },
     mounted() {
-        this.fetchScore();
+        this.fetchScore()
     },
-};
+}
 </script>
