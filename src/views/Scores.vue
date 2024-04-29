@@ -1,34 +1,14 @@
 <template>
-    <div>
-        <div class="navigation">
-            <button class="btn" @click="prevPage" :disabled="currentPage <= 1">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <span>Page {{ currentPage }} of {{ totalPages }}</span>
-            <button class="btn" @click="nextPage" :disabled="currentPage >= totalPages">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-        <div id="notation" class="bg-white"></div>
-    </div>
+    <ScoreRow></ScoreRow>
 </template>
 
 <script>
-import handleScores from '../scripts/handleScores'
+import ScoreRow from '../components/ScoreRow.vue'
 
 export default {
-    data() {
-        return {
-            verovioToolkit: null,
-            currentPage: 1,
-            totalPages: 0,
-        };
-    },
-    methods: {
-        ...handleScores.methods
-    },
-    mounted() {
-        this.fetchScore();
-    },
-};
+    components: {
+        ScoreRow: ScoreRow
+    }
+}
+
 </script>

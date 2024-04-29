@@ -1,5 +1,5 @@
 <template>
-  <div class="audio-grid">
+  <main>
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
   
 </template>
 

@@ -19,7 +19,7 @@ export default {
         },
         renderPage(pageNumber) {
             const svg = this.verovioToolkit.renderToSVG(pageNumber, {});
-            const notationDiv = document.getElementById('notation');
+            const notationDiv = document.getElementById('score');
             notationDiv.innerHTML = svg;
         },
         nextPage() {
