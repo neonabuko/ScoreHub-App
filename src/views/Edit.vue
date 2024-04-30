@@ -1,16 +1,16 @@
 <template>
     <GoBackButton></GoBackButton>
-    <EditForm></EditForm>
+    <EditSongForm></EditSongForm>
 </template>
 
 <script>
-import EditForm from '../components/EditForm.vue';
+import EditSongForm from '../components/EditSongForm.vue';
 import GoBackButton from '../components/GoBackButton.vue';
 import general from '../scripts/general';
 
 export default {
     components: {
-        EditForm: EditForm,
+        EditSongForm: EditSongForm,
         GoBackButton: GoBackButton
     },
     methods: {

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import UploadScoreForm from '../components/UploadScoreForm.vue'
+import UploadScoreForm from '../components/score/UploadScoreForm.vue'
 
 export default {
     components: {

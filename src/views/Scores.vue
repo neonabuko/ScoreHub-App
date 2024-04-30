@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ScoreRow from '../components/ScoreRow.vue'
+import ScoreRow from '../components/score/ScoreRow.vue'
 
 export default {
     components: {

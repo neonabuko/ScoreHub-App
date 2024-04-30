@@ -28,13 +28,14 @@
 
 .music-icon {
   color: #bf8cf5;
+  padding: 3px;
 }
 
 .song-title {
   overflow-x: hidden;
   display: inline-flex;
   gap: 1rem;
-  align-items: center;
+  align-items: start;
 }
 
 .song-title-button {

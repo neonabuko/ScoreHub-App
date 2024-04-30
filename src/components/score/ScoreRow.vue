@@ -12,10 +12,16 @@
                     <i class="fas fa-file fa-2x music-icon"></i>
                     <div class="song-title-inner">
                         <button class="song-title-button">
-                            {{ score.name }}
+                            {{ score.title }}
                         </button>
-                        <div class="song-details">
-                            {{ score.author ? score.author : "Unknown" }}
+                        <div class="score-details">
+                            <div class="score-name-div">
+                                {{ score.name }}
+                            </div>
+                            ·
+                            <div class="score-author-div">
+                                {{ score.author ? score.author : "Unknown" }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -28,7 +34,7 @@
 </template>
 
 <script>
-import handleScores from '../scripts/handleScores';
+import handleScores from '../../scripts/handleScores';
 
 export default {
     data() {
@@ -40,7 +46,7 @@ export default {
         ...handleScores.methods
     },
     mounted() {
-        this.getAllScoresAsync()
+        this.getAllScoreDataAsync()
     },
 }
 </script>

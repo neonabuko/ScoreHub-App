@@ -7,7 +7,8 @@ export default {
     methods: {
         async uploadScoreAsync() {
             let scoreFile = this.$refs.scorefile.files[0]
-            let scoreName = this.$refs.scoreName.value
+            let scoreName = scoreFile.name
+            let scoreTitle = this.$refs.scoreTitle.value
             let scoreAuthor = this.$refs.scoreAuthor.value
 
             let scoreFileFormData = new FormData()
@@ -17,26 +18,35 @@ export default {
                     'Content-Type': 'multipart/form-data',
                   }
             })
-            console.log('Uploaded', scoreName, 'score file.');
+            console.log('Uploaded', scoreTitle, 'score file.')
+
             if (response.status === 201) {
                 let scoreFormData = new FormData()
                 scoreFormData.append("name", scoreName)
+                scoreFormData.append("title", scoreTitle)
                 scoreFormData.append("author", scoreAuthor)
 
                 let response = await axios.post(API_URL + '/scores/data', scoreFormData)
                 if (response.ok) {
-                    console.log('Uploaded', scoreName, 'score data.');
+                    console.log('Uploaded', scoreTitle, 'score data.')
                 }
             }
         },
 
         async deleteScoreAsync(name) {
-            let response = await axios.delete(API_URL + `/scores/${name}`)
-            console.log(response.status);
+            axios.delete(API_URL + `/scores/${name}`).then(response => {
+                console.log('delete file', response.status)
+            }).catch(error => error)
+
+            axios.delete(API_URL + `/scores/${name}/data`).then(response => {
+                console.log('delete data', response.status)
+            }).catch(error => error)
+
+            await this.getAllScoreDataAsync()
         },
 
-        async getAllScoresAsync() {
-            let response = await axios.get(API_URL + '/scores')
+        async getAllScoreDataAsync() {
+            let response = await axios.get(API_URL + '/scores/data')
             this.scores = response.data
         },
         async getScoreAsync(name) {

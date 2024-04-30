@@ -32,3 +32,18 @@
     display: grid;
     gap: 5px;
 }
+
+.score-details {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    font-size: 14px;
+}
+
+.score-name-div {
+    color: rgba(255, 255, 255, 0.656);
+}
+
+.score-author-div {
+    color: rgba(255, 255, 255, 0.896);
+}
