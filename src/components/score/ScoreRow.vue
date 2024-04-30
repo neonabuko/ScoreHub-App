@@ -1,12 +1,11 @@
 <template>
     <main>
-        <div class="upload-score-button-div">
-            <router-link to="/scores/upload" class="btn btn-primary">
+        <div :class="uploadButtonClass">
+            <router-link to="/scores/upload" class="btn upload-score-button">
                 <i class="fas fa-cloud-upload"></i>
-                Upload score
+                {{ uploadButtonText }}
             </router-link>
         </div>
-        <div class="no-content" v-if="scores.length === 0">No scores</div>
         <div class="audio-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="audio-inner-grid">
                 <div class="song-title">
@@ -42,14 +41,23 @@ import handleScores from '../../scripts/handleScores';
 export default {
     data() {
         return {
-            scores: ''
+            scores: '',
+            uploadButtonClass: '',
+            uploadButtonText: ''
         }
     },
     methods: {
-        ...handleScores.methods
+        ...handleScores.methods,
+        handleUploadButtonState() {
+            this.uploadButtonClass = this.scores.length > 0 ? 'upload-score-button-div' : 'no-content'
+            this.uploadButtonText = this.scores.length > 0 ? '' : 'Upload the first score'
+        }
     },
     mounted() {
-        this.getAllScoreDataAsync()
+        this.getAllScoreDataAsync().then(() => {
+            this.handleUploadButtonState()
+        })
+        
     },
 }
 </script>
