@@ -17,8 +17,11 @@
                 <div class="routes-div">
                     <ul class="navbar-nav">
                         <li>
-                            <router-link to="/scores" class="nav-link">Scores</router-link>
+                            <router-link to="/songs" class="nav-link">Songs</router-link>
                         </li>
+                        <li>
+                            <router-link to="/scores" class="nav-link">Scores</router-link>
+                        </li>                        
                     </ul>
                 </div>
                 <div class="search-div ms-auto" v-if="$route.name === 'Songs'">
