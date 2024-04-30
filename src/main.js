@@ -3,7 +3,7 @@ import "./style.css";
 import "./components/Navbar.css"
 import "./components/song/UploadSongForm.css"
 import "./components/FileRow.css"
-import "./components/song/AudioRow.css"
+import "./components/song/SongRow.css"
 import "./components/song/EditSongForm.css"
 import "./components/song/Player.css"
 import "./components/score/Score.css"

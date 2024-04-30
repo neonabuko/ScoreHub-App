@@ -1,6 +1,6 @@
 <template>
   <main class="mt-4">
-    <AudioRow></AudioRow>
+    <SongRow></SongRow>
     <div class="footer-div">
       <footer class="app-footer">{{ songs.length }} songs</footer>
     </div>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AudioRow from '../components/song/AudioRow.vue'
+import SongRow from '../components/song/SongRow.vue'
 import { mapState } from 'vuex/dist/vuex.cjs.js';
 
 export default {
@@ -16,7 +16,7 @@ export default {
     ...mapState(['songs'])
   },
   components: {
-    AudioRow: AudioRow
+    SongRow: SongRow
   }
 }
 </script>
