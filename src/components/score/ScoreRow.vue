@@ -6,6 +6,7 @@
                 Upload score
             </router-link>
         </div>
+        <div class="no-content" v-if="scores.length === 0">No scores</div>
         <div class="audio-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="audio-inner-grid">
                 <div class="song-title">
@@ -25,8 +26,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="delete-button-div">
-                    <button class="btn btn-danger" @click="deleteScoreAsync(score.name)">Delete</button>
+                <div class="song-edit">
+                    <router-link :to="{ path: '/scores/edit' + score.name }" class="btn">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </router-link>
                 </div>
             </div>
         </div>

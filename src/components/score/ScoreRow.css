@@ -1,3 +1,11 @@
+.no-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
 .score-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -47,3 +55,4 @@
 .score-author-div {
     color: rgba(255, 255, 255, 0.896);
 }
+
