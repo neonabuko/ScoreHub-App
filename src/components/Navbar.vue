@@ -7,8 +7,9 @@
             </router-link>
         </div>
 
-        <button class="navbar-toggler" id="hamburguer" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" id="hamburguer" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -16,17 +17,18 @@
             <div class="navbar-content">
                 <div class="routes-div">
                     <ul class="navbar-nav">
-                        <li class="route">
-                            <router-link to="/songs" class="nav-link btn btn-primary">Songs</router-link>
+                        <li>
+                            <router-link to="/songs" class="nav-link btn">Songs</router-link>
                         </li>
-                        <li class="route">
-                            <router-link to="/scores" class="nav-link btn btn-primary">Scores</router-link>
-                        </li>                        
+                        <li>
+                            <router-link to="/scores" class="nav-link btn">Scores</router-link>
+                        </li>
                     </ul>
                 </div>
-                <div class="search-div" v-if="$route.name === 'Songs'">
-                    <input type="text" class="form-control" v-model="searchQuery" placeholder="Search"
+                <div class="search-div" v-if="'Songs Scores'.includes($route.name)">
+                    <input type="text" class="form-control search-input" v-model="searchQuery" placeholder="Search"
                         @input="filterSongs" />
+                    <i class="fas fa-search search-icon"></i>    
                 </div>
             </div>
         </div>

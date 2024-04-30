@@ -18,6 +18,7 @@ const store = createStore({
     state() {
         return {
             songs: [],
+            filteredSongs: '',
             currentSongUrl: '',
             currentSongName: '',
             songSelected: false,
@@ -37,6 +38,9 @@ const store = createStore({
     mutations: {
         setSongs(state, songs) {
             state.songs = songs
+        },
+        filterSongs(state, songs) {
+            state.filteredSongs = songs
         },
         resetPlayer(state) {
             state.currentSongUrl = ''

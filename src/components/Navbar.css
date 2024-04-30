@@ -17,11 +17,36 @@
   align-items: center;
   gap: 20px;
   padding-inline: 4px;
+  width: 100%;
 }
 
 #hamburguer {
   border: 0;
 }
+
+
+
+.search-div {
+  position: relative; 
+}
+
+.search-input {
+  padding-left: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: gray;
+  cursor: pointer;
+}
+
+
+
 
 @media screen and (max-width: 767px) {
   .app-nav {
@@ -37,11 +62,21 @@
     padding: 15px;
   }
 
-  .navbar-nav {
-    
+  .nav-link {
+    text-align: start;
+    border: 1px solid;
+    padding-inline: 4px;
   }
 
-  .route {
-    
+  .routes-div {
+    width: 100%;
+  }
+
+  .navbar-nav {
+    gap: 2px;
+  }
+
+  .search-div {
+    width: 100%;
   }
 }

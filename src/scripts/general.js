@@ -17,12 +17,12 @@ export default {
         async filterSongs() {
             let allSongs = await this.fetchAllSongDataAsync()
             if (!this.searchQuery) {
-                this.$store.commit('setSongs', allSongs)
+                this.$store.commit('filterSongs', allSongs)
                 return
             }
             const query = this.searchQuery.toLowerCase()
             let filtered = allSongs.filter(song => song.title.toLowerCase().includes(query))
-            this.$store.commit('setSongs', filtered)
+            this.$store.commit('filterSongs', filtered)
         },
 
         removeAudioExtensions(audioName) {

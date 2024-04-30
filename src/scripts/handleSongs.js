@@ -144,6 +144,7 @@ export default {
       this.$store.state.loading = true
       const songs = await this.fetchAllSongDataAsync()
       this.$store.commit('setSongs', songs)
+      this.$store.commit('filterSongs', songs)
       this.$store.state.loading = false
     },
 
