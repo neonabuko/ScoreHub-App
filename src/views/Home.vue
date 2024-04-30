@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AudioRow from '../components/AudioRow.vue'
+import AudioRow from '../components/song/AudioRow.vue'
 import { mapState } from 'vuex/dist/vuex.cjs.js';
 
 export default {

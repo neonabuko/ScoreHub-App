@@ -29,8 +29,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import handlePlayer from '../scripts/handlePlayer'
-import handleSongs from '../scripts/handleSongs'
+import handlePlayer from '../../scripts/handlePlayer'
+import handleSongs from '../../scripts/handleSongs'
 
 export default {
     computed: {

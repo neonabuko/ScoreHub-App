@@ -1,12 +1,12 @@
 import { createApp } from "vue";
 import "./style.css";
 import "./components/Navbar.css"
-import "./components/UploadForm.css"
-import "./components/AudioRow.css"
-import "./components/EditForm.css"
-import "./components/Player.css"
-import "./components/Score.css"
-import "./components/ScoreRow.css"
+import "./components/song/UploadForm.css"
+import "./components/song/AudioRow.css"
+import "./components/song/EditForm.css"
+import "./components/song/Player.css"
+import "./components/score/Score.css"
+import "./components/score/ScoreRow.css"
 import App from "./App.vue";
 import router from "./router/index.js";
 import { createStore } from "vuex";

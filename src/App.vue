@@ -6,7 +6,7 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-import Player from './components/Player.vue';
+import Player from './components/song/Player.vue';
 
 export default {
   data() {

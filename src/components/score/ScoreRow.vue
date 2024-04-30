@@ -5,7 +5,7 @@
                 <i class="fas fa-cloud-upload"></i>
                 Upload score
             </router-link>
-        </div>        
+        </div>
         <div class="audio-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="audio-inner-grid">
                 <div class="song-title">
@@ -18,6 +18,9 @@
                             {{ score.author ? score.author : "Unknown" }}
                         </div>
                     </div>
+                </div>
+                <div class="delete-button-div">
+                    <button class="btn btn-danger" @click="deleteScoreAsync(score.name)">Delete</button>
                 </div>
             </div>
         </div>

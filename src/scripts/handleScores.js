@@ -23,12 +23,18 @@ export default {
                 scoreFormData.append("name", scoreName)
                 scoreFormData.append("author", scoreAuthor)
 
-                let response = axios.post(API_URL + '/scores/data', scoreFormData)
+                let response = await axios.post(API_URL + '/scores/data', scoreFormData)
                 if (response.ok) {
                     console.log('Uploaded', scoreName, 'score data.');
                 }
             }
         },
+
+        async deleteScoreAsync(name) {
+            let response = await axios.delete(API_URL + `/scores/${name}`)
+            console.log(response.status);
+        },
+
         async getAllScoresAsync() {
             let response = await axios.get(API_URL + '/scores')
             this.scores = response.data

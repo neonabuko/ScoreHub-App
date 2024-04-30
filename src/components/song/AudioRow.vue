@@ -31,7 +31,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex"
-import handleSongs from "../scripts/handleSongs.js"
+import handleSongs from "../../scripts/handleSongs.js"
 import Player from "./Player.vue"
 
 export default {
