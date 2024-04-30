@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-md bg-transparent app-nav">
         <div class="navbar-header">
-            <router-link class="navbar-brand" to="/">
+            <router-link class="navbar-brand" to="/songs">
                 <img src="/vite.svg" alt="logo" width="30" height="30" class="d-inline-block align-top">
                 ScoreHub
             </router-link>
@@ -22,15 +22,9 @@
                     </ul>
                 </div>
 
-                <div class="search-div ms-auto" v-if="$route.name === 'Home'">
+                <div class="search-div ms-auto" v-if="$route.name === 'Songs'">
                     <input type="text" class="form-control" v-model="searchQuery" placeholder="Search"
                         @input="filterSongs" />
-                </div>
-
-                <div class="upload-div">
-                    <router-link class="nav-link ms-2" to="/upload">
-                        <i class="fas fa-upload"></i>
-                    </router-link>
                 </div>
             </div>
         </div>

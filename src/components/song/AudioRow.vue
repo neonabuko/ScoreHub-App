@@ -1,10 +1,16 @@
 <template>
   <main>
+    <div class="no-content" v-if="songs.length === 0">
+      <router-link to="/songs/upload" class="btn btn-primary upload-cloud-button">
+        <i class="fas fa-cloud-upload m-1"></i>
+        Upload first song
+      </router-link>
+    </div>
+    <UploadCloudButton route="/songs/upload" v-else></UploadCloudButton>
     <div class="loading-container" v-if="loading">
       <div class="spinner"></div>
     </div>
-    <div class="audio-grid" v-for="(song, index) in songs" :key="index"
-      :id="song.name">
+    <div class="audio-grid" v-for="(song, index) in songs" :key="index" :id="song.name">
       <div class="audio-inner-grid">
         <div class="song-title" @click="getCurrentSongAsync(song.name)">
           <i class="fas fa-music fa-2x music-icon"></i>
@@ -19,24 +25,26 @@
           </div>
         </div>
         <div class="song-edit">
-          <router-link :to="{ name: 'Edit', params: { name: song.name } }" class="btn">
+          <router-link :to="{ path: '/songs/edit' + song.name }" class="btn">
             <i class="fas fa-ellipsis-v"></i>
           </router-link>
         </div>
       </div>
     </div>
   </main>
-  
+
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex"
 import handleSongs from "../../scripts/handleSongs.js"
 import Player from "./Player.vue"
+import UploadCloudButton from "../UploadCloudButton.vue"
 
 export default {
   components: {
-    Player: Player
+    Player: Player,
+    UploadCloudButton: UploadCloudButton
   },
   data() {
     return {

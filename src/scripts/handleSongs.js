@@ -6,12 +6,10 @@ export default {
   methods: {
     ...general.methods,
 
-    async uploadSongAsync() {
+    async uploadAsync(file, data) {
       this.uploading = true
       this.setProgressHeader('', '')
-
-      const fileInput = this.$refs.fileInput
-      const file = fileInput.files[0]
+      
       let response
 
       try {
@@ -20,7 +18,7 @@ export default {
         let errorStatus = error.response.status
         let errorMessage
         if (errorStatus === 409) {
-          errorMessage = 'Song already exists'
+          errorMessage = file.name + ' already exists'
         }
         else if (errorStatus === 500) {
           errorMessage = 'Internal server error'
@@ -33,9 +31,7 @@ export default {
         return
       }
 
-      let bitrate = response.data.bitrate
-
-      await this.uploadToRepositoryAsync(file, bitrate)
+      await this.uploadToRepositoryAsync('/songs', data)
 
       this.uploading = false
       this.setProgressHeader('Success', 'green')
@@ -67,15 +63,9 @@ export default {
       return songEditData
     },
 
-    async uploadToRepositoryAsync(file, bitrate) {
-      const title = this.$refs.title.value
-      const author = this.$refs.author.value
-      const duration = await this.getAudioDuration(file);
-      const timeSpan = this.convertSecondsToTimeSpan(duration)
-      const songData = this.createSongDto(file.name, title, author, timeSpan, bitrate)
-
+    async uploadToRepositoryAsync(endpoint, data) {
       try {
-        axios.post(API_URL + "/songs", songData)
+        axios.post(API_URL + endpoint, data)
         this.uploadSuccess = true
       } catch (error) {
         console.error(error.message)

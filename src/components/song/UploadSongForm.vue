@@ -3,7 +3,7 @@
     <h1 class="form-label" id="edit-h1">Upload a song</h1>
   </div>
   <div class="upload-form-div">
-    <form class="upload-form" @submit.prevent="uploadSongAsync" method="post" enctype="multipart/form-data">
+    <form class="upload-form" @submit.prevent="prepareUpload" method="post" enctype="multipart/form-data">
       <input type="file" class="form-control" name="file" id="upload-file" ref="fileInput" aria-describedby="fileHelpId"/>
       <input type="text" class="title form-control" placeholder="Title" ref="title">
       <input type="text" class="author form-control" placeholder="Author" ref="author">
@@ -36,7 +36,20 @@ export default {
   },
   methods: {
     ...handleSongs.methods,
-    ...general.methods
+    ...general.methods,
+
+    prepareUpload() {
+      const fileInput = this.$refs.fileInput
+      const file = fileInput.files[0]
+      const name = file.name
+      const title = this.$refs.title.value
+      const author = this.$refs.author.value
+      const duration = await this.getAudioDuration(file);
+      const timeSpan = this.convertSecondsToTimeSpan(duration)
+      
+      const songData = this.createSongDto(name, title, author, timeSpan, 0)
+      this.uploadAsync(file, songData)
+    }
   },
   mounted() {
     this.progressHeader = document.getElementById('progress-header')

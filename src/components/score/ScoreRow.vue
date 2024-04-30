@@ -1,11 +1,12 @@
 <template>
     <main>
-        <div :class="uploadButtonClass">
-            <router-link to="/scores/upload" class="btn upload-score-button">
-                <i class="fas fa-cloud-upload"></i>
-                {{ uploadButtonText }}
+        <div class="no-content" v-if="scores.length === 0">
+            <router-link to="/scores/upload" class="btn btn-primary upload-score-button">
+                <i class="fas fa-cloud-upload m-1"></i>
+                Upload first score
             </router-link>
         </div>
+        <UploadCloudButton route="/scores/upload" v-else></UploadCloudButton>
         <div class="audio-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="audio-inner-grid">
                 <div class="song-title">
@@ -36,28 +37,23 @@
 </template>
 
 <script>
-import handleScores from '../../scripts/handleScores';
+import handleScores from '../../scripts/handleScores'
+import UploadCloudButton from '../UploadCloudButton.vue'
 
 export default {
     data() {
         return {
-            scores: '',
-            uploadButtonClass: '',
-            uploadButtonText: ''
+            scores: ''
         }
+    },
+    components: {
+        UploadCloudButton: UploadCloudButton
     },
     methods: {
         ...handleScores.methods,
-        handleUploadButtonState() {
-            this.uploadButtonClass = this.scores.length > 0 ? 'upload-score-button-div' : 'no-content'
-            this.uploadButtonText = this.scores.length > 0 ? '' : 'Upload the first score'
-        }
     },
     mounted() {
-        this.getAllScoreDataAsync().then(() => {
-            this.handleUploadButtonState()
-        })
-        
+        this.getAllScoreDataAsync()
     },
 }
 </script>
