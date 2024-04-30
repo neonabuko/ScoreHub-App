@@ -1,12 +1,13 @@
 <template>
     <main>
-        <div class="no-content" v-if="scores.length === 0">
+        <div class="no-content" v-if="!loading && scores.length === 0">
             <router-link to="/scores/upload" class="btn btn-primary upload-score-button">
                 <i class="fas fa-cloud-upload m-1"></i>
                 Upload first score
             </router-link>
         </div>
-        <UploadCloudButton route="/scores/upload" v-else></UploadCloudButton>
+        <UploadCloudButton route="/scores/upload" v-if="!loading && scores.length > 0"></UploadCloudButton>
+        <Spinner v-if="loading"></Spinner>
         <div class="audio-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="audio-inner-grid">
                 <div class="song-title">
@@ -38,16 +39,19 @@
 
 <script>
 import handleScores from '../../scripts/handleScores'
+import Spinner from '../Spinner.vue'
 import UploadCloudButton from '../UploadCloudButton.vue'
 
 export default {
     data() {
         return {
-            scores: ''
+            scores: '',
+            loading: false
         }
     },
     components: {
-        UploadCloudButton: UploadCloudButton
+        UploadCloudButton: UploadCloudButton,
+        Spinner: Spinner
     },
     methods: {
         ...handleScores.methods,

@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import EditSongForm from '../components/EditSongForm.vue';
+import EditSongForm from '../components/song/EditSongForm.vue';
 import GoBackButton from '../components/GoBackButton.vue';
 import general from '../scripts/general';
 

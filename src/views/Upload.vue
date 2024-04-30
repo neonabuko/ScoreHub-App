@@ -7,7 +7,7 @@
 
 <script>
 import GoBackButton from '../components/GoBackButton.vue';
-import UploadSongForm from '../components/UploadSongForm.vue';
+import UploadSongForm from '../components/song/UploadSongForm.vue';
 import general from '../scripts/general';
 
 export default {

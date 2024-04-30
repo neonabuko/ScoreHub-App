@@ -7,12 +7,12 @@
             </router-link>
         </div>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
             aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
 
-        <div class="collapse navbar-collapse navbar-content" id="navbarContent">
+        <div class=" navbar-collapse navbar-content" id="navbarContent"> <!-- Add 'collapse' to classlist to make it collapse -->
             <div class="navbar-content">
                 <div class="routes-div">
                     <ul class="navbar-nav">
@@ -21,7 +21,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="search-div ms-auto" v-if="$route.name === 'Songs'">
                     <input type="text" class="form-control" v-model="searchQuery" placeholder="Search"
                         @input="filterSongs" />

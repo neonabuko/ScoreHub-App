@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import handleSongs from '../scripts/handleSongs'
-import general from '../scripts/general'
+import handleSongs from '../../scripts/handleSongs'
+import general from '../../scripts/general'
 import axios from 'axios'
-import { API_URL } from '../scripts/variables'
+import { API_URL } from '../../scripts/variables'
 import { mapActions } from 'vuex'
 
 export default {
@@ -35,7 +35,7 @@ export default {
         ...general.methods,
         ...mapActions(["fetchAllSongDataAsync"]),
         async getSongAuthor(songName) {
-            let response = await axios.get(API_URL + "/songs/data/" + songName)
+            let response = await axios.get(API_URL + `/songs/${songName}/data`)
             this.title = response.data.title
             this.author = response.data.author
         },

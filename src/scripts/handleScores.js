@@ -46,8 +46,10 @@ export default {
         },
 
         async getAllScoreDataAsync() {
+            this.loading = true
             let response = await axios.get(API_URL + '/scores/data')
             this.scores = response.data
+            this.loading = false
         },
         async getScoreAsync(name) {
             const VerovioModule = await createVerovioModule()
