@@ -15,13 +15,33 @@
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  width: 100%;
   gap: 20px;
   padding-inline: 4px;
+}
+
+#hamburguer {
+  border: 0;
 }
 
 @media screen and (max-width: 767px) {
   .app-nav {
     padding-inline: 4.5vw;
+  }
+  
+  .collapsing .navbar-content,
+  .show .navbar-content {
+    display: flex;
+    align-items: start;
+    width: 100%;
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .navbar-nav {
+    
+  }
+
+  .route {
+    
   }
 }
