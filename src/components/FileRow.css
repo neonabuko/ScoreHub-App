@@ -1,0 +1,62 @@
+.file-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-bottom: 1px solid rgba(169, 169, 169, 0.03);
+  border-radius: 5px;
+  margin-inline: 3px;
+}
+
+.file-inner-grid {
+  display: grid;
+  grid-template-columns: auto max-content;
+  align-items: center;
+  padding: 0.3rem;
+  padding-inline: 0.6rem;
+}
+
+.file-title-button {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  text-align: start;
+}
+
+.file-title {
+  overflow-x: hidden;
+  display: inline-flex;
+  gap: 1rem;
+  align-items: start;
+}
+
+.file-title-button {
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+}
+
+.file-details {
+  color: rgba(255, 255, 255, 0.656);
+}
+
+.file-edit {
+  text-align: end;
+}
+
+.file-edit i {
+  text-decoration: none;
+  color: white;
+  display: flex;
+}
+
+.file-edit a {
+  border: none;
+  border-radius: 50%;
+}
+
+.file-edit a:hover {
+  border: none;
+  background-color: #464646;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+}

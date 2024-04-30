@@ -8,26 +8,26 @@
         </div>
         <UploadCloudButton route="/scores/upload" v-if="!loading && scores.length > 0"></UploadCloudButton>
         <Spinner v-if="loading"></Spinner>
-        <div class="audio-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
-            <div class="audio-inner-grid">
-                <div class="song-title">
+        <div class="file-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
+            <div class="file-inner-grid">
+                <div class="file-title">
                     <i class="fas fa-file fa-2x music-icon"></i>
-                    <div class="song-title-inner">
-                        <button class="song-title-button">
+                    <div class="file-title-inner">
+                        <button class="file-title-button">
                             {{ score.title }}
                         </button>
-                        <div class="score-details">
-                            <div class="score-name-div">
+                        <div class="file-details">
+                            <div class="file-name-div">
                                 {{ score.name }}
                             </div>
                             ·
-                            <div class="score-author-div">
+                            <div class="file-author-div">
                                 {{ score.author ? score.author : "Unknown" }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="song-edit">
+                <div class="file-edit">
                     <router-link :to="{ path: '/scores/edit' + score.name }" class="btn">
                         <i class="fas fa-ellipsis-v"></i>
                     </router-link>
