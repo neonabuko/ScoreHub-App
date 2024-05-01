@@ -1,19 +1,20 @@
 import { API_URL } from "./variables"
 import axios from "axios"
-import general from '../scripts/general'
+import general from './general'
+import CHUNK_SIZE from './constants'
 
 export default {
   methods: {
     ...general.methods,
 
-    async uploadAsync(file, data) {
+    async uploadAsync(baseRoute, file, data) {
       this.uploading = true
       this.setProgressHeader('', '')
-      
+
       let response
 
       try {
-        response = await this.uploadChunksAsync(file)
+        response = await this.uploadChunksAsync(file, baseRoute)
       } catch (error) {
         let errorStatus = error.response.status
         let errorMessage
@@ -63,18 +64,8 @@ export default {
       return songEditData
     },
 
-    async uploadToRepositoryAsync(endpoint, data) {
-      try {
-        axios.post(API_URL + endpoint, data)
-        this.uploadSuccess = true
-      } catch (error) {
-        console.error(error.message)
-        this.setProgressHeader('Repository save error', 'red')
-      }
-    },
-
-    async postChunkAsync(chunkData, startByte, fileSize) {
-       return axios.post(API_URL + "/songs/uploadChunk", chunkData, {
+    async postChunkAsync(baseRoute, chunkData, startByte, fileSize) {
+      return axios.post(API_URL + `${baseRoute}/chunks`, chunkData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -84,30 +75,37 @@ export default {
       })
     },
 
-    async uploadChunksAsync(file) {
-      const CHUNK_SIZE = 1024 * 1024 // 1 MB
+    async uploadChunksAsync(file, baseRoute) {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
 
       let currentChunk = 1
       let startByte = 0
-      let chunkData
-      let response
-      let progressCount
 
       while (startByte < file.size) {
         const chunk = file.slice(startByte, startByte + CHUNK_SIZE)
-        chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
+        let chunkData = this.createChunkDto(currentChunk, file.name, chunk, totalChunks)
 
-        response = await this.postChunkAsync(chunkData, startByte, file.size)
+        let response = await this.postChunkAsync(baseRoute, chunkData, startByte, file.size)
+
         if (response.status === 202) {
           currentChunk++
           startByte += CHUNK_SIZE
-          progressCount = Math.round((startByte / file.size) * 100)
+          let progressCount = Math.round((startByte / file.size) * 100)
           this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
           if (progressCount >= 100) this.setProgressHeader('Saving song metadata...', 'white')
         } else if (response.status === 200) {
           return response
         }
+      }
+    },
+
+    async uploadToRepositoryAsync(endpoint, data) {
+      try {
+        axios.post(API_URL + endpoint, data)
+        this.uploadSuccess = true
+      } catch (error) {
+        console.error(error.message)
+        this.setProgressHeader('Repository save error', 'red')
       }
     },
 

@@ -48,7 +48,7 @@ export default {
       const timeSpan = this.convertSecondsToTimeSpan(duration)
       
       const songData = this.createSongDto(name, title, author, timeSpan, 0)
-      this.uploadAsync(file, songData)
+      this.uploadAsync('/songs', file, songData)
     }
   },
   mounted() {

@@ -11,7 +11,7 @@
         </button>
         <div class="progress-header-div">
           <h2 id="progress-header" class="upload-progress"></h2>
-        </div>        
+        </div>
     </form>
 </template>
 
