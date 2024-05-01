@@ -9,13 +9,14 @@
                 <input type="text" name="author" placeholder="Author" :value="scoreAuthor" class="form-control" ref="scoreAuthor">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <button type="submit" class="btn btn-danger" @click="deleteScoreAsync(scoreName).then(goBack())">Delete</button>
+            <button type="submit" class="btn btn-danger" @click="deleteAsync(scoreName, '/scores')">Delete</button>
         </div>
     </main>
 </template>
 
 <script>
 import handleScores from '../../scripts/handleScores'
+import handleSongs from '../../scripts/handleSongs'
 import general from '../../scripts/general'
 import axios from 'axios'
 import { API_URL } from '../../scripts/variables'
@@ -30,6 +31,7 @@ export default {
     },
     methods: {
         ...handleScores.methods,
+        ...handleSongs.methods,
         ...general.methods,
         async getScoreAuthorAsync(scoreName) {
             let response = await axios.get(API_URL + `/scores/${scoreName}/data`)

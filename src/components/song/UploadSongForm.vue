@@ -47,8 +47,8 @@ export default {
       const duration = await this.getAudioDuration(file);
       const timeSpan = this.convertSecondsToTimeSpan(duration)
       
-      const songData = this.createSongDto(name, title, author, timeSpan, 0)
-      this.uploadAsync('/songs', file, songData)
+      const songDto = this.createSongDto(name, title, author, timeSpan)
+      this.uploadAsync('/songs', file, songDto)
     }
   },
   mounted() {
