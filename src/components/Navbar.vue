@@ -18,17 +18,23 @@
                 <div class="routes-div">
                     <ul class="navbar-nav">
                         <li>
-                            <router-link to="/songs" class="nav-link btn">Songs</router-link>
+                            <router-link to="/songs" class="nav-link btn">
+                                <i class="fas fa-music route-icon"></i>
+                                Songs
+                            </router-link>
                         </li>
                         <li>
-                            <router-link to="/scores" class="nav-link btn">Scores</router-link>
+                            <router-link to="/scores" class="nav-link btn">
+                                <i class="fas fa-file route-icon"></i>
+                                Scores
+                            </router-link>
                         </li>
                     </ul>
                 </div>
                 <div class="search-div" v-if="'Songs Scores'.includes($route.name)">
                     <input type="text" class="form-control search-input" v-model="searchQuery" placeholder="Search"
                         @input="filterSongs" />
-                    <i class="fas fa-search search-icon"></i>    
+                    <i class="fas fa-search search-icon"></i>
                 </div>
             </div>
         </div>

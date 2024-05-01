@@ -45,7 +45,9 @@
   cursor: pointer;
 }
 
-
+.route-icon {
+  margin-right: 4px;
+}
 
 
 @media screen and (max-width: 767px) {
@@ -64,8 +66,15 @@
 
   .nav-link {
     text-align: start;
-    border: 1px solid;
-    padding-inline: 4px;
+    padding-inline: 8px;
+  }
+
+  .nav-link:hover {
+    background: #2f353b;
+  }
+
+  .navbar-nav .router-link-active {
+    background: #323c45;
   }
 
   .routes-div {
