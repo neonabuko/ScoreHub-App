@@ -14,18 +14,8 @@ export default {
       try {
         await this.uploadChunksAsync(file, baseRoute)
       } catch (error) {
-        let errorStatus = error.response.status
-        let errorMessage
-        if (errorStatus === 409) {
-          errorMessage = file.name + ' already exists'
-        }
-        else if (errorStatus === 500) {
-          errorMessage = 'Internal server error'
-        }
-        else {
-          errorMessage = 'Unexpected error' + ' ' + errorStatus
-        }
-        this.setProgressHeader(errorMessage, 'red')
+        console.log(error);
+        this.setProgressHeader('Error uploading. Status ' + error.response.status, 'red')
         this.uploading = false
         return
       }
