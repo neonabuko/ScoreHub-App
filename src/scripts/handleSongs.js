@@ -52,11 +52,12 @@ export default {
       return scoreDto
     },
 
-    createSongEditDto(title, author) {
-      const songEditData = new FormData()
-      songEditData.append("title", title)
-      songEditData.append("author", author)
-      return songEditData
+    createSongEditDto(name, title, author) {
+      const songEditDto = new FormData()
+      songEditDto.append("name", name)
+      songEditDto.append("title", title)
+      songEditDto.append("author", author)
+      return songEditDto
     },
 
     async postChunkAsync(baseRoute, chunkData, startByte, fileSize) {
@@ -125,8 +126,8 @@ export default {
         var title = this.$refs.title.value
         var author = this.$refs.author.value
 
-        let songEditData = this.createSongEditDto(title, author)
-        axios.patch(API_URL + `/songs?name=${name}`, songEditData).then(async () => {
+        let songEditDto = this.createSongEditDto(name, title, author)
+        axios.patch(API_URL + '/songs', songEditDto).then(async () => {
           this.goBack()
           await this.getAllDataAsync()
         })
