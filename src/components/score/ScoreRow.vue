@@ -11,7 +11,7 @@
         <div class="file-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="file-inner-grid">
                 <div class="file-title">
-                    <i class="fas fa-file fa-2x music-icon"></i>
+                    <i class="fas fa-file fa-2x score-icon"></i>
                     <div class="file-title-inner">
                         <button class="file-title-button">
                             {{ score.title }}

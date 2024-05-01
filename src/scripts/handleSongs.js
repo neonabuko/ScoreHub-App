@@ -138,12 +138,12 @@ export default {
         let songEditData = this.createSongEditDto(title, author)
         axios.patch(API_URL + `/songs?name=${name}`, songEditData).then(async () => {
           this.goBack()
-          await this.getAllSongDataAsync()
+          await this.getAllDataAsync()
         })
       }
     },
 
-    async getAllSongDataAsync() {
+    async getAllDataAsync() {
       this.$store.state.loading = true
       const songs = await this.fetchAllSongDataAsync()
       this.$store.commit('setSongs', songs)

@@ -24,8 +24,6 @@
   border: 0;
 }
 
-
-
 .search-div {
   position: relative; 
 }
@@ -46,7 +44,7 @@
 }
 
 .route-icon {
-  margin-right: 4px;
+  
 }
 
 
@@ -67,6 +65,7 @@
   .nav-link {
     text-align: start;
     padding-inline: 8px;
+    padding: 1.1rem;
   }
 
   .nav-link:hover {

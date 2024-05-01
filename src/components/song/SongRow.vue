@@ -59,7 +59,7 @@ export default {
     ...mapActions(["fetchAllSongDataAsync"]),
   },
   mounted() {
-    this.getAllSongDataAsync()
+    this.getAllDataAsync()
   },
 }
 </script>

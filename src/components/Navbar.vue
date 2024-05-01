@@ -19,13 +19,13 @@
                     <ul class="navbar-nav">
                         <li>
                             <router-link to="/songs" class="nav-link btn">
-                                <i class="fas fa-music route-icon"></i>
+                                <i class="fas fa-music route-icon music-icon"></i>
                                 Songs
                             </router-link>
                         </li>
                         <li>
                             <router-link to="/scores" class="nav-link btn">
-                                <i class="fas fa-file route-icon"></i>
+                                <i class="fas fa-file route-icon score-icon"></i>
                                 Scores
                             </router-link>
                         </li>

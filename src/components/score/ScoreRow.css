@@ -38,6 +38,11 @@
     gap: 5px;
 }
 
+.score-icon {
+    color: #5ab2ff;
+    padding: 3px;
+}
+
 .file-details {
     display: flex;
     flex-direction: row;
