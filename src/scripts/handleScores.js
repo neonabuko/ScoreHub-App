@@ -12,6 +12,7 @@ export default {
             this.loading = false
         },
         async getScoreAsync(name) {
+            this.loading = true
             const VerovioModule = await createVerovioModule()
             this.verovioToolkit = new VerovioToolkit(VerovioModule)
 
@@ -24,6 +25,7 @@ export default {
             this.totalPages = this.verovioToolkit.getPageCount()
 
             this.renderPage(this.currentPage)
+            this.loading = false
         },
         renderPage(pageNumber) {
             const svg = this.verovioToolkit.renderToSVG(pageNumber, {})
@@ -32,14 +34,22 @@ export default {
         },
         nextPage() {
             if (this.currentPage < this.totalPages) {
+                this.loading = true
+
                 this.currentPage++
                 this.renderPage(this.currentPage)
+                
+                this.loading = false
             }
         },
         prevPage() {
             if (this.currentPage > 1) {
+                this.loading = true
+
                 this.currentPage--
                 this.renderPage(this.currentPage)
+
+                this.loading = false
             }
         },
     },

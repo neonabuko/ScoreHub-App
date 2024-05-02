@@ -4,7 +4,8 @@
             <h1 class="edit-header">{{ name }}</h1>
         </div>
         <div class="edit-form-div">
-            <form class="edit-form" @submit.prevent="prepareUpdate" method="post" enctype="multipart/form-data">
+            <form class="edit-form" name="edit-song-form" @submit.prevent="prepareUpdate" method="post"
+                enctype="multipart/form-data">
                 <label for="title" class="edit-form-label">Title</label>
                 <input type="text" name="title" :value="title" class="form-control" ref="title">
                 <label for="author" class="edit-form-label">Author</label>
@@ -26,7 +27,8 @@ export default {
         return {
             name: this.$route.params.name,
             title: '',
-            author: ''
+            author: '',
+            baseRoute: '/scores'
         }
     },
     methods: {
@@ -40,11 +42,11 @@ export default {
             let author = this.$refs.author.value
 
             let songEditDto = this.createEditDto(name, title, author)
-            this.updateAsync('/scores', songEditDto)
-        },        
+            this.updateAsync(songEditDto)
+        },
     },
     mounted() {
-        this.getAuthorAsync('/scores', this.name)
+        this.getAuthorAsync(this.name)
     },
 }
 

@@ -32,8 +32,8 @@
                     </ul>
                 </div>
                 <div class="search-div" v-if="'Songs Scores'.includes($route.name)">
-                    <input type="text" class="form-control search-input" v-model="searchQuery" placeholder="Search"
-                        @input="filterSongs" />
+                    <input type="text" name="search" class="form-control search-input" v-model="searchQuery"
+                        placeholder="Search" @input="filterSongs" />
                     <i class="fas fa-search search-icon"></i>
                 </div>
             </div>

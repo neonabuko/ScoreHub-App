@@ -4,7 +4,7 @@ export default {
             window.history.back()
         },
 
-        async getAudioDuration(file) {
+        async getAudioDurationAsync(file) {
             return new Promise((resolve, reject) => {
                 const audio = new Audio()
                 audio.addEventListener('loadedmetadata', () => {

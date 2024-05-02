@@ -4,12 +4,13 @@
             <h1 class="edit-header">{{ name }}</h1>
         </div>
         <div class="edit-form-div">
-            <form class="edit-form" @submit.prevent="prepareUpdate" method="post" enctype="multipart/form-data">
+            <form class="edit-form" name="edit-song-form" @submit.prevent="prepareUpdate" method="post"
+                enctype="multipart/form-data">
                 <input type="hidden" name="name" :value="name" ref="name">
-                <label for="title" class="edit-form-label">Title</label>
-                <input type="text" name="title" :value="title" class="form-control" ref="title">
-                <label for="author" class="edit-form-label">Author</label>
-                <input type="text" name="author" :value="author" class="form-control" ref="author">
+                <label for="title-input" class="edit-form-label">Title</label>
+                <input type="text" id="title-input" name="title" :value="title" class="form-control" ref="title">
+                <label for="author-input" class="edit-form-label">Author</label>
+                <input type="text" id="author-input" name="author" :value="author" class="form-control" ref="author">
                 <button type="submit" class="btn btn-primary edit-submit-button">Submit</button>
             </form>
             <button type="submit" class="btn btn-danger" @click="deleteAsync(name, '/songs')">Delete</button>
@@ -27,7 +28,8 @@ export default {
         return {
             name: this.$route.params.name,
             title: '',
-            author: ''
+            author: '',
+            baseRoute: '/songs'
         }
     },
     methods: {
@@ -41,11 +43,11 @@ export default {
             let author = this.$refs.author.value
 
             let songEditDto = this.createEditDto(name, title, author)
-            this.updateAsync('/songs', songEditDto)
+            this.updateAsync(songEditDto)
         },
     },
     mounted() {
-        this.getAuthorAsync('/songs', this.name)
+        this.getAuthorAsync(this.name)
     },
 }
 

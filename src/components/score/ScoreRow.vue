@@ -10,7 +10,7 @@
         <Spinner v-if="loading"></Spinner>
         <div class="file-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="file-inner-grid">
-                <div class="file-title">
+                <router-link :to="{ path: '/score' + score.name }" class="file-title">
                     <i class="fas fa-file fa-2x score-icon"></i>
                     <div class="file-title-inner">
                         <button class="file-title-button">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </router-link>
                 <div class="file-edit">
                     <router-link :to="{ path: '/scores/edit' + score.name }" class="btn">
                         <i class="fas fa-ellipsis-v"></i>

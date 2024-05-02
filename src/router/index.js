@@ -6,7 +6,8 @@ const routes = [
     {path: '/songs/edit:name', name: 'Edit Song', component: () => import("../views/Edit.vue")},
     {path: '/scores', name: 'Scores', component: () => import("../views/Scores.vue")},
     {path: '/scores/upload', name: 'Upload Score', component: () => import("../views/UploadScore.vue")},
-    {path: '/scores/edit:name', name: 'Edit Score', component: () => import("../views/EditScore.vue")}
+    {path: '/scores/edit:name', name: 'Edit Score', component: () => import("../views/EditScore.vue")},
+    {path: '/score:name', name: 'Score', component: () => import("../views/Score.vue")}
 ]
 
 const router = createRouter ({
