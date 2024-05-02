@@ -34,22 +34,14 @@ export default {
         },
         nextPage() {
             if (this.currentPage < this.totalPages) {
-                this.loading = true
-
                 this.currentPage++
                 this.renderPage(this.currentPage)
-                
-                this.loading = false
             }
         },
         prevPage() {
             if (this.currentPage > 1) {
-                this.loading = true
-
                 this.currentPage--
                 this.renderPage(this.currentPage)
-
-                this.loading = false
             }
         },
     },

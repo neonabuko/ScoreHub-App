@@ -17,9 +17,15 @@
               {{ song.title }}
             </button>
             <div class="file-details">
-              {{ song.author ? song.author : "Unknown" }} ·
-              {{ formatTimeSpan(song.duration) }}
+              <div class="file-author-div">
+                {{ song.author ? song.author : "Unknown" }}
+              </div>
+              ·
+              <div class="file-duration-div">
+                {{ formatTimeSpan(song.duration) }}
+              </div>
             </div>
+
           </div>
         </div>
         <div class="file-edit">
