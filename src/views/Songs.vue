@@ -1,10 +1,8 @@
 <template>
-  <main class="mt-4">
     <SongRow></SongRow>
     <div class="footer-div">
       <footer class="app-footer">{{ songs.length }} songs</footer>
     </div>
-  </main>
 </template>
 
 <script>

@@ -2,10 +2,12 @@ import { API_URL } from "./variables"
 import axios from "axios"
 import general from './general'
 import CHUNK_SIZE from './constants'
+import dtos from "./dtos"
 
 export default {
   methods: {
     ...general.methods,
+    ...dtos.methods,
 
     async uploadAsync(baseRoute, file, dto) {
       this.uploading = true
@@ -26,42 +28,8 @@ export default {
       this.setProgressHeader('Success', 'green')
     },
 
-    createChunkDto(currentChunk, fileName, chunk, totalChunks) {
-      const chunkData = new FormData()
-      chunkData.append("id", currentChunk)
-      chunkData.append("name", fileName)
-      chunkData.append("data", chunk)
-      chunkData.append("totalChunks", totalChunks)
-      return chunkData
-    },
-
-    createSongDto(songName, title, author, timeSpan) {
-      const songData = new FormData()
-      songData.append("name", songName)
-      songData.append("title", title)
-      songData.append("author", author)
-      songData.append("duration", timeSpan)
-      return songData
-    },
-
-    createScoreDto(scoreName, title, author) {
-      const scoreDto = new FormData()
-      scoreDto.append("name", scoreName)
-      scoreDto.append("title", title)
-      scoreDto.append("author", author)
-      return scoreDto
-    },
-
-    createSongEditDto(name, title, author) {
-      const songEditDto = new FormData()
-      songEditDto.append("name", name)
-      songEditDto.append("title", title)
-      songEditDto.append("author", author)
-      return songEditDto
-    },
-
     async postChunkAsync(baseRoute, chunkData, startByte, fileSize) {
-      return axios.post(API_URL + `${baseRoute}/chunks`, chunkData, {
+      return await axios.post(API_URL + `${baseRoute}/chunks`, chunkData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -73,25 +41,29 @@ export default {
 
     async uploadChunksAsync(file, baseRoute) {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
-
       let chunkId = 1
       let startByte = 0
 
       while (startByte < file.size) {
         const chunkData = file.slice(startByte, startByte + CHUNK_SIZE)
         let chunkDto = this.createChunkDto(chunkId, file.name, chunkData, totalChunks)
+        let postChunkRespose = await this.postChunkAsync(baseRoute, chunkDto, startByte, file.size)
 
-        let response = await this.postChunkAsync(baseRoute, chunkDto, startByte, file.size)
-
-        if (response.status === 202) {
+        if (postChunkRespose.status === 202) {
           chunkId++
           startByte += CHUNK_SIZE
-          let progressCount = Math.round((startByte / file.size) * 100)
-          this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
-          if (progressCount >= 100) this.setProgressHeader('Saving song metadata...', 'white')
-        } else if (response.status === 200) {
-          return response
+          this.updateProgressHeader(startByte, file.size)
+        } else {
+          return postChunkRespose
         }
+      }
+    },
+
+    updateProgressHeader(startByte, fileSize) {
+      let progressCount = Math.round((startByte / fileSize) * 100)
+      this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
+      if (progressCount >= 100) {
+        this.setProgressHeader('Saving song metadata...', 'white')
       }
     },
 
@@ -100,8 +72,7 @@ export default {
         axios.post(API_URL + `${baseRoute}/data`, dto)
         this.uploadSuccess = true
       } catch (error) {
-        console.error(error.message)
-        this.setProgressHeader('Repository save error', 'red')
+        this.setProgressHeader('Repository save error ' + error.response, 'red')
       }
     },
 
@@ -119,17 +90,11 @@ export default {
       }
     },
 
-    async updateSongAsync() {
+    async updateAsync(baseRoute, dto) {
       let confirmUpdate = confirm('Confirm update?')
       if (confirmUpdate) {
-        var name = this.$refs.name.value
-        var title = this.$refs.title.value
-        var author = this.$refs.author.value
-
-        let songEditDto = this.createSongEditDto(name, title, author)
-        axios.patch(API_URL + '/songs', songEditDto).then(async () => {
+        axios.patch(API_URL + `${baseRoute}/data`, dto).then(async () => {
           this.goBack()
-          await this.getAllDataAsync()
         })
       }
     },

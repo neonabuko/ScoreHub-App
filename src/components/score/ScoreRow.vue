@@ -6,7 +6,7 @@
                 Upload first score
             </router-link>
         </div>
-        <UploadCloudButton route="/scores/upload" v-if="!loading && scores.length > 0"></UploadCloudButton>
+        <UploadCloudButton route="/scores/upload" v-else></UploadCloudButton>
         <Spinner v-if="loading"></Spinner>
         <div class="file-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="file-inner-grid">

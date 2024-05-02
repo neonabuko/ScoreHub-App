@@ -4,7 +4,8 @@
   </div>
   <div class="upload-form-div">
     <form class="upload-form" @submit.prevent="prepareUploadAsync" method="post" enctype="multipart/form-data">
-      <input type="file" class="form-control" name="file" id="upload-file" ref="fileInput" aria-describedby="fileHelpId"/>
+      <input type="file" class="form-control" name="file" id="upload-file" ref="fileInput"
+        aria-describedby="fileHelpId" />
       <input type="text" class="title form-control" placeholder="Title" ref="title">
       <input type="text" class="author form-control" placeholder="Author" ref="author">
       <div class="upload-button-div">
@@ -46,7 +47,7 @@ export default {
       const author = this.$refs.author.value
       const duration = await this.getAudioDuration(file);
       const timeSpan = this.convertSecondsToTimeSpan(duration)
-      
+
       const songDto = this.createSongDto(name, title, author, timeSpan)
       this.uploadAsync('/songs', file, songDto)
     }
