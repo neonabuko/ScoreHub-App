@@ -26,7 +26,7 @@ export default {
             return scoreDto
         },
 
-        createSongEditDto(name, title, author) {
+        createEditDto(name, title, author) {
             const songEditDto = new FormData()
             songEditDto.append("name", name)
             songEditDto.append("title", title)

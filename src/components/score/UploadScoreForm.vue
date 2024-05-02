@@ -43,6 +43,7 @@ export default {
             uploadSuccess: false,
             uploadProgress: '0%',
             progressHeader: '',
+            selectedFile: '',
             selectedFileName: 'Choose file'
         }
     },
@@ -50,8 +51,7 @@ export default {
         ...handleSongs.methods,
 
         async prepareUploadAsync() {
-            const fileInput = this.$refs.scoreFile
-            const file = fileInput.files[0]
+            const file = this.selectedFile
             const name = file.name
             const title = this.$refs.scoreTitle.value
             const author = this.$refs.scoreAuthor.value

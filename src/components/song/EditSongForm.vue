@@ -7,12 +7,12 @@
             <form class="edit-form" @submit.prevent="prepareUpdate" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="name" :value="songName" ref="name">
                 <label for="title" class="edit-form-label">Title</label>
-                <input type="text" name="title" placeholder="Title" :value="title" class="form-control" ref="title">
+                <input type="text" name="title" :value="title" class="form-control" ref="title">
                 <label for="author" class="edit-form-label">Author</label>
-                <input type="text" name="author" placeholder="Author" :value="author" class="form-control" ref="author">
+                <input type="text" name="author" :value="author" class="form-control" ref="author">
                 <button type="submit" class="btn btn-primary edit-submit-button">Submit</button>
             </form>
-            <button type="submit" class="btn btn-danger" @click="deleteSongAsync(songName)">Delete</button>
+            <button type="submit" class="btn btn-danger" @click="deleteAsync(songName, '/songs')">Delete</button>
         </div>
     </main>
 </template>
@@ -36,17 +36,19 @@ export default {
         ...handleSongs.methods,
         ...general.methods,
         ...mapActions(["fetchAllSongDataAsync"]),
+        
         async getSongAuthor(songName) {
             let response = await axios.get(API_URL + `/songs/${songName}/data`)
             this.title = response.data.title
             this.author = response.data.author
         },
-        prepareUpdate() {
-            var name = this.$refs.name.value
-            var title = this.$refs.title.value
-            var author = this.$refs.author.value
 
-            let songEditDto = this.createSongEditDto(name, title, author)
+        prepareUpdate() {
+            let name = this.songName
+            let title = this.$refs.title.value
+            let author = this.$refs.author.value
+
+            let songEditDto = this.createEditDto(name, title, author)
             this.updateAsync('/songs', songEditDto)
         },
     },

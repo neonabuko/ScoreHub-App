@@ -59,14 +59,6 @@ export default {
       }
     },
 
-    updateProgressHeader(startByte, fileSize) {
-      let progressCount = Math.round((startByte / fileSize) * 100)
-      this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
-      if (progressCount >= 100) {
-        this.setProgressHeader('Saving song metadata...', 'white')
-      }
-    },
-
     async uploadToRepositoryAsync(baseRoute, dto) {
       try {
         axios.post(API_URL + `${baseRoute}/data`, dto)
@@ -74,11 +66,6 @@ export default {
       } catch (error) {
         this.setProgressHeader('Repository save error ' + error.response, 'red')
       }
-    },
-
-    setProgressHeader(text, color) {
-      this.progressHeader.innerText = text
-      this.progressHeader.style.color = color
     },
 
     async deleteAsync(name, baseRoute) {
@@ -116,6 +103,19 @@ export default {
         currentSongName: currentSongName
       })
     },
+
+    updateProgressHeader(startByte, fileSize) {
+      let progressCount = Math.round((startByte / fileSize) * 100)
+      this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
+      if (progressCount >= 100) {
+        this.setProgressHeader('Saving song metadata...', 'white')
+      }
+    },
+
+    setProgressHeader(text, color) {
+      this.progressHeader.innerText = text
+      this.progressHeader.style.color = color
+    },    
 
     resetPlayer(currentSongName) {
       this.$store.commit('resetPlayer')

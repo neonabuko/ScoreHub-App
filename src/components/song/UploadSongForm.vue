@@ -46,6 +46,7 @@ export default {
       uploadSuccess: false,
       uploadProgress: '0%',
       progressHeader: '',
+      selectedFile: '',
       selectedFileName: 'Choose file'
     };
   },
@@ -54,8 +55,7 @@ export default {
     ...general.methods,
 
     async prepareUploadAsync() {
-      const fileInput = this.$refs.fileInput
-      const file = fileInput.files[0]
+      const file = this.selectedFile
       const name = file.name
       const title = this.$refs.title.value
       const author = this.$refs.author.value
