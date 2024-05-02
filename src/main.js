@@ -1,10 +1,10 @@
 import { createApp } from "vue";
 import "./style.css";
 import "./components/Navbar.css"
-import "./components/song/UploadSongForm.css"
+import "./components/UploadForm.css"
 import "./components/FileRow.css"
 import "./components/song/SongRow.css"
-import "./components/song/EditSongForm.css"
+import "./components/EditForm.css"
 import "./components/song/Player.css"
 import "./components/score/Score.css"
 import "./components/score/ScoreRow.css"

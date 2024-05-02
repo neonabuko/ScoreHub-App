@@ -5,14 +5,14 @@
     </div>
     <div class="upload-form-div">
         <form class="upload-form" @submit.prevent="prepareUploadAsync" method="post" enctype="multipart/form-data">
-            <label for="title" class="edit-form-label">Title</label>
-            <input class="form-control" placeholder="Title" type="text" name="title" ref="scoreTitle">
-            <label for="author" class="edit-form-label">Author</label>
-            <input class="form-control" placeholder="Author" type="text" name="author" ref="scoreAuthor">
+            <label for="title-input" class="edit-form-label">Title</label>
+            <input class="form-control" id="title-input" type="text" name="title" ref="scoreTitle">
+            <label for="author-input" class="edit-form-label">Author</label>
+            <input class="form-control" id="author-input" type="text" name="author" ref="scoreAuthor">
 
             <div class="file-input-wrapper">
-                <label for="file" class="edit-form-label">File</label>
-                <input type="file" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
+                <label for="file-input" class="edit-form-label">File</label>
+                <input type="file" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
                     @change="onFileSelected">
                 <button class="btn btn-outline-success text-white w-100" id="select-file-button" @click="selectFile" type="button">
                     <i class="fas fa-file" v-if="selectedFileName !== 'Choose file'"></i>
@@ -29,7 +29,7 @@
         </form>
     </div>
 
-    <div id="fileHelpId" class="form-text">Only <strong>musicxml</strong> files are accepted.</div>
+    <div id="fileHelpId" class="form-text text-center">Only <strong>musicxml</strong> files are accepted.</div>
 </template>
 
 <script>
@@ -48,16 +48,6 @@ export default {
     },
     methods: {
         ...handleSongs.methods,
-
-        selectFile() {
-            this.$refs.scoreFile.click();
-        },
-        onFileSelected(event) {
-            const file = event.target.files[0];
-            this.selectedFileName = file.name
-            let button = document.getElementById('select-file-button')
-            button.classList.replace('btn-outline-success', 'btn-success')
-        },
 
         async prepareUploadAsync() {
             const fileInput = this.$refs.scoreFile

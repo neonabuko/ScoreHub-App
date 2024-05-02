@@ -5,14 +5,14 @@
   </div>
   <div class="upload-form-div">
     <form class="upload-form" @submit.prevent="prepareUploadAsync" method="post" enctype="multipart/form-data">
-      <label for="title" class="edit-form-label">Title</label>
-      <input type="text" class="title form-control" ref="title">
-      <label for="author" class="edit-form-label">Author</label>
-      <input type="text" class="author form-control" ref="author">
+      <label for="title-input" class="edit-form-label">Title</label>
+      <input type="text" id="title-input" class="title form-control" ref="title">
+      <label for="author-input" class="edit-form-label">Author</label>
+      <input type="text" id="author-input" class="author form-control" ref="author">
 
       <div class="file-input-wrapper">
-        <label for="file" class="edit-form-label">File</label>
-        <input type="file" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
+        <label for="file-input" class="edit-form-label">File</label>
+        <input type="file" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
           @change="onFileSelected">
         <button class="btn btn-outline-success text-white w-100" id="select-file-button" @click="selectFile"
           type="button">
@@ -31,7 +31,7 @@
       </div>
     </form>
   </div>
-  <div id="fileHelpId" class="form-text">Supported formats: mp3, wav.</div>
+  <div id="fileHelpId" class="form-text text-center">Supported formats: mp3, wav.</div>
 </template>
 
 <script>
@@ -52,16 +52,6 @@ export default {
   methods: {
     ...handleSongs.methods,
     ...general.methods,
-
-    selectFile() {
-      this.$refs.scoreFile.click();
-    },
-    onFileSelected(event) {
-      const file = event.target.files[0];
-      this.selectedFileName = file.name
-      let button = document.getElementById('select-file-button')
-      button.classList.replace('btn-outline-success', 'btn-success')
-    },
 
     async prepareUploadAsync() {
       const fileInput = this.$refs.fileInput

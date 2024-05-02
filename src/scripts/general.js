@@ -72,6 +72,18 @@ export default {
 
             let currentAudioRow = document.getElementById(newSongName)
             if (currentAudioRow) currentAudioRow.style.backgroundColor = '#9c65d736'
-        }
+        },
+
+        selectFile() {
+            this.$refs.scoreFile.click();
+        },
+        
+        onFileSelected(event) {
+            const file = event.target.files[0];
+            this.selectedFileName = file.name
+            let button = document.getElementById('select-file-button')
+            button.classList.replace('btn-outline-success', 'btn-success')
+        },        
+
     },
 }
