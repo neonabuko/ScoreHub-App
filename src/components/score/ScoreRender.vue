@@ -3,11 +3,11 @@
         <Spinner v-if="loading"></Spinner>
         <div class="navigation">
             <button class="btn" @click="prevPage" :disabled="currentPage <= 1">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-left fa-2x"></i>
             </button>
             <span>Page {{ currentPage }} of {{ totalPages }}</span>
             <button class="btn" @click="nextPage" :disabled="currentPage >= totalPages">
-                <i class="fas fa-arrow-right"></i>
+                <i class="fas fa-arrow-right fa-2x"></i>
             </button>
         </div>
         <div id="score" class="bg-white"></div>

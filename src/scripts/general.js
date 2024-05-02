@@ -83,7 +83,7 @@ export default {
             this.selectedFile = file
             this.selectedFileName = file.name
             let button = document.getElementById('select-file-button')
-            button.classList.replace('btn-outline-success', 'btn-success')
+            button.classList.replace('btn-outline-secondary', 'btn-secondary')
         },        
 
     },
