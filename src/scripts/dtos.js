@@ -1,21 +1,21 @@
 export default {
     methods: {
         createChunkDto(currentChunk, fileName, chunk, totalChunks) {
-            const chunkData = new FormData()
-            chunkData.append("id", currentChunk)
-            chunkData.append("name", fileName)
-            chunkData.append("data", chunk)
-            chunkData.append("totalChunks", totalChunks)
-            return chunkData
+            const chunkDto = new FormData()
+            chunkDto.append("id", currentChunk)
+            chunkDto.append("name", fileName)
+            chunkDto.append("data", chunk)
+            chunkDto.append("totalChunks", totalChunks)
+            return chunkDto
         },
 
         createSongDto(songName, title, author, timeSpan) {
-            const songData = new FormData()
-            songData.append("name", songName)
-            songData.append("title", title)
-            songData.append("author", author)
-            songData.append("duration", timeSpan)
-            return songData
+            const songDto = new FormData()
+            songDto.append("name", songName)
+            songDto.append("title", title)
+            songDto.append("author", author)
+            songDto.append("duration", timeSpan)
+            return songDto
         },
 
         createScoreDto(scoreName, title, author) {

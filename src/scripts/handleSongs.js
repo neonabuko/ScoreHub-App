@@ -9,12 +9,12 @@ export default {
     ...general.methods,
     ...dtos.methods,
 
-    async uploadAsync(baseRoute, file, dto) {
+    async uploadAsync(file, dto) {
       this.uploading = true
       this.setProgressHeader('', '')
 
       try {
-        await this.uploadChunksAsync(file, baseRoute)
+        await this.uploadChunksAsync(file)
       } catch (error) {
         console.log(error);
         this.setProgressHeader('Error uploading. Status ' + error.response.status, 'red')
@@ -22,14 +22,14 @@ export default {
         return
       }
 
-      await this.uploadToRepositoryAsync(baseRoute, dto)
+      await this.uploadToRepositoryAsync(dto)
 
       this.uploading = false
       this.setProgressHeader('Success', 'green')
     },
 
-    async postChunkAsync(baseRoute, chunkData, startByte, fileSize) {
-      return await axios.post(API_URL + `${baseRoute}/chunks`, chunkData, {
+    async postChunkAsync(chunkData, startByte, fileSize) {
+      return await axios.post(API_URL + `${this.baseRoute}/chunks`, chunkData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -39,7 +39,7 @@ export default {
       })
     },
 
-    async uploadChunksAsync(file, baseRoute) {
+    async uploadChunksAsync(file) {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
       let chunkId = 1
       let startByte = 0
@@ -47,7 +47,7 @@ export default {
       while (startByte < file.size) {
         const chunkData = file.slice(startByte, startByte + CHUNK_SIZE)
         let chunkDto = this.createChunkDto(chunkId, file.name, chunkData, totalChunks)
-        let postChunkRespose = await this.postChunkAsync(baseRoute, chunkDto, startByte, file.size)
+        let postChunkRespose = await this.postChunkAsync(chunkDto, startByte, file.size)
 
         if (postChunkRespose.status === 202) {
           chunkId++
@@ -59,28 +59,28 @@ export default {
       }
     },
 
-    async uploadToRepositoryAsync(baseRoute, dto) {
+    async uploadToRepositoryAsync(dto) {
       try {
-        axios.post(API_URL + `${baseRoute}/data`, dto)
+        axios.post(API_URL + `${this.baseRoute}/data`, dto)
         this.uploadSuccess = true
       } catch (error) {
         this.setProgressHeader('Repository save error ' + error.response, 'red')
       }
     },
 
-    async deleteAsync(name, baseRoute) {
+    async deleteAsync(name) {
       let confirmDelete = confirm('Delete permanently?')
       if (confirmDelete) {
-        axios.delete(API_URL + `${baseRoute}/${name}`).then(() => {
+        axios.delete(API_URL + `${this.baseRoute}/${name}`).then(() => {
           this.goBack()
         })
       }
     },
 
-    async updateAsync(baseRoute, dto) {
+    async updateAsync(dto) {
       let confirmUpdate = confirm('Confirm update?')
       if (confirmUpdate) {
-        axios.patch(API_URL + `${baseRoute}/data`, dto).then(async () => {
+        axios.patch(API_URL + `${this.baseRoute}/data`, dto).then(async () => {
           this.goBack()
         })
       }
@@ -104,6 +104,12 @@ export default {
       })
     },
 
+    async getAuthorAsync(name) {
+      let response = await axios.get(API_URL + `${this.baseRoute}/${name}/data`)
+      this.title = response.data.title
+      this.author = response.data.author
+    },
+
     updateProgressHeader(startByte, fileSize) {
       let progressCount = Math.round((startByte / fileSize) * 100)
       this.setProgressHeader(`Progress: ${progressCount}%`, 'white')
@@ -115,7 +121,7 @@ export default {
     setProgressHeader(text, color) {
       this.progressHeader.innerText = text
       this.progressHeader.style.color = color
-    },    
+    },
 
     resetPlayer(currentSongName) {
       this.$store.commit('resetPlayer')
