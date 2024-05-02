@@ -44,6 +44,11 @@
     text-align: start;
     max-height: fit-content;
     align-items: end;
+    color: white;
+}
+
+.form-control {
+    background: #2d333b;
 }
 
 .edit-submit-button {

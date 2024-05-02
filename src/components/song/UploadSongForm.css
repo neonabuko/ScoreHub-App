@@ -1,18 +1,17 @@
 .upload-header {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  justify-content: center;
+  align-items: start;
   text-align: center;
-  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
 }
 
 .upload-container {
   display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  margin-top: 20px;
+  grid-auto-flow: row;
   overflow: hidden;
-  max-width: fit-content;
+  max-width: 50%;
 }
 
 @media screen and (max-width: 736px) {
@@ -22,15 +21,21 @@
 }
 
 .upload-form {
+  margin-top: 5rem;
   display: grid;
   gap: 5px;
   color: #9c65d736;
 }
 
-.upload-button-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.file-input-hidden {
+  opacity: 0;
+  position: absolute;
+  left: -9999px;
+}
+
+
+#submit-button {
+  margin-top: 10px;
 }
 
 .progress-header-div {

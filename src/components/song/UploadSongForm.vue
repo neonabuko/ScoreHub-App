@@ -1,15 +1,28 @@
 <template>
   <div class="upload-header">
+    <i class="fas fa-music fa-2x music-icon"></i>
     <h1 class="form-label" id="edit-h1">Upload a song</h1>
   </div>
   <div class="upload-form-div">
     <form class="upload-form" @submit.prevent="prepareUploadAsync" method="post" enctype="multipart/form-data">
-      <input type="file" class="form-control" name="file" id="upload-file" ref="fileInput"
-        aria-describedby="fileHelpId" />
-      <input type="text" class="title form-control" placeholder="Title" ref="title">
-      <input type="text" class="author form-control" placeholder="Author" ref="author">
+      <label for="title" class="edit-form-label">Title</label>
+      <input type="text" class="title form-control" ref="title">
+      <label for="author" class="edit-form-label">Author</label>
+      <input type="text" class="author form-control" ref="author">
+
+      <div class="file-input-wrapper">
+        <label for="file" class="edit-form-label">File</label>
+        <input type="file" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
+          @change="onFileSelected">
+        <button class="btn btn-outline-success text-white w-100" id="select-file-button" @click="selectFile"
+          type="button">
+          <i class="fas fa-file" v-if="selectedFileName !== 'Choose file'"></i>
+          {{ selectedFileName }}
+        </button>
+      </div>
+
       <div class="upload-button-div">
-        <button class="btn btn-primary" id="submit-button" type="submit" value="Upload" :disabled="uploading">
+        <button class="btn btn-primary w-100" id="submit-button" type="submit" value="Upload" :disabled="uploading">
           {{ upload.at(uploading) }}
         </button>
         <div class="progress-header-div">
@@ -32,12 +45,23 @@ export default {
       upload: ['Upload', 'Uploading...'],
       uploadSuccess: false,
       uploadProgress: '0%',
-      progressHeader: ''
+      progressHeader: '',
+      selectedFileName: 'Choose file'
     };
   },
   methods: {
     ...handleSongs.methods,
     ...general.methods,
+
+    selectFile() {
+      this.$refs.scoreFile.click();
+    },
+    onFileSelected(event) {
+      const file = event.target.files[0];
+      this.selectedFileName = file.name
+      let button = document.getElementById('select-file-button')
+      button.classList.replace('btn-outline-success', 'btn-success')
+    },
 
     async prepareUploadAsync() {
       const fileInput = this.$refs.fileInput
