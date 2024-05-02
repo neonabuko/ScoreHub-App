@@ -13,19 +13,16 @@ export default {
         },
         async getScoreAsync(name) {
             this.loading = true
-            const VerovioModule = await createVerovioModule()
-            this.verovioToolkit = new VerovioToolkit(VerovioModule)
-
-            const response = await axios.get(API_URL + `/scores/${name}`)
-
-            const musicxml = await response.data
-
-            this.verovioToolkit.loadData(musicxml, { format: 'xml' })
-
-            this.totalPages = this.verovioToolkit.getPageCount()
-
-            this.renderPage(this.currentPage)
-            this.loading = false
+            createVerovioModule().then(async (VerovioModule) => {
+                this.verovioToolkit = new VerovioToolkit(VerovioModule)
+                const response = await axios.get(API_URL + `/scores/${name}`)
+                const score = await response.data
+                this.verovioToolkit.loadData(score, { format: 'mei' })
+                this.totalPages = this.verovioToolkit.getPageCount()
+                this.renderPage(this.currentPage)
+                this.loading = false
+            })
+            
         },
         renderPage(pageNumber) {
             const svg = this.verovioToolkit.renderToSVG(pageNumber, {})

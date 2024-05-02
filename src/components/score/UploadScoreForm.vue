@@ -12,7 +12,7 @@
 
             <div class="file-input-wrapper">
                 <label for="file-input" class="edit-form-label">File</label>
-                <input type="file" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
+                <input type="file" accept=".mei" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
                     @change="onFileSelected">
                 <button class="btn btn-outline-success text-white w-100" id="select-file-button" @click="selectFile" type="button">
                     <i class="fas fa-file" v-if="selectedFileName !== 'Choose file'"></i>
@@ -29,7 +29,7 @@
         </form>
     </div>
 
-    <div id="fileHelpId" class="form-text text-center">Only <strong>musicxml</strong> files are accepted.</div>
+    <div id="fileHelpId" class="form-text text-center">Only <strong>mei</strong> files are accepted.</div>
 </template>
 
 <script>

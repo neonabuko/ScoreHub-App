@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <main class="score-container">
         <Spinner v-if="loading"></Spinner>
         <div class="navigation">
             <button class="btn" @click="prevPage" :disabled="currentPage <= 1">
@@ -11,7 +11,7 @@
             </button>
         </div>
         <div id="score" class="bg-white"></div>
-    </div>
+    </main>
 </template>
 
 <script>

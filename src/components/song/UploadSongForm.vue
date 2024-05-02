@@ -12,7 +12,7 @@
 
       <div class="file-input-wrapper">
         <label for="file-input" class="edit-form-label">File</label>
-        <input type="file" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
+        <input type="file" accept=".mp3" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
           @change="onFileSelected">
         <button class="btn btn-outline-success text-white w-100" id="select-file-button" @click="selectFile"
           type="button">
