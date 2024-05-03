@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
+    {path: '/', name: 'Home', component: () => import("../views/Home.vue")},
     {path: '/songs', name: 'Songs', component: () => import("../views/Songs.vue")},
     {path: '/songs/upload', name: 'Upload Song', component: () => import("../views/Upload.vue")},
     {path: '/songs/edit:name', name: 'Edit Song', component: () => import("../views/Edit.vue")},

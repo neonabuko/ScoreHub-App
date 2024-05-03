@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-md bg-transparent app-nav">
         <div class="navbar-header">
-            <router-link class="navbar-brand" to="/songs">
+            <router-link class="navbar-brand" to="/">
                 <img src="/vite.svg" alt="logo" width="30" height="30" class="d-inline-block align-top">
                 ScoreHub
             </router-link>
