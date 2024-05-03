@@ -8,7 +8,7 @@
   
   <script setup>
   const navigateToSignUp = () => {
-    // Navigate to the sign-up page
+    
   };
   </script>
   

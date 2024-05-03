@@ -1,5 +1,5 @@
 <template>
-    <SongRow></SongRow>
+    <SongRow />
     <div class="footer-div">
       <footer class="app-footer">{{ songs.length }} songs</footer>
     </div>
@@ -14,7 +14,7 @@ export default {
     ...mapState(['songs'])
   },
   components: {
-    SongRow: SongRow
+    SongRow
   }
 }
 </script>
