@@ -1,7 +1,7 @@
 <template>
-  <GoBackButton></GoBackButton>
+  <GoBackButton/>
   <main class="container upload-container">
-    <UploadSongForm></UploadSongForm>
+    <UploadSongForm/>
   </main>
 </template>
 
@@ -12,8 +12,8 @@ import general from '../scripts/general';
 
 export default {
   components: {
-    UploadSongForm: UploadSongForm,
-    GoBackButton: GoBackButton
+    UploadSongForm,
+    GoBackButton
   },
   methods: {
     ...general.methods

@@ -1,7 +1,7 @@
 <template>
-    <GoBackButton></GoBackButton>
+    <GoBackButton/>
     <main class="container upload-container">
-        <UploadScoreForm></UploadScoreForm>
+        <UploadScoreForm/>
     </main>
 </template>
 
@@ -12,8 +12,8 @@ import general from '../scripts/general';
 
 export default {
     components: {
-        UploadScoreForm: UploadScoreForm,
-        GoBackButton: GoBackButton
+        UploadScoreForm,
+        GoBackButton
     },
     methods: {
         ...general.methods

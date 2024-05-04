@@ -1,16 +1,14 @@
 <template>
   <div class="app-container">
     <Navbar />
-    <router-view class="view"></router-view>
-    <Player></Player>
-    <FooterSection/>
+    <router-view class="view"/>
+    <Player/>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
 import Player from './components/song/Player.vue';
-import FooterSection from './components/home/FooterSection.vue';
 
 export default {
   data() {
@@ -20,8 +18,7 @@ export default {
   },
   components: {
     Navbar,
-    Player,
-    FooterSection
+    Player
   }
 }
 </script>

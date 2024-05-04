@@ -1,6 +1,6 @@
 <template>
-    <GoBackButton></GoBackButton>
-    <EditSongForm></EditSongForm>
+    <GoBackButton/>
+    <EditSongForm/>
 </template>
 
 <script>
@@ -10,8 +10,8 @@ import general from '../scripts/general'
 
 export default {
     components: {
-        EditSongForm: EditSongForm,
-        GoBackButton: GoBackButton
+        EditSongForm,
+        GoBackButton
     },
     methods: {
         ...general.methods
