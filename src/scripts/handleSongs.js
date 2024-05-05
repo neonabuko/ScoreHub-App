@@ -14,7 +14,7 @@ export default {
       this.setProgressHeader('', '')
 
       try {
-        await this.uploadChunksAsync(file)
+        await this.uploadToRepositoryAsync(dto)
       } catch (error) {
         console.log(error);
         this.setProgressHeader('Error uploading. Status ' + error.response.status, 'red')
@@ -22,7 +22,14 @@ export default {
         return
       }
 
-      await this.uploadToRepositoryAsync(dto)
+      try {
+        await this.uploadChunksAsync(file)
+      } catch (error) {
+        console.log(error);
+        this.setProgressHeader('Error uploading. Status ' + error.response.status, 'red')
+        this.uploading = false
+        return
+      }
 
       this.uploading = false
       this.setProgressHeader('Success', 'green')
