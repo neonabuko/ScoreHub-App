@@ -11,7 +11,6 @@
       <input type="text" id="author-input" class="author form-control" ref="author">
 
       <div class="file-input-wrapper">
-        <label for="file-input" class="edit-form-label">File</label>
         <input type="file" accept=".mp3" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
           @change="onFileSelected">
         <button class="btn btn-outline-secondary text-white w-100" id="select-file-button" @click="selectFile"
