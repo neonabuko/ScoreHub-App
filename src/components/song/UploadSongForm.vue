@@ -59,7 +59,7 @@ export default {
       if (!file) {
         this.setProgressHeader("Must provide file", 'red')
         return
-      } 
+      }
       const name = file.name
       const title = this.$refs.title.value
       const author = this.$refs.author.value

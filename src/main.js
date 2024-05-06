@@ -31,7 +31,7 @@ const store = createStore({
     },
     actions: {
         async fetchAllSongDataAsync() {
-            let response = await axios.get(API_URL + "/songs")
+            let response = await axios.get(API_URL + "/songs/data")
             return await response.data
         },
     },

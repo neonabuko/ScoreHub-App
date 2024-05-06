@@ -17,6 +17,7 @@ export default {
         await this.uploadToRepositoryAsync(dto);
         await this.uploadChunksAsync(file);
       } catch (error) {
+        console.log(error);
         const errorMessage = error.response.data.errors.Title;
         this.setProgressHeader(`${errorMessage}`, 'red');
         this.uploading = false;
