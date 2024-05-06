@@ -14,13 +14,29 @@ export default {
       this.setProgressHeader('', '')
 
       try {
-        await this.uploadToRepositoryAsync(dto)
-        await this.uploadChunksAsync(file)
+        await this.uploadToRepositoryAsync(dto);
+        await this.uploadChunksAsync(file);
       } catch (error) {
-        this.setProgressHeader('Error status ' + error.response.status, 'red')
-        this.uploading = false
-        return
+        console.log(error);
+        if (error.response) {
+          const statusCode = error.response.status;
+          const errorData = error.response.data;
+
+          if (statusCode === 400 && errorData.errors) {
+            const validationError = errorData.errors.Title[0]
+            this.setProgressHeader(`${validationError}`, 'red');
+          } else {
+            this.setProgressHeader(`${errorData.title}`, 'red');
+          }
+        } else {
+          this.setProgressHeader('An unknown error occurred.', 'red');
+        }
+
+        this.uploading = false;
+        return;
       }
+
+
 
       this.uploading = false
       this.uploadSuccess = true
@@ -59,8 +75,8 @@ export default {
     },
 
     async uploadToRepositoryAsync(dto) {
-        let response = await axios.post(API_URL + `${this.baseRoute}/data`, dto)
-        return response
+      let response = await axios.post(API_URL + `${this.baseRoute}/data`, dto)
+      return response
     },
 
     async deleteAsync(name) {
