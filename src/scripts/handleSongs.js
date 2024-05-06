@@ -15,23 +15,15 @@ export default {
 
       try {
         await this.uploadToRepositoryAsync(dto)
-      } catch (error) {
-        console.log(error);
-        this.setProgressHeader('Error uploading. Status ' + error.response.status, 'red')
-        this.uploading = false
-        return
-      }
-
-      try {
         await this.uploadChunksAsync(file)
       } catch (error) {
-        console.log(error);
-        this.setProgressHeader('Error uploading. Status ' + error.response.status, 'red')
+        this.setProgressHeader('Error status ' + error.response.status, 'red')
         this.uploading = false
         return
       }
 
       this.uploading = false
+      this.uploadSuccess = true
       this.setProgressHeader('Success', 'green')
     },
 
@@ -56,7 +48,7 @@ export default {
         let chunkDto = this.createChunkDto(chunkId, file.name, chunkData, totalChunks)
         let postChunkRespose = await this.postChunkAsync(chunkDto, startByte, file.size)
 
-        if (postChunkRespose.status === 202) {
+        if (postChunkRespose.status === 200) {
           chunkId++
           startByte += CHUNK_SIZE
           this.updateProgressHeader(startByte, file.size)
@@ -67,12 +59,8 @@ export default {
     },
 
     async uploadToRepositoryAsync(dto) {
-      try {
-        axios.post(API_URL + `${this.baseRoute}/data`, dto)
-        this.uploadSuccess = true
-      } catch (error) {
-        this.setProgressHeader('Repository save error ' + error.response, 'red')
-      }
+        let response = await axios.post(API_URL + `${this.baseRoute}/data`, dto)
+        return response
     },
 
     async deleteAsync(name) {
