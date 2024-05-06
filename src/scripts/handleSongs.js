@@ -17,26 +17,11 @@ export default {
         await this.uploadToRepositoryAsync(dto);
         await this.uploadChunksAsync(file);
       } catch (error) {
-        console.log(error);
-        if (error.response) {
-          const statusCode = error.response.status;
-          const errorData = error.response.data;
-
-          if (statusCode === 400 && errorData.errors) {
-            const validationError = errorData.errors.Title[0]
-            this.setProgressHeader(`${validationError}`, 'red');
-          } else {
-            this.setProgressHeader(`${errorData.title}`, 'red');
-          }
-        } else {
-          this.setProgressHeader('An unknown error occurred.', 'red');
-        }
-
+        const errorMessage = error.response.data.errors.Title;
+        this.setProgressHeader(`${errorMessage}`, 'red');
         this.uploading = false;
         return;
       }
-
-
 
       this.uploading = false
       this.uploadSuccess = true
