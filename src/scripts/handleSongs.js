@@ -60,8 +60,7 @@ export default {
     },
 
     async uploadToRepositoryAsync(dto) {
-      let response = await axios.post(API_URL + `${this.baseRoute}/data`, dto)
-      return response
+      await axios.post(API_URL + `${this.baseRoute}/data`, dto)
     },
 
     async deleteAsync(name) {
