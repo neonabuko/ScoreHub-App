@@ -64,10 +64,10 @@ export default {
       return await axios.post(API_URL + `${this.baseRoute}/data`, dto)
     },
 
-    async deleteAsync(name) {
+    async deleteAsync() {
       let confirmDelete = confirm('Delete permanently?')
       if (confirmDelete) {
-        axios.delete(API_URL + `${this.baseRoute}/${name}`).then(() => {
+        axios.delete(API_URL + `${this.baseRoute}/${this.id}`).then(() => {
           this.goBack()
         })
       }
@@ -100,10 +100,12 @@ export default {
       })
     },
 
-    async getAuthorAsync(name) {
-      let response = await axios.get(API_URL + `${this.baseRoute}/${name}/data`)
-      this.title = response.data.title
-      this.author = response.data.author
+    async getMetadata() {
+      let songResponse = await axios.get(API_URL + `${this.baseRoute}/${this.id}/data`)
+      let song = songResponse.data
+      this.name = song.name
+      this.title = song.title
+      this.author = song.author
     },
 
     updateProgressHeader(startByte, fileSize) {

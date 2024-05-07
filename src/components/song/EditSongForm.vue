@@ -13,7 +13,7 @@
                 <input type="text" id="author-input" name="author" :value="author" class="form-control" ref="author">
                 <button type="submit" class="btn btn-primary edit-submit-button">Submit</button>
             </form>
-            <button type="submit" class="btn btn-danger" @click="deleteAsync(name, '/songs')">Delete</button>
+            <button type="submit" class="btn btn-danger" @click="deleteAsync()">Delete</button>
         </div>
     </main>
 </template>
@@ -21,16 +21,20 @@
 <script>
 import handleSongs from '../../scripts/handleSongs'
 import general from '../../scripts/general'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     data() {
         return {
-            name: this.$route.params.name,
+            id: this.$route.params.id,
+            name: '',
             title: '',
             author: '',
             baseRoute: '/songs'
         }
+    },
+    computed: {
+        ...mapState(["songs"]),
     },
     methods: {
         ...handleSongs.methods,
@@ -47,7 +51,7 @@ export default {
         },
     },
     mounted() {
-        this.getAuthorAsync(this.name)
+        this.getMetadata()
     },
 }
 

@@ -12,7 +12,7 @@
                 <input type="text" name="author" :value="author" class="form-control" ref="author">
                 <button type="submit" class="btn btn-primary edit-submit-button">Submit</button>
             </form>
-            <button type="submit" class="btn btn-danger" @click="deleteAsync(name, '/scores')">Delete</button>
+            <button type="submit" class="btn btn-danger" @click="deleteAsync()">Delete</button>
         </div>
     </main>
 </template>
@@ -25,7 +25,8 @@ import general from '../../scripts/general'
 export default {
     data() {
         return {
-            name: this.$route.params.name,
+            id: this.$route.params.id,
+            name: '',
             title: '',
             author: '',
             baseRoute: '/scores'
@@ -46,7 +47,7 @@ export default {
         },
     },
     mounted() {
-        this.getAuthorAsync(this.name)
+        this.getMetadata()
     },
 }
 

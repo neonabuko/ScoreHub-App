@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="file-edit">
-          <router-link :to="{ path: '/songs/edit' + song.name }" class="btn">
+          <router-link :to="{ path: '/songs/edit' + song.id }" class="btn">
             <i class="fas fa-ellipsis-v"></i>
           </router-link>
         </div>
@@ -51,11 +51,6 @@ export default {
     Player: Player,
     UploadCloudButton: UploadCloudButton,
     Spinner: Spinner
-  },
-  data() {
-    return {
-      songsFiltered: []
-    }
   },
   computed: {
     ...mapState(["songs", "filteredSongs", "loading"]),

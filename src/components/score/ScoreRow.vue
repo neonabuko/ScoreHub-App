@@ -24,7 +24,7 @@
                     </div>
                 </router-link>
                 <div class="file-edit">
-                    <router-link :to="{ path: '/scores/edit' + score.name }" class="btn">
+                    <router-link :to="{ path: '/scores/edit' + score.id }" class="btn">
                         <i class="fas fa-ellipsis-v"></i>
                     </router-link>
                 </div>
