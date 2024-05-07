@@ -14,10 +14,10 @@ export default {
       this.setProgressHeader('', '')
 
       try {
-        await this.uploadToRepositoryAsync(dto);
-        await this.uploadChunksAsync(file);
+        let response = await this.uploadToRepositoryAsync(dto);
+        let musicId = response.data
+        await this.uploadChunksAsync(file, musicId);
       } catch (error) {
-        console.log(error);
         const errorMessage = error.response.data.errors.Title;
         this.setProgressHeader(`${errorMessage}`, 'red');
         this.uploading = false;
@@ -29,8 +29,8 @@ export default {
       this.setProgressHeader('Success', 'green')
     },
 
-    async postChunkAsync(chunkData, startByte, fileSize) {
-      return await axios.post(API_URL + `${this.baseRoute}/chunks`, chunkData, {
+    async postChunkAsync(chunkDto, startByte, fileSize) {
+      return await axios.post(API_URL + `${this.baseRoute}/chunks`, chunkDto, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -40,14 +40,14 @@ export default {
       })
     },
 
-    async uploadChunksAsync(file) {
+    async uploadChunksAsync(file, musicId) {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
       let chunkId = 1
       let startByte = 0
 
       while (startByte < file.size) {
         const chunkData = file.slice(startByte, startByte + CHUNK_SIZE)
-        let chunkDto = this.createChunkDto(chunkId, file.name, chunkData, totalChunks)
+        let chunkDto = this.createChunkDto(chunkId, musicId, file.name, chunkData, totalChunks)
         let postChunkRespose = await this.postChunkAsync(chunkDto, startByte, file.size)
 
         if (postChunkRespose.status === 200) {
@@ -61,7 +61,7 @@ export default {
     },
 
     async uploadToRepositoryAsync(dto) {
-      await axios.post(API_URL + `${this.baseRoute}/data`, dto)
+      return await axios.post(API_URL + `${this.baseRoute}/data`, dto)
     },
 
     async deleteAsync(name) {

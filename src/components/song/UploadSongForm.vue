@@ -11,8 +11,8 @@
       <input type="text" id="author-input" class="author form-control" ref="author">
 
       <div class="file-input-wrapper">
-        <input type="file" accept=".mp3" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
-          @change="onFileSelected">
+        <input type="file" accept=".mp3" id="file-input" class="file-input-hidden" ref="scoreFile"
+          aria-describedby="fileHelpId" @change="onFileSelected">
         <button class="btn btn-outline-secondary text-white w-100" id="select-file-button" @click="selectFile"
           type="button">
           <i class="fas fa-file" v-if="selectedFileName !== 'Choose file'"></i>
@@ -63,10 +63,11 @@ export default {
       const name = file.name
       const title = this.$refs.title.value
       const author = this.$refs.author.value
-      const duration = await this.getAudioDurationAsync(file);
-      const timeSpan = this.convertSecondsToTimeSpan(duration)
+      const duration = await this.getAudioDurationAsync(file)
+      const durationAsTimeSpan = this.convertSecondsToTimeSpan(duration)
+      const publishedAt = new Date().toISOString()
 
-      const songDto = this.createSongDto(name, title, author, timeSpan)
+      const songDto = this.createSongDto(name, title, author, durationAsTimeSpan, publishedAt)
       this.uploadAsync(file, songDto)
     }
   },

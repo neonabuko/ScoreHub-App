@@ -11,7 +11,7 @@
         <div class="file-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="file-inner-grid">
                 <router-link :to="{ path: '/score/' + score.name }" class="file-title">
-                    <i class="fas fa-file fa-2x score-icon"></i>
+                    <i class="fas fa-folder fa-2x score-icon"></i>
                     <div class="file-title-inner" :title="score.name">
                         <button class="file-title-button">
                             {{ score.title }}

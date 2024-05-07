@@ -55,8 +55,9 @@ export default {
             const name = file.name
             const title = this.$refs.scoreTitle.value
             const author = this.$refs.scoreAuthor.value
+            const publishedAt = new Date().toISOString()
 
-            const scoreDto = this.createScoreDto(name, title, author)
+            const scoreDto = this.createScoreDto(name, title, author, publishedAt)
             this.uploadAsync(file, scoreDto)
         }
     },
