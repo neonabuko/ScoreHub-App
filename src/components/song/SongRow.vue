@@ -24,12 +24,10 @@
               <div class="file-duration-div">
                 {{ formatTimeSpan(song.duration) }}
               </div>
-              ·
-              <div class="file-published-at-div">
-                {{ formatDateTime(song.publishedAt) }}
-              </div>
             </div>
-
+            <div class="file-published-at-div">
+              {{ formatDateTime(song.publishedAt) }}
+            </div>
           </div>
         </div>
         <div class="file-edit">

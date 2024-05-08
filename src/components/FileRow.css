@@ -14,13 +14,6 @@
   padding-inline: 0.6rem;
 }
 
-.file-details {
-  display: flex;
-  flex-direction: row;
-  gap: 0.6rem;
-  font-size: 14px;
-}
-
 .file-name-div {
   color: rgba(255, 255, 255, 0.656);
 }
@@ -46,9 +39,17 @@
   color: rgb(255, 255, 255);
 }
 
+.file-details {
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+}
+
 .file-duration-div,
 .file-author-div,
 .file-published-at-div {
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.697);
 }
 

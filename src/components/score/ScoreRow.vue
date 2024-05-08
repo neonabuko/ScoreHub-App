@@ -21,6 +21,9 @@
                                 {{ score.author ? score.author : "Unknown" }}
                             </div>
                         </div>
+                        <div class="file-published-at-div">
+                            {{ formatDateTime(score.publishedAt) }}
+                        </div>
                     </div>
                 </router-link>
                 <div class="file-edit">
@@ -37,6 +40,7 @@
 import handleScores from '../../scripts/handleScores'
 import Spinner from '../Spinner.vue'
 import UploadCloudButton from '../UploadCloudButton.vue'
+import general from '../../scripts/general'
 
 export default {
     data() {
@@ -51,6 +55,7 @@ export default {
     },
     methods: {
         ...handleScores.methods,
+        ...general.methods
     },
     mounted() {
         this.getAllScoreDataAsync()
