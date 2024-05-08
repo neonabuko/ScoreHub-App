@@ -30,7 +30,7 @@
       </div>
     </form>
   </div>
-  <div id="fileHelpId" class="form-text text-center">Supported formats: mp3, wav.</div>
+  <div id="fileHelpId" class="form-text text-center">Supported formats: mp3.</div>
 </template>
 
 <script>

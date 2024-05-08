@@ -1,7 +1,7 @@
 <template>
     <SongRow />
     <div class="footer-div">
-      <footer class="app-footer">{{ songs.length }} songs</footer>
+      <footer class="app-footer" v-if="songs.length > 0">{{ songs.length }} songs</footer>
     </div>
 </template>
 
