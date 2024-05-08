@@ -1,3 +1,3 @@
-# Song Manager App
+# ScoreHub App
 
-_See Song Manager API for running instructions_
+_See [SongManager](https://github.com/neonabuko/SongManager) for running instructions_
