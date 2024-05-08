@@ -53,6 +53,10 @@
   color: rgba(255, 255, 255, 0.697);
 }
 
+.file-published-at-div {
+  font-style: italic;
+}
+
 .file-edit {
   text-align: end;
 }

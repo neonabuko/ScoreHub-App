@@ -10,7 +10,7 @@
     <Spinner v-if="loading"></Spinner>
     <div class="file-grid" v-for="(song, index) in filteredSongs" :key="index" :id="song.name">
       <div class="file-inner-grid">
-        <div class="file-title" @click="getCurrentSongAsync(song.name)">
+        <div class="file-title" @click="getCurrentSongAsync(song.name, song.id)">
           <i class="fas fa-music fa-2x music-icon"></i>
           <div class="file-title-inner">
             <button class="file-title-button">

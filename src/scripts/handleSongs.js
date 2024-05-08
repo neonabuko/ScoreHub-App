@@ -90,10 +90,10 @@ export default {
       this.$store.state.loading = false
     },
 
-    async getCurrentSongAsync(currentSongName) {
+    async getCurrentSongAsync(currentSongName, id) {
       this.updateAudioRowColor(currentSongName)
 
-      const currentSongUrl = API_URL + '/songs/' + currentSongName
+      const currentSongUrl = API_URL + '/songs/' + id
       this.$store.commit('startPlayer', {
         currentSongUrl: currentSongUrl,
         currentSongName: currentSongName
