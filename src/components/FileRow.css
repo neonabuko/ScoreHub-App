@@ -25,10 +25,6 @@
   color: rgba(255, 255, 255, 0.656);
 }
 
-.file-author-div {
-  color: rgba(255, 255, 255, 0.697);
-}
-
 .file-title-button {
   border: 0;
   padding: 0;
@@ -50,7 +46,9 @@
   color: rgb(255, 255, 255);
 }
 
-.file-duration-div {
+.file-duration-div,
+.file-author-div,
+.file-published-at-div {
   color: rgba(255, 255, 255, 0.697);
 }
 

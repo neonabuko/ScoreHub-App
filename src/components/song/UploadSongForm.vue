@@ -65,9 +65,9 @@ export default {
       const author = this.$refs.author.value
       const duration = await this.getAudioDurationAsync(file)
       const durationAsTimeSpan = this.convertSecondsToTimeSpan(duration)
-      const publishedAt = new Date().toISOString()
+      const publishedAt = new Date()
 
-      const songDto = this.createSongDto(name, title, author, durationAsTimeSpan, publishedAt)
+      const songDto = this.createSongDto(name, title, author, durationAsTimeSpan, publishedAt.toISOString())
       this.uploadAsync(file, songDto)
     }
   },

@@ -61,6 +61,19 @@ export default {
             }
           },
 
+        formatDateTime(dateTime) {
+            let dateTimeISO = new Date(dateTime + 'Z')
+            const day = String(dateTimeISO.getDate()).padStart(2, '0')
+            const month = String(dateTimeISO.getMonth() + 1).padStart(2, '0')
+            const year = String(dateTimeISO.getFullYear()).slice(-2)
+            
+            const hours = String(dateTimeISO.getHours()).padStart(2, '0')
+            const minutes = String(dateTimeISO.getMinutes()).padStart(2, '0')
+            const seconds = String(dateTimeISO.getSeconds()).padStart(2, '0')
+            
+            return `${day}/${month}/${year}-${hours}:${minutes}:${seconds}`
+        },
+
         updateAudioRowColor(newSongName) {
             let previousSongName = this.$store.state.currentSongName
             if (previousSongName !== '') {
@@ -75,11 +88,11 @@ export default {
         },
 
         selectFile() {
-            this.$refs.scoreFile.click();
+            this.$refs.scoreFile.click()
         },
         
         onFileSelected(event) {
-            const file = event.target.files[0];
+            const file = event.target.files[0]
             this.selectedFile = file
             this.selectedFileName = file.name
             let button = document.getElementById('select-file-button')
