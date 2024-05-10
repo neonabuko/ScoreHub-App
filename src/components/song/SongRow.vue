@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="no-content" v-if="!loading && songs.length === 0">
-      <router-link to="/songs/upload" class="btn btn-primary upload-cloud-button">
+      <router-link to="/songs/upload" class="btn btn-primary">
         <i class="fas fa-cloud-upload m-1"></i>
         Upload the first song
       </router-link>

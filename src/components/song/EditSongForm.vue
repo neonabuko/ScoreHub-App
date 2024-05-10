@@ -42,11 +42,12 @@ export default {
         ...mapActions(["fetchAllSongDataAsync"]),
 
         prepareUpdate() {
+            let id = this.id
             let name = this.name
             let title = this.$refs.title.value
             let author = this.$refs.author.value
 
-            let songEditDto = this.createEditDto(name, title, author)
+            let songEditDto = this.createEditDto(id, name, title, author)
             this.updateAsync(songEditDto)
         },
     },

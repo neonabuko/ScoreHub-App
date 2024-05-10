@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="no-content" v-if="!loading && scores.length === 0">
-            <router-link to="/scores/upload" class="btn btn-primary upload-score-button">
+            <router-link to="/scores/upload" class="btn btn-primary">
                 <i class="fas fa-cloud-upload m-1"></i>
                 Upload first score
             </router-link>
