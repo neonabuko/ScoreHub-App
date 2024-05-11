@@ -95,11 +95,11 @@ export default {
     },
 
     async getMetadata() {
-      let songResponse = await axios.get(API_URL + `${this.baseRoute}/${this.id}/data`)
-      let song = songResponse.data
-      this.name = song.name
-      this.title = song.title
-      this.author = song.author
+      let response = await axios.get(API_URL + `${this.baseRoute}/${this.id}/data`)
+      let music = response.data
+      this.name = music.name
+      this.title = music.title
+      this.author = music.author
     },
 
     updateProgressHeader(startByte, fileSize) {

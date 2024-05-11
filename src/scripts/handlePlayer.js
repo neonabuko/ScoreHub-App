@@ -20,10 +20,10 @@ export default {
             const audio = this.$refs.player
             if (audio) {
                 this.$store.state.totalPlayTime = Math.round(audio.duration)
-                const playProgress = (audio.currentPlayTime / audio.duration) * 100
+                const playProgress = (audio.currentTime / audio.duration) * 100
                 this.$store.state.playProgress = isNaN(playProgress) ? 0 : playProgress
-                this.$store.state.currentPlayTime = audio.currentPlayTime
-                if (audio.duration === audio.currentPlayTime) {
+                this.$store.state.currentPlayTime = audio.currentTime
+                if (audio.duration === audio.currentTime) {
                     this.$store.state.currentPlayTime = this.$store.state.totalPlayTime
                     this.$store.state.isPlaying = false
                 }
@@ -33,7 +33,7 @@ export default {
         seek(event) {
             const audio = this.$refs.player
             const seekTime = (event.target.value / 100) * audio.duration
-            audio.currentPlayTime = seekTime
+            audio.currentTime = seekTime
         },
 
         reset(currentSongName) {
