@@ -11,9 +11,10 @@
             <input class="form-control" id="author-input" type="text" name="author" ref="scoreAuthor">
 
             <div class="file-input-wrapper">
-                <input type="file" accept=".mei" id="file-input" class="file-input-hidden" ref="scoreFile" aria-describedby="fileHelpId"
-                    @change="onFileSelected">
-                <button class="btn btn-outline-secondary text-white w-100" id="select-file-button" @click="selectFile" type="button">
+                <input type="file" accept=".mei" id="file-input" class="file-input-hidden" ref="scoreFile"
+                    aria-describedby="fileHelpId" @change="onFileSelected">
+                <button class="btn btn-outline-secondary text-white w-100" id="select-file-button" @click="selectFile"
+                    type="button">
                     <i class="fas fa-file" v-if="selectedFileName !== 'Choose file'"></i>
                     {{ selectedFileName }}
                 </button>
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-import handleSongs from '../../scripts/handleSongs'
+import handleMusic from '../../scripts/handleMusic'
 
 export default {
     data() {
@@ -40,7 +41,6 @@ export default {
             uploading: false,
             upload: ['Upload', 'Uploading...'],
             uploadSuccess: false,
-            uploadProgress: '0%',
             progressHeader: '',
             selectedFile: '',
             selectedFileName: 'Choose file',
@@ -48,10 +48,14 @@ export default {
         }
     },
     methods: {
-        ...handleSongs.methods,
+        ...handleMusic.methods,
 
         prepareUpload() {
             const file = this.selectedFile
+            if (!file) {
+                this.setProgressHeader("Must provide a file", 'red')
+                return
+            }
             const name = file.name
             const title = this.$refs.scoreTitle.value
             const author = this.$refs.scoreAuthor.value

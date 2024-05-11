@@ -43,9 +43,15 @@ export default {
             let seconds = Math.round(parseFloat(parts[2]))
 
             if (hours > 0) {
-                return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+                return hours.toString().padStart(2, '0') +
+                    ':' +
+                    minutes.toString().padStart(2, '0') +
+                    ':' +
+                    seconds.toString().padStart(2, '0')
             } else {
-                return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+                return minutes.toString().padStart(2, '0') +
+                    ':' +
+                    seconds.toString().padStart(2, '0')
             }
         },
 
@@ -53,24 +59,24 @@ export default {
             const hours = Math.floor(time / 3600)
             const minutes = Math.floor((time % 3600) / 60)
             const seconds = Math.floor(time % 60)
-            
+
             if (hours > 0) {
-              return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+                return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
             } else {
-              return `${minutes}:${String(seconds).padStart(2, '0')}`
+                return `${minutes}:${String(seconds).padStart(2, '0')}`
             }
-          },
+        },
 
         formatDateTime(dateTime) {
             let dateTimeISO = new Date(dateTime + 'Z')
             const day = String(dateTimeISO.getDate()).padStart(2, '0')
             const month = String(dateTimeISO.getMonth() + 1).padStart(2, '0')
             const year = String(dateTimeISO.getFullYear()).slice(-2)
-            
+
             const hours = String(dateTimeISO.getHours()).padStart(2, '0')
             const minutes = String(dateTimeISO.getMinutes()).padStart(2, '0')
             const seconds = String(dateTimeISO.getSeconds()).padStart(2, '0')
-            
+
             return `${day}/${month}/${year}-${hours}:${minutes}:${seconds}`
         },
 
@@ -90,14 +96,14 @@ export default {
         selectFile() {
             this.$refs.scoreFile.click()
         },
-        
+
         onFileSelected(event) {
             const file = event.target.files[0]
             this.selectedFile = file
             this.selectedFileName = file.name
             let button = document.getElementById('select-file-button')
             button.classList.replace('btn-outline-secondary', 'btn-secondary')
-        },        
+        },
 
     },
 }

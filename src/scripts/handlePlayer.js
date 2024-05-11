@@ -35,5 +35,10 @@ export default {
             const seekTime = (event.target.value / 100) * audio.duration
             audio.currentTime = seekTime
         },
+
+        reset(currentSongName) {
+            this.$store.commit('resetPlayer')
+            this.updateAudioRowColor(currentSongName)
+        }
     },
 }

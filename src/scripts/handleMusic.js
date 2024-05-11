@@ -33,9 +33,6 @@ export default {
       return await axios.post(API_URL + `${this.baseRoute}/chunks`, chunkDto, {
         headers: {
           'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: progressEvent => {
-          this.uploadProgress = Math.round((startByte + progressEvent.loaded) * 100 / fileSize)
         }
       })
     },
@@ -47,16 +44,13 @@ export default {
 
       while (startByte < file.size) {
         const chunkData = file.slice(startByte, startByte + CHUNK_SIZE)
-        let chunkDto = this.createChunkDto(chunkId, musicId, file.name, chunkData, totalChunks)
-        let postChunkRespose = await this.postChunkAsync(chunkDto, startByte, file.size)
-
-        if (postChunkRespose.status === 200) {
-          chunkId++
-          startByte += CHUNK_SIZE
-          this.updateProgressHeader(startByte, file.size)
-        } else {
-          return postChunkRespose
-        }
+        const chunkDto = this.createChunkDto(chunkId, musicId, file.name, chunkData, totalChunks)
+        const postChunkRespose = await this.postChunkAsync(chunkDto, startByte, file.size)
+        
+        if (postChunkRespose.status !== 200) return postChunkRespose
+        chunkId++
+        startByte += CHUNK_SIZE
+        this.updateProgressHeader(startByte, file.size)
       }
     },
 
@@ -119,11 +113,6 @@ export default {
     setProgressHeader(text, color) {
       this.progressHeader.innerText = text
       this.progressHeader.style.color = color
-    },
-
-    resetPlayer(currentSongName) {
-      this.$store.commit('resetPlayer')
-      this.updateAudioRowColor(currentSongName)
-    },
+    }
   }
 }

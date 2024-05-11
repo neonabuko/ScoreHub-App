@@ -19,7 +19,7 @@
 
 <script>
 import handleScores from '../../scripts/handleScores'
-import handleSongs from '../../scripts/handleSongs'
+import handleMusic from '../../scripts/handleMusic'
 import general from '../../scripts/general'
 
 export default {
@@ -34,11 +34,12 @@ export default {
     },
     methods: {
         ...handleScores.methods,
-        ...handleSongs.methods,
+        ...handleMusic.methods,
         ...general.methods,
 
         prepareUpdate() {
             let id = this.id
+            
             let name = this.name
             let title = this.$refs.title.value
             let author = this.$refs.author.value

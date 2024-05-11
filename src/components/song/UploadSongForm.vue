@@ -30,11 +30,11 @@
       </div>
     </form>
   </div>
-  <div id="fileHelpId" class="form-text text-center">Supported formats: mp3.</div>
+  <div id="fileHelpId" class="form-text text-center">Only mp3 files are accepted.</div>
 </template>
 
 <script>
-import handleSongs from "../../scripts/handleSongs.js";
+import handleMusic from "../../scripts/handleMusic.js";
 import general from "../../scripts/general.js";
 
 export default {
@@ -43,7 +43,6 @@ export default {
       uploading: false,
       upload: ['Upload', 'Uploading...'],
       uploadSuccess: false,
-      uploadProgress: '0%',
       progressHeader: '',
       selectedFile: '',
       selectedFileName: 'Choose file',
@@ -51,13 +50,13 @@ export default {
     };
   },
   methods: {
-    ...handleSongs.methods,
+    ...handleMusic.methods,
     ...general.methods,
 
     async prepareUploadAsync() {
       const file = this.selectedFile
       if (!file) {
-        this.setProgressHeader("Must provide file", 'red')
+        this.setProgressHeader("Must provide a file", 'red')
         return
       }
       const name = file.name

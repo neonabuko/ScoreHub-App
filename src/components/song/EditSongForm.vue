@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import handleSongs from '../../scripts/handleSongs'
+import handleMusic from '../../scripts/handleMusic'
 import general from '../../scripts/general'
 import { mapState, mapActions } from 'vuex'
 
@@ -37,7 +37,7 @@ export default {
         ...mapState(["songs"]),
     },
     methods: {
-        ...handleSongs.methods,
+        ...handleMusic.methods,
         ...general.methods,
         ...mapActions(["fetchAllSongDataAsync"]),
 

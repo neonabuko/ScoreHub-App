@@ -20,7 +20,7 @@
                 <i id="play-button-icon" ref="playButtonIcon" :class="setPlayPauseIcon()" @click="playPause()"></i>
             </button>
             </div>
-            <button class="btn close-button-div" id="close-button" @click="resetPlayer">
+            <button class="btn close-button-div" id="close-button" @click="reset">
                 <i class="fas fa-x"></i>
             </button>
         </div>
@@ -30,14 +30,14 @@
 <script>
 import { mapState } from 'vuex'
 import handlePlayer from '../../scripts/handlePlayer'
-import handleSongs from '../../scripts/handleSongs'
+import handleMusic from '../../scripts/handleMusic'
 
 export default {
     computed: {
     ...mapState(["currentSongUrl", "songSelected", "progress", "currentTime", "totalTime"]),
   },
   methods: {
-    ...handleSongs.methods,
+    ...handleMusic.methods,
     ...handlePlayer.methods,
   },
 }

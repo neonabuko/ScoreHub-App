@@ -43,7 +43,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex"
-import handleSongs from "../../scripts/handleSongs.js"
+import handleMusic from "../../scripts/handleMusic.js"
 import Player from "./Player.vue"
 import UploadCloudButton from "../UploadCloudButton.vue"
 import Spinner from "../Spinner.vue"
@@ -58,7 +58,7 @@ export default {
     ...mapState(["songs", "filteredSongs", "loading"]),
   },
   methods: {
-    ...handleSongs.methods,
+    ...handleMusic.methods,
     ...mapActions(["fetchAllSongDataAsync"]),
   },
   mounted() {
