@@ -6,17 +6,17 @@ import axios from 'axios'
 export default {
     methods: {
         async getAllScoreDataAsync() {
-            this.loading = true
-            let response = await axios.get(API_URL + '/scores/data')
-            this.scores = response.data
-            this.loading = false
+            this.$store.state.isLoadingScores = true
+            const scores = await this.fetchAllDataAsync("/scores/data")
+            this.$store.commit("setScores", scores)
+            this.$store.state.isLoadingScores = false
         },
-        async getScoreAsync(name) {
+        async loadScoreAsync(id) {
             this.loading = true
             createVerovioModule().then(async (VerovioModule) => {
                 this.verovioToolkit = new VerovioToolkit(VerovioModule)
-                const response = await axios.get(API_URL + `/scores/${name}`)
-                const score = await response.data
+                const response = await axios.get(API_URL + `/scores/${id}`)
+                const score = response.data
                 this.verovioToolkit.loadData(score, { format: 'mei' })
                 this.totalPages = this.verovioToolkit.getPageCount()
                 this.renderPage(this.currentPage)

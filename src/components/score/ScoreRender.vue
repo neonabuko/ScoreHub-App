@@ -1,6 +1,6 @@
 <template>
     <main class="score-container">
-        <Spinner v-if="loading"></Spinner>
+        <Spinner v-if="isLoadingSongs"></Spinner>
         <div class="navigation">
             <button class="btn" @click="prevPage" :disabled="currentPage <= 1">
                 <i class="fas fa-arrow-left fa-2x"></i>
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            name: this.$route.params.name,
+            id: this.$route.params.id,
             verovioToolkit: null,
             currentPage: 1,
             totalPages: 0,
@@ -35,7 +35,7 @@ export default {
         ...handleScores.methods
     },
     mounted() {
-        this.getScoreAsync(this.name)
+        this.loadScoreAsync(this.id)
     },
 }
 </script>

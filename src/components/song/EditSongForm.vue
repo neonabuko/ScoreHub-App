@@ -39,7 +39,7 @@ export default {
     methods: {
         ...handleMusic.methods,
         ...general.methods,
-        ...mapActions(["fetchAllSongDataAsync"]),
+        ...mapActions(["fetchAllDataAsync"]),
 
         prepareUpdate() {
             let id = this.id

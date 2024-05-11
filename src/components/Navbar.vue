@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         ...general.methods,
-        ...mapActions(['setSongs', 'fetchAllSongDataAsync'])
+        ...mapActions(['setSongs', 'fetchAllDataAsync'])
     }
 }
 

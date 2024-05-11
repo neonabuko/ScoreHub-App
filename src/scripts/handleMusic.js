@@ -14,14 +14,14 @@ export default {
       this.setProgressHeader('', '')
 
       try {
-        let response = await this.uploadToRepositoryAsync(dto);
-        let musicId = response.data
-        await this.uploadChunksAsync(file, musicId);
+        const uploadToRepositoryResponse = await this.uploadMetadataAsync(dto)
+        const musicId = uploadToRepositoryResponse.data
+        await this.uploadFileAsync(file, musicId)
       } catch (error) {
-        const errorMessage = error.response.data.errors.Title;
-        this.setProgressHeader(`${errorMessage}`, 'red');
-        this.uploading = false;
-        return;
+        const message = error.response.data.errors.Title
+        this.setProgressHeader(`${message}`, 'red')
+        this.uploading = false
+        return
       }
 
       this.uploading = false
@@ -29,7 +29,7 @@ export default {
       this.setProgressHeader('Success', 'green')
     },
 
-    async postChunkAsync(chunkDto, startByte, fileSize) {
+    async uploadFileChunkAsync(chunkDto) {
       return await axios.post(API_URL + `${this.baseRoute}/chunks`, chunkDto, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -37,7 +37,7 @@ export default {
       })
     },
 
-    async uploadChunksAsync(file, musicId) {
+    async uploadFileAsync(file, musicId) {
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
       let chunkId = 1
       let startByte = 0
@@ -45,7 +45,7 @@ export default {
       while (startByte < file.size) {
         const chunkData = file.slice(startByte, startByte + CHUNK_SIZE)
         const chunkDto = this.createChunkDto(chunkId, musicId, file.name, chunkData, totalChunks)
-        const postChunkRespose = await this.postChunkAsync(chunkDto, startByte, file.size)
+        const postChunkRespose = await this.uploadFileChunkAsync(chunkDto)
         
         if (postChunkRespose.status !== 200) return postChunkRespose
         chunkId++
@@ -54,7 +54,7 @@ export default {
       }
     },
 
-    async uploadToRepositoryAsync(dto) {
+    async uploadMetadataAsync(dto) {
       return await axios.post(API_URL + `${this.baseRoute}/data`, dto)
     },
 
@@ -76,12 +76,12 @@ export default {
       }
     },
 
-    async getAllDataAsync() {
-      this.$store.state.loading = true
-      const songs = await this.fetchAllSongDataAsync()
+    async getAllSongDataAsync() {
+      this.$store.state.isLoadingSongs = true
+      const songs = await this.fetchAllDataAsync("/songs/data")
       this.$store.commit('setSongs', songs)
       this.$store.commit('filterSongs', songs)
-      this.$store.state.loading = false
+      this.$store.state.isLoadingSongs = false
     },
 
     async getCurrentSongAsync(currentSongName, id) {

@@ -10,7 +10,7 @@
         <Spinner v-if="loading"></Spinner>
         <div class="file-grid" v-for="(score, index) in scores" :key="index" :id="score.name">
             <div class="file-inner-grid">
-                <router-link :to="{ path: '/score/' + score.name }" class="file-title">
+                <router-link :to="{ path: '/score/' + score.id }" class="file-title">
                     <i class="fas fa-folder fa-2x score-icon"></i>
                     <div class="file-title-inner" :title="score.name">
                         <button class="file-title-button">
@@ -41,21 +41,20 @@ import handleScores from '../../scripts/handleScores'
 import Spinner from '../Spinner.vue'
 import UploadCloudButton from '../UploadCloudButton.vue'
 import general from '../../scripts/general'
+import { mapActions, mapState } from 'vuex/dist/vuex.cjs.js'
 
 export default {
-    data() {
-        return {
-            scores: '',
-            loading: false
-        }
-    },
     components: {
         UploadCloudButton: UploadCloudButton,
         Spinner: Spinner
     },
+    computed: {
+        ...mapState(['scores', 'isLoadingScores'])
+    },
     methods: {
         ...handleScores.methods,
-        ...general.methods
+        ...general.methods,
+        ...mapActions(['setScores', 'fetchAllDataAsync'])
     },
     mounted() {
         this.getAllScoreDataAsync()

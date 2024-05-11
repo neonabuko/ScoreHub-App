@@ -1,14 +1,14 @@
 <template>
-    <div class="player-controls" v-if="songSelected">
+    <div class="player-controls" v-if="isSongSelected">
         <audio preload="metadata" autoplay id="player" ref="player" @timeupdate="updateProgress"
             :src="currentSongUrl"></audio>
-        <input type="range" id="progress-bar" step="0.1" :value="progress" @input="seek" />
+        <input type="range" id="progress-bar" step="0.1" :value="playProgress" @input="seek" />
         <div id="time">
             <div class="current-time">
-                {{ formatAudioTime(currentTime) }}
+                {{ formatAudioTime(currentPlayTime) }}
             </div>
             <div class="total-time text-end">
-                {{ formatAudioTime(totalTime) }}
+                {{ formatAudioTime(totalPlayTime) }}
             </div>
         </div>
         <div class="buttons-div">
@@ -34,7 +34,7 @@ import handleMusic from '../../scripts/handleMusic'
 
 export default {
     computed: {
-    ...mapState(["currentSongUrl", "songSelected", "progress", "currentTime", "totalTime"]),
+    ...mapState(["currentSongUrl", "isSongSelected", "playProgress", "currentPlayTime", "totalPlayTime"]),
   },
   methods: {
     ...handleMusic.methods,

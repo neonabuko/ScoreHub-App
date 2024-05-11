@@ -1,13 +1,13 @@
 <template>
   <main>
-    <div class="no-content" v-if="!loading && songs.length === 0">
+    <div class="no-content" v-if="!isLoadingSongs && songs.length === 0">
       <router-link to="/songs/upload" class="btn btn-primary">
         <i class="fas fa-cloud-upload m-1"></i>
         Upload the first song
       </router-link>
     </div>
     <UploadCloudButton route="/songs/upload" v-else></UploadCloudButton>
-    <Spinner v-if="loading"></Spinner>
+    <Spinner v-if="isLoadingSongs"></Spinner>
     <div class="file-grid" v-for="(song, index) in filteredSongs" :key="index" :id="song.name">
       <div class="file-inner-grid">
         <div class="file-title" @click="getCurrentSongAsync(song.name, song.id)">
@@ -55,14 +55,14 @@ export default {
     Spinner: Spinner
   },
   computed: {
-    ...mapState(["songs", "filteredSongs", "loading"]),
+    ...mapState(["songs", "filteredSongs", "isLoadingSongs"]),
   },
   methods: {
     ...handleMusic.methods,
-    ...mapActions(["fetchAllSongDataAsync"]),
+    ...mapActions(["fetchAllDataAsync"]),
   },
   mounted() {
-    this.getAllDataAsync()
+    this.getAllSongDataAsync()
   },
 }
 </script>

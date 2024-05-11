@@ -15,7 +15,7 @@ export default {
         },
 
         async filterSongs() {
-            let allSongs = await this.fetchAllSongDataAsync()
+            let allSongs = await this.fetchAllDataAsync("/songs/data")
             if (!this.searchQuery) {
                 this.$store.commit('filterSongs', allSongs)
                 return
